@@ -26,7 +26,7 @@ Survival Mod
 
 Wave count will vary. ( aroud 50)
 
-There will be different enemy types who are vulnerable to specific type of towers. (Fire, ice, normal etc.)
+There will be different enemy types who are vulnerable to specific type of towers. (Fire, ice, normal etc.) There will be hard encounters such as boss waves.
 
 Enemies will have attributes ( armor, healt, speed etc.)
 
