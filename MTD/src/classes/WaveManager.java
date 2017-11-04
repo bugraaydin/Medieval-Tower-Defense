@@ -21,6 +21,9 @@ public class WaveManager {
 	
 	public void initializeFirstLevelWaves(){
 		waves = new Wave[3]; // total waves will be changed
+		waves[0] = new Wave(10);
+		waves[1] = new Wave(10);
+		waves[2] = new Wave(10);
 		for(int i = 0; i < 10; i++){ 
 			waves[0].enemiesInWave[i] = new Footman(); // first wave consists of 10 footmans
 		}

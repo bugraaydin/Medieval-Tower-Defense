@@ -147,6 +147,14 @@ public class Grid {
 		gameGrid[8][12] = new TowerGrid();
 	}
 
+	
+	public int getGridWidth(){
+		return gridWidth;
+	}
+	public int getGridHeight(){
+		return gridHeight;
+	}
+	
 	public void printIt(){
 		for(int i = 0; i < gridHeight;i++){
 			for(int j = 0; j < gridWidth;j++){
