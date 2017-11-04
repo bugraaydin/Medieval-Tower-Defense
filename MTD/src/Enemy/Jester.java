@@ -1,4 +1,4 @@
-package Enemy;
+/* package Enemy;
 
 public class Jester extends Enemy{
 	
@@ -14,4 +14,4 @@ public class Jester extends Enemy{
 		
 	}
 
-}
+}*/

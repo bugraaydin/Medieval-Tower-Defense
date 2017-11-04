@@ -1,4 +1,4 @@
-package Enemy;
+/* package Enemy;
 
 public class ElephantRider extends Enemy{
 	
@@ -13,3 +13,4 @@ public class ElephantRider extends Enemy{
 	}
 
 }
+*/
