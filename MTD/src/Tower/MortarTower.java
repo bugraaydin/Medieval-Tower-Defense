@@ -1,4 +1,4 @@
-package Tower;
+/* package Tower;
 
 public class MortarTower extends Tower{
 	
@@ -14,3 +14,4 @@ public class MortarTower extends Tower{
 	}
 
 }
+*/

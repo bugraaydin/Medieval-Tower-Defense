@@ -1,4 +1,4 @@
-package Tower;
+/* package Tower;
 
 public class OilTower extends Tower{
 
@@ -13,3 +13,4 @@ public class OilTower extends Tower{
 		setCost(100);
 	}
 }
+*/
