@@ -1,89 +1,100 @@
 package Tower;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
 import Enemy.*;
 import classes.Projectile;
 
 public class Tower {
-	private int x;
-	private int y;
-	private int attackPoint; // attackPoint / armor = damage
-	private int attackType;  // 1 splash 0 single target
-	private int attackFrequency; // 10 = 1 shot per second
-	private int attackRange; // ??
-	private int slowRate; // - movement speed of enemies
-	private int armorReduce; // - armor of enemies
-	private int damagePerSec;
-	private int cost; // cost of the tower to build
 	
+	public int towerRange = 125;
+	
+	public Enemy target;
+	
+	public Projectile[] projectilesSpawned;
+	
+	public int projectileCount = 0;
 
-	////////Setters
-	public void setX(int x){
-		this.x = x;
-	}
-	public void setY(int y){
-		this.y = y;
-	}
-	public void setAttackPoint(int attackPoint){
-		this.attackPoint = attackPoint;
-	}
-	public void setAttackType(int attackType){
-		this.attackType = attackType;
-	}
-	public void setAttackFrequency(int attackFrequency){
-		this.attackFrequency = attackFrequency;
-	}
-	public void setAttackRange(int attackRange){
-		this.attackRange = attackRange;
-	}
-	public void setSlowRate(int slowRate){
-		this.slowRate = slowRate;
-	}
-	public void setArmorReduce(int armorReduce){
-		this.armorReduce = armorReduce;
-	}
-	public void setDPS(int damagePerSec){
-		this.damagePerSec = damagePerSec;
-	}
-	public void setCost(int cost){
-		this.cost = cost;
-	}
-	////////////////Getters
-	public int getX(){
-		return this.x;
-	}
-	public int getY(){
-		return this.y;
-	}
-	public int getAttackPoint(){
-		return this.attackPoint;
-	}
-	public int getAttackType(){
-		return this.attackType;
-	}
-	public int getAttackFrequency(){
-		return this.attackFrequency;
-	}
-	public int getAttackRange(){
-		return this.attackRange;
-	}
-	public int getSlowRate(){
-		return this.slowRate;
-	}
-	public int getArmorReduce(){
-		return this.armorReduce;
-	}
-	public int getDPS(){
-		return this.damagePerSec;
-	}
-	public int getCost(){
-		return this.cost;
-	}
-	////////////////////////////
-	//detect enemy metodu lazým
+	public int locX;
+
+	public int locY;
 	
-	//projectile spawn method
-	public Projectile spawnProjectile(Enemy foundTarget){
+	public int cost;
+	
+	private int attackSpeed = 25;
+	
+	public String towerImageFile = "/tower-defense-turret/turret-3-1.png";
+	
+	public String projectileImageBuffer = "/apple_64.png";
+	
+	private TowerType towerType;
+	
+	private int gold = 100;
+	
+	private int dmg = 100;
+	
+	public boolean hasTarget = false;
+	
+	public Tower(TowerType towerType)
+	{
+		this.towerType = towerType;
+		if(towerType==TowerType.Arrow)
+		{
+			towerImageFile = "/tower-defense-turrets/turret-1-1.png";
+			dmg = 150;
+		}
+		if(towerType==TowerType.Cannon)
+		{
+			towerImageFile = "/tower-defense-turrets/turret-2-1.png";
+			dmg = 200;
+		}
+		if(towerType==TowerType.Fire)
+		{
+			towerImageFile = "/tower-defense-turret/turret-3-1.png";
+			dmg = 250;
+		}
 		
-		Projectile projectile = new Projectile(this.getX(),this.getY(),this.getAttackPoint(),this.getAttackType(),this.getSlowRate(),this.getArmorReduce(),this.getDPS(),foundTarget);
-		return projectile;
+		projectilesSpawned = new Projectile[50];
+		
+	}
+	public Tower()
+	{
+		this.towerType = TowerType.Arrow;
+		towerImageFile = "/tower-defense-turret/turret-3-1.png";
+	}
+
+	public void setTarget(Enemy target)
+	{
+		this.target = target;
+		hasTarget = true;
+		activateTower();
+	}
+	
+	public void activateTower()
+	{
+		int delay = 500;//(1/attackSpeed)*500; // ~10 updates per second
+
+		ActionListener taskPerformer = new ActionListener(){
+
+			public void actionPerformed(ActionEvent e){
+				spawnProjectile(target);
+				//System.out.println("Moved");
+			}
+
+		};
+
+		new Timer(delay,taskPerformer).start();
+	}
+
+	public void spawnProjectile(Enemy target){
+
+		Projectile spawnedProjectile = new Projectile(locX,locY,target);
+		
+		projectilesSpawned[projectileCount] = spawnedProjectile;
+		projectileCount++;
+
 	}
 }
