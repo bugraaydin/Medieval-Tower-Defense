@@ -15,42 +15,26 @@ public class GridSlot {
 	public boolean hasTower;
 	TowerType a;
 	// GRID SLOT GRAPHICS
-	String imageBufferStream = "/Grass_double.jpg";
+	String towerGridBufferStream = "/images/grids/tower_grid.jpg";
 	String towerImageBufferStream = "/Grass_double.jpg";
 	public BufferedImage towerImage;
 	public BufferedImage gridSlotImage;
 	// GRID SLOT ATTRIBUTES
 	private Tower towerInThisSlot;
 
-	public GridSlot()
-	{
-		try {
-			gridSlotImage = ImageIO.read(getClass().getResourceAsStream("/Grass_double.jpg"));
-		}	catch(IOException exc) {
-				exc.printStackTrace();
-		}
-		try {
-			towerImage = ImageIO.read(getClass().getResourceAsStream("/turret-1-1.png"));
-		}	catch(IOException exc) {
-				exc.printStackTrace();
-		}
-	}
+
 	public GridSlot(String imageBufferStream, boolean canPlaceTower)
 	{
 		hasTower = false;
 		this.canPlaceTower = canPlaceTower;
-		this.imageBufferStream = imageBufferStream;
+		this.towerGridBufferStream = imageBufferStream;
 
 		try {
-			gridSlotImage = ImageIO.read(getClass().getResourceAsStream("/Grass_double.jpg"));
+			gridSlotImage = ImageIO.read(getClass().getResourceAsStream(towerGridBufferStream));
 		}	catch(IOException exc) {
 				exc.printStackTrace();
 		}
-		try {
-			towerImage = ImageIO.read(getClass().getResourceAsStream("/turret-1-1.png"));
-		}	catch(IOException exc) {
-				exc.printStackTrace();
-		}
+
 	}
 	public boolean mouseHitThisSlot(boolean isInBuyMode, Tower towerToPlace, int x, int y)
 	{

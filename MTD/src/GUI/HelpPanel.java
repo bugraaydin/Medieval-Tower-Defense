@@ -11,7 +11,7 @@ public class HelpPanel extends javax.swing.JPanel {
     
     String textToShow;
 	BufferedImage backgroundImage;
-	String imageBuffer = "/images/help.jpg";
+	String imageBuffer = "/images/gui/help.jpg";
     /**
      * Creates new form HelpPanel
      */

@@ -1,4 +1,4 @@
-package Control;
+/* package Control;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -32,3 +32,4 @@ public class Control implements MouseMotionListener, MouseListener {
 	public void mouseReleased(MouseEvent e) {}
 	/////////////////////////////////////////
 }
+*/

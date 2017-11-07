@@ -33,10 +33,10 @@ public class Enemy {
 	private int debuffDPS; // from poison tower, taken per sec
 
 	private int resourceGiven;
-	
-	public String enemyImageBuffer = "/creep/creep-1-blue/1";
 
 	public BufferedImage enemyImage;
+	
+	public String enemyImageBuffer;
 	
 	public boolean isAlive = true;
 	
@@ -53,46 +53,7 @@ public class Enemy {
 			isAlive = false;
 	}
 		
-	/*ActionListener taskPerformer = new ActionListener(){
-		public void actionPerformed(ActionEvent e){
-			frames++;
-			if((frames%10) == 0)
-				second++;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-	};
 	
-	public void callMove()
-	{
-		int second;
-		int frames;
-		second = 0;
-		frames = 0;
-		int delay = 100;
-//new Timer(delay,taskPerformer).start();
-	}*/
-	
-	/*public void activateEnemy(int[] targetsX, int[] targetsY)
-	{
-		int delay = 1000; // ~10 updates per second
-
-		ActionListener taskPerformer = new ActionListener(){
-
-			public void actionPerformed(ActionEvent e){
-				
-				move(targetsX, targetsY);
-				//System.out.println("Moved");
-			}
-
-		};
-
-		new Timer(delay,taskPerformer).start();
-	}*/
 	public void move(int[] targetsX, int[] targetsY)
 	{
 		

@@ -11,61 +11,45 @@ import classes.Projectile;
 public class Tower {
 	
 	public int towerRange = 125;
-	
 	public Enemy target;
-	
 	public Projectile[] projectilesSpawned;
-	
 	public int projectileCount = 0;
-
 	public int locX;
-
 	public int locY;
-	
 	public int cost;
-	
 	private int attackSpeed = 25;
-	
-	public String towerImageFile = "/tower-defense-turret/turret-3-1.png";
-	
-	public String projectileImageBuffer = "/apple_64.png";
-	
+	public String towerImageFile;
 	private TowerType towerType;
-	
 	private int gold = 100;
-	
 	private int dmg = 100;
-	
 	public boolean hasTarget = false;
 	
+	
+	//Constructor
 	public Tower(TowerType towerType)
 	{
 		this.towerType = towerType;
 		if(towerType==TowerType.Arrow)
 		{
-			towerImageFile = "/tower-defense-turrets/turret-1-1.png";
+			towerImageFile = "/images/towers/tower1.png";
 			dmg = 150;
 		}
 		if(towerType==TowerType.Cannon)
 		{
-			towerImageFile = "/tower-defense-turrets/turret-2-1.png";
+			towerImageFile = "/images/towers/tower2.png";
 			dmg = 200;
 		}
 		if(towerType==TowerType.Fire)
 		{
-			towerImageFile = "/tower-defense-turret/turret-3-1.png";
+			towerImageFile = "images/towers/tower3.png";
 			dmg = 250;
 		}
 		
 		projectilesSpawned = new Projectile[50];
 		
 	}
-	public Tower()
-	{
-		this.towerType = TowerType.Arrow;
-		towerImageFile = "/tower-defense-turret/turret-3-1.png";
-	}
 
+	//Setting an enemy as target
 	public void setTarget(Enemy target)
 	{
 		this.target = target;
@@ -73,6 +57,7 @@ public class Tower {
 		activateTower();
 	}
 	
+	//Activating the listener
 	public void activateTower()
 	{
 		int delay = 500;//(1/attackSpeed)*500; // ~10 updates per second

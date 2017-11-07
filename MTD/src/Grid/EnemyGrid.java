@@ -8,9 +8,6 @@ public class EnemyGrid extends GridSlot{
 	
 	public EnemyGrid(String s, boolean b) {
 		super(s,b);
-}
-	public EnemyGrid()
-	{
-		super();
 	}
+
 }

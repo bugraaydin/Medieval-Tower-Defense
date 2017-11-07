@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -15,7 +16,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
 
 	BufferedImage backgroundImage;
-	String imageBuffer = "/images/settings.jpg";
+	String imageBuffer = "/images/gui/settings.jpg";
     public SettingsPanel() {
 		this.setPreferredSize(new Dimension(832,776));
 	     try {
@@ -173,7 +174,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }                                           
                                      
-    private void backButActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    private void backButActionPerformed(java.awt.event.ActionEvent evt) {  
     	this.hide();
     	GameFrame settingsTriggered = new GameFrame(new MainMenuPanel());
     }  

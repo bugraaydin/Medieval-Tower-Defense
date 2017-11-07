@@ -36,7 +36,7 @@ public class GameplayPanel extends JPanel{
 	public TowerManager towerManager;
 	private Shop shop;
 	private Grid grid;	
-	
+	private AL myAL;
 	private int projectileCount = 0;
 	private int playerGold = 300;
 	private int shopHeight = 200;
@@ -47,8 +47,8 @@ public class GameplayPanel extends JPanel{
 	JButton backBut;
 	
 	public GameplayPanel(){
+		
         backBut = new javax.swing.JButton();
-
         backBut.setText("Back");
         backBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +72,7 @@ public class GameplayPanel extends JPanel{
                 .addComponent(backBut)
                 .addGap(37, 37, 37))
         );
-		System.out.println("START");
+        
 		this.setPreferredSize(new Dimension(832,776));
 		/////////////////////////////*TEST
 		//////////////////////////////
@@ -84,167 +84,133 @@ public class GameplayPanel extends JPanel{
 		
 		screenX = grid.gridSlotWidthInPixels * grid.gridWidth;
 		screenY = grid.gridSlotHeightInPixels * grid.gridHeight;
-		//System.out.println("GRID SLOT WIDTH: " + grid.gridSlotWidthInPixels);
+
 		
-		////////////////////////////////////////////
-		///      TESTING
-		////////////////////////////////////////////
-		//projectileArray[0] = new Projectile(500,500, enemyManager.enemyList[0]);
-		//projectileCount++;
-		////////////////////////////////////////
-		///////////////////////////////////////
-		//////////////////////////////////////
 		setSize(screenX,screenY+shopHeight);
 		setVisible(true);
-		AL myAL = new AL();
+		myAL = new AL();
 		addMouseListener(myAL);
 		addMouseMotionListener(myAL);
-		setVisible(false);
-		setVisible(true);
+
 		
 		updateObjects();
 	}
+	//////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////UPDATES/////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////
 	public void updateObjects()
 	{
 		int delay = 100; // ~10 updates per second
-
 		ActionListener taskPerformer = new ActionListener(){
-
 			public void actionPerformed(ActionEvent e){
-				for(int i=0; i<enemyManager.enemyCount; i++)
-				{
-					enemyManager.enemyList[i].move(grid.targetsX,grid.targetsY);
-					repaint();
-				}
-				//projectileArray[0].move();
-				
-				/////////////////////////////////////////////////////////////////////////
-				/////////////////////////////////////////SET TARGET START
-				/////////////////////////////////////////////////////////////////////////
-				for(int i=0; i<towerManager.towerCount; i++)
-				{	
-					for(int j=0; j<enemyManager.enemyCount; j++)
-					{
-						if(!towerManager.towerList[i].hasTarget
-								&&
-								Math.abs(towerManager.towerList[i].locX - enemyManager.enemyList[j].locX) < towerManager.towerList[i].towerRange
-								&&
-								Math.abs(towerManager.towerList[i].locY - enemyManager.enemyList[j].locY) < towerManager.towerList[i].towerRange)
-						{
-							System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
-							//System.out.println(enemyManager.enemyList[j].isAlive);
-							towerManager.towerList[i].setTarget(enemyManager.enemyList[j]);
-							j = enemyManager.enemyList.length;
-						}
-					}
-					//System.out.println(enemyManager.enemyList[i].getLocX());
-				}
-				
-				
-				///////////////////////////////////////////////////////////////////
-				//////////////////////////////SET TARGET END
-				/////////////////////////////////////////////////////////
-				for(int i=0; i<towerManager.towerCount; i++)
-				{
-					for(int j = 0; j < towerManager.towerList[i].projectileCount; j++)
-					{
-						towerManager.towerList[i].projectilesSpawned[j].move();
-					}
-				
-					
-				}
-				//for(int i=0; i<projectileCount; i++)
-				//{
-				//	projectileArray[i].move();
-				//}
-				//System.out.println("Moved");
+				updateEnemies(); // updating enemies
+				updateTowerTargets(); // updating targets
+				updateProjectiles(); //updating projectiles
 			}
-
 		};
-
 		new Timer(delay,taskPerformer).start();
 	}
-    private void backButActionPerformed(java.awt.event.ActionEvent evt) {                                        
-    	this.hide();
-    	GameFrame settingsTriggered = new GameFrame(new MainMenuPanel());
-    }    
 
-	
-	public void paint(Graphics g){
-		//dbImage = tryImage;
-		//SwingUtilities.updateComponentTreeUI(this);
-		//dbg = dbImage.getGraphics();
-		//paintComponent(dbg);
-		//g.drawImage(dbImage, 0, 0, this);
-		
-		////////////////////////////////
-		///////////DRAW GRID AND TOWERS
-		////////////////////////////////
-		for(int i=0; i<grid.gridWidth; i++)
-			for(int j=0; j<grid.gridHeight; j++)
-			{
-				g.drawImage(grid.thisGrid[i][j].gridSlotImage, 64*i, 64*j, this);
-				if(grid.thisGrid[i][j].hasTower==true)
+	//UPDATE ENEMIES
+	private void updateEnemies(){
+		for(int i=0; i<enemyManager.enemyCount; i++)
+		{
+			enemyManager.enemyList[i].move(grid.targetsX,grid.targetsY);
+			repaint();
+		}
+	}
+	//UPDATING TOWER TARGETS
+	private void updateTowerTargets(){
+		for(int i=0; i<towerManager.towerCount; i++){	
+			for(int j=0; j<enemyManager.enemyCount; j++){
+				if(!towerManager.towerList[i].hasTarget
+						&&
+						Math.abs(towerManager.towerList[i].locX - enemyManager.enemyList[j].locX) < towerManager.towerList[i].towerRange
+						&&
+						Math.abs(towerManager.towerList[i].locY - enemyManager.enemyList[j].locY) < towerManager.towerList[i].towerRange)
 				{
-					//System.out.println("DRAWING TOWER for X:" + i + " Y: " + j);
+					System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
+					towerManager.towerList[i].setTarget(enemyManager.enemyList[j]);
+					j = enemyManager.enemyList.length;
+				}
+			}
+		}
+	}
+	//UPDATE PROJECTILES
+	private void updateProjectiles(){
+		for(int i=0; i<towerManager.towerCount; i++){
+			for(int j = 0; j < towerManager.towerList[i].projectileCount; j++){
+				towerManager.towerList[i].projectilesSpawned[j].move();
+			}
+		}
+	}
+	//////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////PAINT OBJECTS//////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////
+	public void paint(Graphics g){
+
+		//DRAW GRIDS AND TOWERS
+		drawGridsAndTowers(g);
+		//DRAW ENEMIES
+		drawEnemies(g);
+		//DRAW PROJECTILES
+		drawProjectiles(g);
+		//DRAW SHOP
+		drawShop(g);
+	}
+	
+	
+	private void drawGridsAndTowers(Graphics g){
+		for(int i = 0; i < grid.gridWidth;i++){
+			for(int j = 0; j < grid.gridHeight;j++){
+				g.drawImage(grid.thisGrid[i][j].gridSlotImage, 64*i, 64*j, this);
+				if(grid.thisGrid[i][j].hasTower==true){
 					g.drawImage(grid.thisGrid[i][j].towerImage, grid.gridSlotWidthInPixels*i, grid.gridSlotHeightInPixels*j, this);
 				}
 			}
-		//////////////////////////////////////
-		///////////////DRAW ENEMIES///////////
-		//////////////////////////////////////
-		for(int i=0; i<enemyManager.enemyList.length; i++)
-		{	//enemyManager.enemyList[i].getLocX(), enemyManager.enemyList[i].getLocY()
+		}
+	}
+	
+	private void drawEnemies(Graphics g){
+		for(int i=0; i<enemyManager.enemyList.length; i++){	
 			g.drawImage(enemyManager.enemyList[i].enemyImage, enemyManager.enemyList[i].getLocX(),enemyManager.enemyList[i].getLocY(), this);
-			//System.out.println(enemyManager.enemyList[i].getLocX());
 		}
-		
-		//////////////////////////////////////
-		///////////////DRAW PROJECTILES
-		//////////////////////////////////////
-		for(int i=0; i<projectileCount; i++)
-		{
-			g.drawImage(projectileArray[i].projectileImage, projectileArray[i].getLocX(), projectileArray[i].getLocY(), this);
+	}
+	
+	private void drawProjectiles(Graphics g){
+		for(int i=0; i<towerManager.towerCount; i++){
+			for(int j = 0; j < towerManager.towerList[i].projectileCount; j++){
+				if(towerManager.towerList[i].projectilesSpawned[j].getLocY() < 580){ // shop screena kaçmasýn
+					g.drawImage(towerManager.towerList[i].projectilesSpawned[j].projectileImage,
+							towerManager.towerList[i].projectilesSpawned[j].getLocX(),
+							towerManager.towerList[i].projectilesSpawned[j].getLocY(),
+							this);		
+				}
+			}	
 		}
-		
-		for(int i=0; i<towerManager.towerCount; i++)
-		{
-			for(int j = 0; j < towerManager.towerList[i].projectileCount; j++)
-			{
-				g.drawImage(towerManager.towerList[i].projectilesSpawned[j].projectileImage,
-						towerManager.towerList[i].projectilesSpawned[j].getLocX(),
-						towerManager.towerList[i].projectilesSpawned[j].getLocY(),
-						this);		
-			}
-
-			
-		}
-
-		
-		for(int i=0; i<shop.itemCount; i++)
+	}
+	
+	private void drawShop(Graphics g){
+		g.drawImage(shop.backgroundImage,0,576,this);
+		for(int i=0; i<shop.getItemCount(); i++)
 			g.drawImage(shop.itemImage[i], 64*i, 578, this);
 		backBut.repaint();
-		///////////////////////////////
-		
-		//invalidate();
-		//validate();
-		//repaint();
-		
 	}
 	
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.BLACK);
-
-		/*Rectangle r1 = new Rectangle(rectX, rectY, 25, 25);
-		Rectangle r2 = new Rectangle(175, 175, 50, 50);
-		g.fillRect(r2.x, r2.y, r2.width, r2.height);
-		g.fillRect(r1.x, r1.y, r1.width, r1.height);
-		if(r1.intersects(r2)){
-			g.drawString("HIT", 175, 140);
-		}*/
-		//repaint();
 	}
 	
+	
+	
+//BACK BUTTON
+    private void backButActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    	this.hide();
+    	GameFrame settingsTriggered = new GameFrame(new MainMenuPanel());
+    }  
+	
+	
+//////////////////CONTROLLER	
 	public class AL extends MouseAdapter{
 		private int gridNoY, gridNoX;
 
@@ -254,7 +220,6 @@ public class GameplayPanel extends JPanel{
 		}
 		
 		public void mousePressed(MouseEvent e) {
-			//System.out.println("mouse clicked");
 			int myX = e.getX();
 			int myY = e.getY();
 			if(e.getY()>screenY)

@@ -17,7 +17,7 @@ public class CreditsPanel extends javax.swing.JPanel {
      * Creates new form CreditsPanel
      */
 	BufferedImage backgroundImage;
-	String imageBuffer = "/images/credits.jpg";
+	String imageBuffer = "/images/gui/credits.jpg";
     public CreditsPanel() {
 		this.setPreferredSize(new Dimension(832,776));
 	     try {

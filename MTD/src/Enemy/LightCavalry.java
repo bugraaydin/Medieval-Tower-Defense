@@ -18,7 +18,7 @@ public class LightCavalry extends Enemy{
 
 		setResourceGiven(100);
 
-		setEnemyImage("/creep/creep-1-red/1.png");
+		setEnemyImage("/images/enemies/footman/footman.png");
 	}
 
 

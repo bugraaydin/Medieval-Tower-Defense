@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 public class MainMenuPanel extends javax.swing.JPanel {
 
 	BufferedImage backgroundImage;
-	String imageBuffer = "/images/mainMenu.jpg";
+	String imageBuffer = "/images/gui/mainMenu.jpg";
 	
 	CreditsPanel credits;
 	HelpPanel help;
@@ -185,4 +185,3 @@ public class MainMenuPanel extends javax.swing.JPanel {
     private javax.swing.JButton settingsBut;
     // End of variables declaration                   
 }
-

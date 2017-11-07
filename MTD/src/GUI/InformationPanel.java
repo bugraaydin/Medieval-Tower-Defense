@@ -13,7 +13,7 @@ public class InformationPanel extends javax.swing.JPanel {
     int selectedSpecUnit;
     String unitLabel;
 	BufferedImage backgroundImage;
-	String imageBuffer = "/images/information.jpg";
+	String imageBuffer = "/images/gui/information.jpg";
     /**
      * Creates new form InfoPanel
      */

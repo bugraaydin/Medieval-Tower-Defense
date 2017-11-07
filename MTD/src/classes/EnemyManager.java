@@ -24,13 +24,6 @@ public class EnemyManager {
 	}
 
 	
-
-	
-
-
-
-	
-
 	public void initializeFirstLevelWaves(){
 
 		enemyList = new Enemy[30];

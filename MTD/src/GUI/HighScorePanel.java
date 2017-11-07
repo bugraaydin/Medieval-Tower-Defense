@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 public class HighScorePanel extends javax.swing.JPanel {
 
 	BufferedImage backgroundImage;
-	String imageBuffer = "/images/highScore.jpg";
+	String imageBuffer = "/images/gui/highScore.jpg";
     public HighScorePanel() {
 		this.setPreferredSize(new Dimension(832,776));
 	     try {
@@ -90,4 +90,3 @@ public class HighScorePanel extends javax.swing.JPanel {
     private javax.swing.JLabel highScoreText;
     // End of variables declaration                   
 }
-

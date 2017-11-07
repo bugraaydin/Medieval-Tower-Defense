@@ -18,7 +18,7 @@ public class Knight extends Enemy{
 
 		setResourceGiven(100);
 
-		setEnemyImage("/creep/creep-1-green/1.png");
+		setEnemyImage("/images/enemies/footman/footman.png");
 	}
 
 

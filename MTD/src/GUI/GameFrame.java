@@ -13,11 +13,13 @@ public class GameFrame extends JFrame{
 	HelpPanel help;
 	CreditsPanel credits;
 	HighScorePanel highScore;
+	SoundManager music;
 	static String title = "Medieval TD";
 	// grid width 13 * 60 / grid height 9 * 60 + 200
 	static Dimension size = new Dimension(780,740);
 	
 	public GameFrame(){
+		music = new SoundManager();
 		mainMenu = new MainMenuPanel();
 		add(mainMenu);
 		init();
