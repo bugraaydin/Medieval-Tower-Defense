@@ -1,10 +1,9 @@
 # Medieval-Tower-Defense 
 
 CS319 Section 1<br />
-1.Berk Ataç 21200623 <br />
-2.Hayri Buğra Aydın 21501555 <br />
-3.Berke Deniz Başaran 21400996 <br />
-4.Abdullah Mahir Özer 21300616<br />
+1.Hayri Buğra Aydın 21501555 <br />
+2.Berke Deniz Başaran 21400996 <br />
+3.Abdullah Mahir Özer 21300616<br />
 
 1A.Medieva-Tower-Defense
 
