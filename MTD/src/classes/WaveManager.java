@@ -1,10 +1,10 @@
-/* package classes;
+ package classes;
 
 import Enemy.*;
 
 public class WaveManager {
 	
-	
+	/*
 	Wave[] waves;
 	
 	public WaveManager(int levelNo){
@@ -34,5 +34,5 @@ public class WaveManager {
 			waves[2].enemiesInWave[i] = new Knight();
 		}
 	}
+	*/
 }
-*/

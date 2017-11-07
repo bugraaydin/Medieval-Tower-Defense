@@ -46,6 +46,7 @@ public class InformationPanel extends javax.swing.JPanel {
         unitTypeComboBox = new javax.swing.JComboBox<>();
         backBut = new javax.swing.JButton();
         enemyComboBox = new javax.swing.JComboBox<>();
+        enemyComboBox.setVisible(false);
         towerComboBox = new javax.swing.JComboBox<>();
         unitLabelText = new javax.swing.JLabel();
 

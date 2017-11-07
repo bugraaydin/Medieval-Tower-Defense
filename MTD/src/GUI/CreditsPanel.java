@@ -13,9 +13,7 @@ import javax.imageio.ImageIO;
  */
 public class CreditsPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CreditsPanel
-     */
+
 	BufferedImage backgroundImage;
 	String imageBuffer = "/images/gui/credits.jpg";
     public CreditsPanel() {

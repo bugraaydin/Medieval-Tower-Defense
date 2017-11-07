@@ -1,4 +1,4 @@
-/* package classes;
+ package classes;
 
 
 import java.awt.event.ActionEvent;
@@ -9,7 +9,7 @@ import javax.swing.Timer;
 import Grid.*;
 
 public class GameManager {
-	
+	/*
 	Grid gameGrid;
 	
 	WaveManager waves;
@@ -49,8 +49,7 @@ public class GameManager {
 	
 
 
-
+*/
 	
 	
 }
-*/

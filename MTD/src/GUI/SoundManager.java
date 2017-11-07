@@ -1,13 +1,7 @@
 package GUI;
 
-import java.io.*;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.swing.JOptionPane;
+import java.io.InputStream;
 
 import sun.audio.*;
 
@@ -15,7 +9,7 @@ import sun.audio.*;
 public class SoundManager{
 	
   public InputStream backgroundMusicBuffer;
-  public AudioInputStream backGroundMusic;
+  public AudioStream backGroundMusic;
   public SoundManager(){
 	  setBackgroundMusic();
 	  
@@ -25,10 +19,8 @@ public class SoundManager{
 	{
 		try {
 			backgroundMusicBuffer = getClass().getResourceAsStream("/sounds/musics/background.wav");
-			backGroundMusic = AudioSystem.getAudioInputStream(backgroundMusicBuffer);
-			Clip clip = AudioSystem.getClip();
-			clip.open(backGroundMusic);
-			clip.start();
+			backGroundMusic = new AudioStream(backgroundMusicBuffer);
+			AudioPlayer.player.start(backGroundMusic);
 		}	catch(Exception exc) {
 				exc.printStackTrace();
 		}

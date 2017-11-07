@@ -24,7 +24,7 @@ public class Tower {
 	private int dmg = 100;
 	public boolean hasTarget = false;
 	
-	
+	public Tower(){};
 	//Constructor
 	public Tower(TowerType towerType)
 	{
