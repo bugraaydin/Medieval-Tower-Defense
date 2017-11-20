@@ -5,27 +5,33 @@ CS319 Section 1<br />
 2.Berke Deniz Başaran 21400996 <br />
 3.Abdullah Mahir Özer 21300616<br />
 
-1A.Medieva-Tower-Defense
+Description of the Project
+--------------------------
+For the project, the Medieval Tower Defense game will be implemented. The aim of this project is to obtain a better understanding of object oriented software engineering approach, getting familiar with UML notation and learn the complexities of group works.
 
-Wave based medival themed tower defence game, which players can improve their defenses with resources wave after wave.
+Description of the Medieval Tower Defense
+-----------------------------------------
+MTD is a wave based tower defense game that players can construct their own defense mechanisms by various towers against several enemies. Players are able to obtain gold by killing enemies with their defense constructs such as several types of towers and traps, and they can spend that gold to increase the power of their defense. There will be several number of towers and traps against enemies, each having different pros and cons against unique targets. Also enemies will have different attributes that will provide originality, such as armor, health and speed. Maps will have different slots that holds enemies or towers.
 
-Classic Tower Defense game rules will apply.  
+Gameplay
+--------
+Several waves of enemies will march through a certain point and player will try to prevent them reaching this location with the defense mechanism he built. If the enemies manages to reach the gate, player will lose health points. If player fails to stop enemies several times, game will be lost. If the player manages to defeat all waves, game will be won.
 
-Marching path will be pre-determined. Number of enemies will march through it to reach exit point. Player will prevent them to reach exit.
-Resource system will be in play. Players will start with a certain amount of resources. Each enemy that is killed will contribute to player's resources.
-With these resources player will build towers and form a defense.
+Controls
+--------
+Player will play the game using a mouse. 
 
 Various MODs
 ----------------
-Easy Mod
-Normal Mod
-Hard Mod
-Survival Mod
+Sandbox Mode
+Easy Mode
+Normal Mode
+Hard Mode
+Hardcore Mode
+Survival Mode
 
 
-Wave count will vary. ( aroud 50)
 
-There will be different enemy types who are vulnerable to specific type of towers. (Fire, ice, normal etc.) There will be hard encounters such as boss waves.
 
 Enemies will have attributes ( armor, healt, speed etc.)
 
