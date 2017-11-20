@@ -30,9 +30,3 @@ Hard Mode
 Hardcore Mode
 Survival Mode
 
-
-
-
-Enemies will have attributes ( armor, healt, speed etc.)
-
-
