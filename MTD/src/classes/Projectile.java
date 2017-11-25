@@ -7,10 +7,17 @@ import javax.imageio.ImageIO;
 
 import Enemy.*;
 
+//Projectile Class
+//Projectile that is created by Tower class
+
 public class Projectile {
+	
+
 	
 	private String projectileImageBuffer;
 	public BufferedImage projectileImage;
+	private int spawnLocationX;
+	private int spawnLocationY;
 	private int locX;
 	private int locY;
 	private int damage = 25;
@@ -23,7 +30,6 @@ public class Projectile {
 	private int targetLocX;
 	private int targetLocY;
 	public boolean isAlive = true;
-	
 	// private onhit effect2d :: 2d image
 
 	// projectile animation :: 2dimage sequence
@@ -62,6 +68,8 @@ public class Projectile {
 
 		this.locY = y;
 		
+		spawnLocationX = this.locX;
+		spawnLocationY = this.locY;
 		this.target = target;
 		
 		try {
@@ -75,16 +83,21 @@ public class Projectile {
 	}
 
 	public void move(){
-		locX = locX + (targetLocX/10) * 1;
-		locY = locY + (targetLocY/10) * 1;
+		System.out.println("locX 1: " + locX);
+		locX = spawnLocationX + ((targetLocX-locX)/10) * 1;
+		System.out.println("locX 2: " + locX);
+		locY = spawnLocationY + ((targetLocY-locY)/10) * 1;
+		targetLocX = target.locX-locX;
+		targetLocY =  target.locY-locY;
 		//System.out.println(locX);
-		if(Math.abs(locX - target.locX) < 20 && Math.abs(target.locY - locY) < 20)
+		
+		/*if(Math.abs(locX - target.locX) < 20 && Math.abs(target.locY - locY) < 20)
 		{
 			dealDamage();
 			isAlive = false;
 			targetLocX = 0;
 			targetLocY = 0;
-		}
+		}*/
 	}
 	
 	public void dealDamage(){
