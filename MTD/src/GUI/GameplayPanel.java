@@ -123,11 +123,11 @@ public class GameplayPanel extends JPanel{
 	private void updateTowerTargets(){
 		for(int i=0; i<towerManager.towerCount; i++){	
 			for(int j=0; j<enemyManager.enemyCount; j++){
-				if(!towerManager.towerList[i].hasTarget
+				if(!towerManager.towerList[i].hasTarget()
 						&&
-						Math.abs(towerManager.towerList[i].locX - enemyManager.enemyList[j].locX) < towerManager.towerList[i].towerRange
+						Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList[j].locX) < towerManager.towerList[i].getTowerRange()
 						&&
-						Math.abs(towerManager.towerList[i].locY - enemyManager.enemyList[j].locY) < towerManager.towerList[i].towerRange)
+						Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList[j].locY) < towerManager.towerList[i].getTowerRange())
 				{
 					System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
 					towerManager.towerList[i].setTarget(enemyManager.enemyList[j]);
@@ -139,8 +139,8 @@ public class GameplayPanel extends JPanel{
 	//UPDATE PROJECTILES
 	private void updateProjectiles(){
 		for(int i=0; i<towerManager.towerCount; i++){
-			for(int j = 0; j < towerManager.towerList[i].projectileCount; j++){
-				towerManager.towerList[i].projectilesSpawned[j].move();
+			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++){
+				towerManager.towerList[i].getProjectilesSpawned()[j].move();
 			}
 		}
 	}
@@ -179,11 +179,11 @@ public class GameplayPanel extends JPanel{
 	
 	private void drawProjectiles(Graphics g){
 		for(int i=0; i<towerManager.towerCount; i++){
-			for(int j = 0; j < towerManager.towerList[i].projectileCount; j++){
-				if(towerManager.towerList[i].projectilesSpawned[j].getLocY() < 580){ // shop screena kaçmasýn
-					g.drawImage(towerManager.towerList[i].projectilesSpawned[j].projectileImage,
-							towerManager.towerList[i].projectilesSpawned[j].getLocX(),
-							towerManager.towerList[i].projectilesSpawned[j].getLocY(),
+			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++){
+				if(towerManager.towerList[i].getProjectilesSpawned()[j].getLocY() < 580){ // shop screena kaçmasýn
+					g.drawImage(towerManager.towerList[i].getProjectilesSpawned()[j].projectileImage,
+							towerManager.towerList[i].getProjectilesSpawned()[j].getLocX(),
+							towerManager.towerList[i].getProjectilesSpawned()[j].getLocY(),
 							this);		
 				}
 			}	
@@ -192,8 +192,14 @@ public class GameplayPanel extends JPanel{
 	
 	private void drawShop(Graphics g){
 		g.drawImage(shop.backgroundImage,0,576,this);
-		for(int i=0; i<shop.getItemCount(); i++)
-			g.drawImage(shop.itemImage[i], 64*i, 578, this);
+		g.drawImage(shop.itemImage[0],0,576,this);
+		g.drawImage(shop.itemImage[1],60,576,this);
+		g.drawImage(shop.itemImage[2],120,576,this);
+		g.drawImage(shop.itemImage[3],180,576,this);
+		g.drawImage(shop.itemImage[4],0,636,this);
+		g.drawImage(shop.itemImage[5],60,636,this);
+		g.drawImage(shop.itemImage[6],120,636,this);
+		g.drawImage(shop.itemImage[7],180,636,this);
 		backBut.repaint();
 	}
 	
@@ -225,7 +231,7 @@ public class GameplayPanel extends JPanel{
 			if(e.getY()>screenY)
 			{
 				//System.out.println(myX);
-				shop.BuyTower(myX, playerGold);
+				shop.buyTower(myX,myY, playerGold);
 			}
 			else
 			{

@@ -26,26 +26,26 @@ public class EnemyManager {
 	
 	public void initializeFirstLevelWaves(){
 
-		enemyList = new Enemy[30];
-		for(int i = 0; i < 10; i++){ 
-
-			enemyList[i] = new Footman(enemySpawnLocX, enemySpawnLocY); // first wave consists of 10 footmans
-			//enemyList[i].activateEnemy(targetsX, targetsY);
-			enemyCount++;
-			//System.out.println(enemySpawnLocX);
-		}
-
-		for(int i = 10; i < 20; i++){
-
-			enemyList[i] = new LightCavalry(enemySpawnLocX, enemySpawnLocY);
+		enemyList = new Enemy[5];		
+		for(int i = 0; i < 1; i++){ 
+			enemyList[i] = new Footman(enemySpawnLocX, enemySpawnLocY); // first wave consists of 5 footmans
 			enemyCount++;
 		}
 
-		for(int i = 20; i < 30; i++){
-
-			enemyList[i] = new Knight(enemySpawnLocX, enemySpawnLocY);
+			enemyList[1] = new Footman(enemySpawnLocX + 5, enemySpawnLocY + 5);
 			enemyCount++;
-		}
+
+
+			enemyList[2] = new Footman(enemySpawnLocX + 10, enemySpawnLocY + 10);
+			enemyCount++;
+
+			enemyList[3] = new Footman(enemySpawnLocX + 15, enemySpawnLocY + 15);
+			enemyCount++;
+
+
+			enemyList[4] = new Footman(enemySpawnLocX + 20, enemySpawnLocY + 20);
+			enemyCount++;
+
 
 	}
 

@@ -26,73 +26,156 @@ public class Shop {
 		}	catch(IOException exc) {
 				exc.printStackTrace();
 		}
-		itemCount = 2;
+		itemCount = 8;
 		towersInShop = new String[itemCount];
 		setShopItems();
 	}
-	public void BuyTower(int mouseX, int playerGold)
+	public void buyTower(int mouseX, int mouseY, int playerGold)
 	{
 
 		//System.out.println("Buy tower called");
-		if(mouseX<60)
+		if((mouseX > 0 && mouseX<60) && (mouseY < 636 && mouseY > 576))
 		{
-			System.out.println("IN BUY ARROW TOWER MODE");
+			System.out.println("IN BUY ARCANE TOWER MODE");
 			if(playerGold>100)
 			{
-				towerToPlace = new Tower(TowerType.Arrow);
+				towerToPlace = new ArcaneTower();
 				towerBought = true;
 				return;
-				//return new Tower(TowerType.Arrow);
 			}
 			else
 				return;
 		}
-		else if(mouseX>60&&mouseX<120)
+		else if((mouseX>60&&mouseX<120) && (mouseY < 636 && mouseY > 576) )
+		{
+			System.out.println("BUY ARROW TOWER CALLED");
+			if(playerGold>150)
+			{
+				towerToPlace = new ArrowTower();
+				towerBought = true;
+				return;
+			}
+			else
+				return;
+		}
+		else if((mouseX>120&&mouseX<180) && (mouseY < 636 && mouseY > 576))
+		{
+			System.out.println("BUY Balista TOWER CALLED");
+			if(playerGold>150)
+			{
+				towerToPlace = new BalistaTower();
+				towerBought = true;
+				return;
+			}
+			else
+				return;
+		}
+		else if((mouseX>180&&mouseX<240) && (mouseY < 636 && mouseY > 576))
 		{
 			System.out.println("BUY CANNON TOWER CALLED");
 			if(playerGold>150)
 			{
-				towerToPlace = new Tower(TowerType.Cannon);
+				towerToPlace = new CannonTower();
 				towerBought = true;
 				return;
-				//return new Tower(TowerType.Cannon);
 			}
 			else
 				return;
 		}
-		/*else if(mouseX>160&&mouseX<240)
+		else if((mouseX>0&&mouseX<60) && (mouseY < 696 && mouseY > 636))
 		{
-			System.out.println("BUY FIRE TOWER CALLED");
+			System.out.println("BUY ICE TOWER CALLED");
 			if(playerGold>150)
 			{
-				towerToPlace = new Tower(TowerType.Fire);
+				towerToPlace = new IceTower();
 				towerBought = true;
 				return;
-				//return new Tower(TowerType.Fire);
 			}
 			else
 				return;
-		}*/
-		
+		}
+		else if((mouseX>60&&mouseX<120) && (mouseY < 696 && mouseY > 636))
+		{
+			System.out.println("BUY MORTAr TOWER CALLED");
+			if(playerGold>150)
+			{
+				towerToPlace = new MortarTower();
+				towerBought = true;
+				return;
+			}
+			else
+				return;
+		}
+		else if((mouseX>120&&mouseX<180) && (mouseY < 696 && mouseY > 636))
+		{
+			System.out.println("BUY OIL TOWER CALLED");
+			if(playerGold>150)
+			{
+				towerToPlace = new OilTower();
+				towerBought = true;
+				return;
+			}
+			else
+				return;
+		}
+		else if((mouseX>180&&mouseX<240) && (mouseY < 696 && mouseY > 636))
+		{
+			System.out.println("BUY Poison TOWER CALLED");
+			if(playerGold>150)
+			{
+				towerToPlace = new PoisonTower();
+				towerBought = true;
+				return;
+			}
+			else
+				return;
+		}
 		return;
 	}
 	
 	public void setShopItems()
 	{
 		itemImage = new BufferedImage[itemCount];
-		
 		try {
-			itemImage[0] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/tower1.png"));
+			itemImage[0] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/arcane_tower_shop.png"));
 		}	catch(IOException exc) {
 				exc.printStackTrace();
 		}
 		try {
-			itemImage[1] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/tower2.png"));
+			itemImage[1] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/arrow_tower_shop.png"));
 		}	catch(IOException exc) {
 				exc.printStackTrace();
 		}
-		//towerToPlace = new Tower();
-		
+		try {
+			itemImage[2] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/balista_tower_shop.png"));
+		}	catch(IOException exc) {
+				exc.printStackTrace();
+		}
+		try {
+			itemImage[3] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/cannon_tower_shop.png"));
+		}	catch(IOException exc) {
+				exc.printStackTrace();
+		}
+		try {
+			itemImage[4] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/ice_tower_shop.png"));
+		}	catch(IOException exc) {
+				exc.printStackTrace();
+		}
+		try {
+			itemImage[5] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/mortar_tower_shop.png"));
+		}	catch(IOException exc) {
+				exc.printStackTrace();
+		}
+		try {
+			itemImage[6] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/oil_tower_shop.png"));
+		}	catch(IOException exc) {
+				exc.printStackTrace();
+		}
+		try {
+			itemImage[7] = ImageIO.read(getClass().getResourceAsStream("/images/shop/tower_icons/poison_tower_shop.png"));
+		}	catch(IOException exc) {
+				exc.printStackTrace();
+		}
 	}
 	
 	public int getItemCount(){

@@ -10,45 +10,26 @@ import classes.Projectile;
 
 public class Tower {
 	
-	public int towerRange = 125;
-	public Enemy target;
-	public Projectile[] projectilesSpawned;
-	public int projectileCount = 0;
-	public int locX;
-	public int locY;
-	public int cost;
-	private int attackSpeed = 25;
-	public String towerImageFile;
-	private TowerType towerType;
-	private int gold = 100;
-	private int dmg = 100;
-	public boolean hasTarget = false;
+	private Enemy target;
+	private Projectile[] projectilesSpawned;
+	private int projectileCount; //= 0;
+	private String towerImageFile;
+	private boolean hasTarget;// = false;
 	
-	public Tower(){};
-	//Constructor
-	public Tower(TowerType towerType)
-	{
-		this.towerType = towerType;
-		if(towerType==TowerType.Arrow)
-		{
-			towerImageFile = "/images/towers/tower1.png";
-			dmg = 150;
-		}
-		if(towerType==TowerType.Cannon)
-		{
-			towerImageFile = "/images/towers/tower2.png";
-			dmg = 200;
-		}
-		if(towerType==TowerType.Fire)
-		{
-			towerImageFile = "images/towers/tower3.png";
-			dmg = 250;
-		}
-		
-		projectilesSpawned = new Projectile[50];
-		
-	}
+	private int locX;
+	private int locY;
+	private int towerRange;
+	private int cost;
+	private int attackSpeed; 
+	private int dmg;
+	
 
+	
+	//Constructor
+	public Tower()
+	{
+		projectilesSpawned = new Projectile[50];	
+	}
 	//Setting an enemy as target
 	public void setTarget(Enemy target)
 	{
@@ -66,11 +47,8 @@ public class Tower {
 
 			public void actionPerformed(ActionEvent e){
 				spawnProjectile(target);
-				//System.out.println("Moved");
 			}
-
 		};
-
 		new Timer(delay,taskPerformer).start();
 	}
 
@@ -82,4 +60,40 @@ public class Tower {
 		projectileCount++;
 
 	}
+	
+	///////////////////////////////////////////////////////
+	//Setters
+	public void setImage(String input){
+		towerImageFile = input;
+	}
+	public void setDamage(int dmg){
+		this.dmg = dmg;
+	}
+	public void setLocX(int x){
+		locX = x;
+	}
+	public void setLocY(int y){
+		locY = y;
+	}
+	public void setTowerRange(int range){
+		towerRange = range;
+	}
+	public void setCost(int cost){
+		this.cost = cost;
+	}
+	public void setAttackSpeed(int speed){
+		attackSpeed = speed;
+	}
+	//Getters
+	public Projectile[] getProjectilesSpawned(){ return projectilesSpawned;}
+	public int getProjectileCount(){ return projectileCount;}
+	public boolean hasTarget(){ return hasTarget;}
+	public String getImage(){ return towerImageFile;}
+	public int getDamage(){return dmg;}
+	public int getLocX(){ return locX;}
+	public int getLocY(){ return locY;}
+	public int getTowerRange(){ return towerRange;}
+	public int getCost(){ return cost;}
+	public int getAttackSpeed(){ return attackSpeed;}
+	///////////////////////////////////////////////////////
 }

@@ -13,10 +13,9 @@ public class GridSlot {
 	// GRID SLOT BASIC ATTRIBUTES
 	public boolean canPlaceTower = false;
 	public boolean hasTower;
-	TowerType a;
 	// GRID SLOT GRAPHICS
-	String towerGridBufferStream = "/images/grids/tower_grid.jpg";
-	String towerImageBufferStream = "/Grass_double.jpg";
+	String towerGridBufferStream;
+	String towerImageBufferStream;
 	public BufferedImage towerImage;
 	public BufferedImage gridSlotImage;
 	// GRID SLOT ATTRIBUTES
@@ -38,7 +37,6 @@ public class GridSlot {
 	}
 	public boolean mouseHitThisSlot(boolean isInBuyMode, Tower towerToPlace, int x, int y)
 	{
-		
 		if(canPlaceTower==false)
 			return false;
 		else
@@ -48,25 +46,19 @@ public class GridSlot {
 				if(hasTower==true)
 				{
 					return false;
-					///PRINT THIS SLOT HAS TOWER
-					///
-					///
 				}
 				else if(hasTower==false)
 				{
-					
 					towerInThisSlot = towerToPlace;
-					towerInThisSlot.locX = x;
-					towerInThisSlot.locY = y;
-					towerImageBufferStream = towerToPlace.towerImageFile;
+					towerInThisSlot.setLocX(x);
+					towerInThisSlot.setLocY(y);
+					towerImageBufferStream = towerToPlace.getImage();//towerToPlace.getImage();
 					hasTower=true;
-					
 					try {
 						towerImage = ImageIO.read(getClass().getResourceAsStream(towerImageBufferStream));
 					}	catch(IOException exc) {
 							exc.printStackTrace();
 					}
-					System.out.println(hasTower);
 					return true;
 				}
 			}
@@ -83,9 +75,5 @@ public class GridSlot {
 				exc.printStackTrace();
 		}
 	}
-	
-	public void testFunction(String s)
-	{
-		System.out.println(s);
-	}
+
 }
