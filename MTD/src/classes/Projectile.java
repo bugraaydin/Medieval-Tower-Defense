@@ -11,6 +11,9 @@ import Enemy.*;
 //Projectile that is created by Tower class
 
 public class Projectile {
+	
+
+	
 	private String projectileImageBuffer;
 	public BufferedImage projectileImage;
 	private int spawnLocationX;
@@ -34,6 +37,7 @@ public class Projectile {
 	// projectile brigtness : float
 
 	//projectile sound effect :: sound2d
+
 	
 
 	public Projectile(int x,int y,int damage,int damageType,int slowRate,int armorReduce,int damagePerSec,Enemy target, String projectileImageBuffer){
@@ -54,8 +58,8 @@ public class Projectile {
 		this.armorReduce = armorReduce;
 		this.damagePerSec = damagePerSec;
 		this.target = target;
-		targetLocX = target.locX;
-		targetLocY =  target.locY;
+		targetLocX = target.locX-locX;
+		targetLocY =  target.locY-locY;
 	}
 	
 	public Projectile(int x, int y, Enemy target){
@@ -74,18 +78,17 @@ public class Projectile {
 				exc.printStackTrace();
 		}
 		
-		targetLocX = target.locX;
-		targetLocY =  target.locY;
+		targetLocX = target.locX-locX;
+		targetLocY =  target.locY-locY;
 	}
-	
+
 	public void move(){
-		//System.out.println("locX 1: " + locX);
-		
-			locX = spawnLocationX + ((targetLocX-locX)/10) * 2;
-			//System.out.println("locX 2: " + locX);
-			locY = spawnLocationY + ((targetLocY-locY)/10) * 2;
-			targetLocX = target.locX-locX;
-			targetLocY =  target.locY-locY;
+		System.out.println("locX 1: " + locX);
+		locX = spawnLocationX + ((targetLocX-locX)/10) * 1;
+		System.out.println("locX 2: " + locX);
+		locY = spawnLocationY + ((targetLocY-locY)/10) * 1;
+		targetLocX = target.locX-locX;
+		targetLocY =  target.locY-locY;
 		//System.out.println(locX);
 		
 		/*if(Math.abs(locX - target.locX) < 20 && Math.abs(target.locY - locY) < 20)
@@ -103,10 +106,8 @@ public class Projectile {
 
 	public void update(){
 		// update x and y to the target's x y
-		if(target.getLocX() == this.getLocX() && target.getLocY() == this.getLocY()) {
+		if(target.getLocX() == this.getLocX() && target.getLocY() == this.getLocY())
 			collision();
-			System.out.println(target.getHealth());
-		}
 	}
 
 	public void collision(){
@@ -146,4 +147,5 @@ public class Projectile {
 	public Enemy getTarget(){
 		return this.target;
 	}
+	
 }

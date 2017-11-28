@@ -54,7 +54,7 @@ public class Tower {
 
 	public void spawnProjectile(Enemy target){
 
-		Projectile spawnedProjectile = new Projectile(this.locX,this.locY,target);
+		Projectile spawnedProjectile = new Projectile(locX,locY,target);
 		
 		projectilesSpawned[projectileCount] = spawnedProjectile;
 		projectileCount++;
