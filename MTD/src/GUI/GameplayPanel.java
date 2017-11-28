@@ -140,7 +140,7 @@ public class GameplayPanel extends JPanel{
 	private void updateProjectiles(){
 		for(int i=0; i<towerManager.towerCount; i++){
 			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++){
-				towerManager.towerList[i].getProjectilesSpawned()[j].move();
+				towerManager.towerList[i].getProjectilesSpawned()[j].update();
 			}
 		}
 	}

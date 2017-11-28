@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.sun.javafx.geom.Vec2d;
+
 import Enemy.*;
 
 //Projectile Class
@@ -17,6 +19,7 @@ public class Projectile {
 	private int spawnLocationY;
 	private int locX;
 	private int locY;
+	private double timeTillHit = 20;
 	private int damage = 25;
 	private int damageType;
 	private int slowRate= 0;
@@ -78,6 +81,7 @@ public class Projectile {
 		targetLocY =  target.locY;
 	}
 	
+	/**
 	public void move(){
 		//System.out.println("locX 1: " + locX);
 		
@@ -94,18 +98,43 @@ public class Projectile {
 			isAlive = false;
 			targetLocX = 0;
 			targetLocY = 0;
-		}*/
+		}
 	}
+	*/
 	
 	public void dealDamage(){
 		target.takeDamage(damage);
 	}
-
+	
+	
+	
 	public void update(){
+
+		targetLocX = target.locX;
+		targetLocY =  target.locY;
+		double dx = target.locX - this.locX;
+		double dy = target.locY - this.locY;
+		double dist = Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
+		dx = dx/dist;
+		dy = dy/dist;
+		
 		// update x and y to the target's x y
-		if(target.getLocX() == this.getLocX() && target.getLocY() == this.getLocY()) {
-			collision();
+		if(targetLocX == this.getLocX() && targetLocY == this.getLocY()) {
+			collision();	
+			dealDamage();
 			System.out.println(target.getHealth());
+			isAlive = false;
+		}
+		else {
+			//time is defined at top
+			if(targetLocX > this.locX) {
+				locX = (int) (dx*timeTillHit + locX);
+				locY = (int) (dy*timeTillHit + locY);
+			}
+			else {
+				locX = (int) (dx*timeTillHit - locX);
+				locY = (int) (dy*timeTillHit - locY);
+			}
 		}
 	}
 
