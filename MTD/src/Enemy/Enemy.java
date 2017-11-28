@@ -33,8 +33,6 @@ public class Enemy {
 	private int debuffDPS; // from poison tower, taken per sec
 
 	private int resourceGiven;
-	
-	private double spawnTime; //will be moved to wave class later
 
 	public BufferedImage enemyImage;
 	
@@ -46,7 +44,6 @@ public class Enemy {
 	{
 		this.locX = locX;
 		this.locY = locY;
-		this.spawnTime = 0;
 	}
 	
 	public void takeDamage(int dmg)
@@ -178,14 +175,6 @@ public class Enemy {
 
 		return this.resourceGiven;
 
-	}
-
-	public double getSpawnTime() {
-		return spawnTime;
-	}
-
-	public void setSpawnTime(double spawnTime) {
-		this.spawnTime = spawnTime;
 	}
 
 	////////////////////

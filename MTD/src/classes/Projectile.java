@@ -5,21 +5,21 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.sun.javafx.geom.Vec2d;
-
 import Enemy.*;
 
 //Projectile Class
 //Projectile that is created by Tower class
 
 public class Projectile {
+	
+
+	
 	private String projectileImageBuffer;
 	public BufferedImage projectileImage;
 	private int spawnLocationX;
 	private int spawnLocationY;
 	private int locX;
 	private int locY;
-	private double timeTillHit = 20;
 	private int damage = 25;
 	private int damageType;
 	private int slowRate= 0;
@@ -37,6 +37,7 @@ public class Projectile {
 	// projectile brigtness : float
 
 	//projectile sound effect :: sound2d
+
 	
 
 	public Projectile(int x,int y,int damage,int damageType,int slowRate,int armorReduce,int damagePerSec,Enemy target, String projectileImageBuffer){
@@ -57,8 +58,8 @@ public class Projectile {
 		this.armorReduce = armorReduce;
 		this.damagePerSec = damagePerSec;
 		this.target = target;
-		targetLocX = target.locX;
-		targetLocY =  target.locY;
+		targetLocX = target.locX-locX;
+		targetLocY =  target.locY-locY;
 	}
 	
 	public Projectile(int x, int y, Enemy target){
@@ -77,19 +78,17 @@ public class Projectile {
 				exc.printStackTrace();
 		}
 		
-		targetLocX = target.locX;
-		targetLocY =  target.locY;
+		targetLocX = target.locX-locX;
+		targetLocY =  target.locY-locY;
 	}
-	
-	/**
+
 	public void move(){
-		//System.out.println("locX 1: " + locX);
-		
-			locX = spawnLocationX + ((targetLocX-locX)/10) * 2;
-			//System.out.println("locX 2: " + locX);
-			locY = spawnLocationY + ((targetLocY-locY)/10) * 2;
-			targetLocX = target.locX-locX;
-			targetLocY =  target.locY-locY;
+		System.out.println("locX 1: " + locX);
+		locX = spawnLocationX + ((targetLocX-locX)/10) * 1;
+		System.out.println("locX 2: " + locX);
+		locY = spawnLocationY + ((targetLocY-locY)/10) * 1;
+		targetLocX = target.locX-locX;
+		targetLocY =  target.locY-locY;
 		//System.out.println(locX);
 		
 		/*if(Math.abs(locX - target.locX) < 20 && Math.abs(target.locY - locY) < 20)
@@ -98,44 +97,17 @@ public class Projectile {
 			isAlive = false;
 			targetLocX = 0;
 			targetLocY = 0;
-		}
+		}*/
 	}
-	*/
 	
 	public void dealDamage(){
 		target.takeDamage(damage);
 	}
-	
-	
-	
-	public void update(){
 
-		targetLocX = target.locX;
-		targetLocY =  target.locY;
-		double dx = target.locX - this.locX;
-		double dy = target.locY - this.locY;
-		double dist = Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
-		dx = dx/dist;
-		dy = dy/dist;
-		
+	public void update(){
 		// update x and y to the target's x y
-		if(targetLocX == this.getLocX() && targetLocY == this.getLocY()) {
-			collision();	
-			dealDamage();
-			System.out.println(target.getHealth());
-			isAlive = false;
-		}
-		else {
-			//time is defined at top
-			if(targetLocX > this.locX) {
-				locX = (int) (dx*timeTillHit + locX);
-				locY = (int) (dy*timeTillHit + locY);
-			}
-			else {
-				locX = (int) (dx*timeTillHit - locX);
-				locY = (int) (dy*timeTillHit - locY);
-			}
-		}
+		if(target.getLocX() == this.getLocX() && target.getLocY() == this.getLocY())
+			collision();
 	}
 
 	public void collision(){
@@ -175,4 +147,5 @@ public class Projectile {
 	public Enemy getTarget(){
 		return this.target;
 	}
+	
 }
