@@ -33,17 +33,20 @@ public class Tower {
 	//Setting an enemy as target
 	public void setTarget(Enemy target)
 	{
-		//if(Math.abs(target.locX-this.towerRange) <= this.towerRange && Math.abs(target.locY-this.towerRange) <= this.towerRange)
+		double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.towerRange), 2) 
+				+ Math.pow(Math.abs(target.locX-this.towerRange), 2));
+		if(distance < this.towerRange)
+		{	
 			this.target = target;
 			hasTarget = true;
 			activateTower();
-		//}
+		}
 	}
 	
 	//Activating the listener
 	public void activateTower()
 	{
-		int delay = 500;//(1/attackSpeed)*500; // ~10 updates per second
+		int delay = 750;//(1/attackSpeed)*500; // ~10 updates per second
 
 		ActionListener taskPerformer = new ActionListener(){
 
@@ -60,7 +63,7 @@ public class Tower {
 		
 		projectilesSpawned[projectileCount] = spawnedProjectile;
 		projectileCount++;
-
+		   
 	}
 	
 	///////////////////////////////////////////////////////

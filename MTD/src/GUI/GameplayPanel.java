@@ -128,16 +128,16 @@ public class GameplayPanel extends JPanel{
 	private void updateTowerTargets(){
 		for(int i=0; i<towerManager.towerCount; i++){	
 			for(int j=0; j<enemyManager.enemyCount; j++){
-				if(!towerManager.towerList[i].hasTarget()
+				/*if(!towerManager.towerList[i].hasTarget()
 						&&
 						Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList[j].locX) < towerManager.towerList[i].getTowerRange()
 						&&
 						Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList[j].locY) < towerManager.towerList[i].getTowerRange())
-				{
-					System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
-					towerManager.towerList[i].setTarget(enemyManager.enemyList[j]);
-					j = enemyManager.enemyList.length;
-				}
+				{*/
+				System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
+				towerManager.towerList[i].setTarget(enemyManager.enemyList[j]);
+				j = enemyManager.enemyList.length;
+				//}
 			}
 		}
 	}
