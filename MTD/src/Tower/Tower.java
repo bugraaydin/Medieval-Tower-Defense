@@ -15,6 +15,7 @@ public class Tower {
 	private int projectileCount; //= 0;
 	private String towerImageFile;
 	private boolean hasTarget;// = false;
+	private Timer myTimer;
 	
 	private int locX;
 	private int locY;
@@ -23,24 +24,28 @@ public class Tower {
 	private int attackSpeed; 
 	private int dmg;
 	
-
-	
 	//Constructor
 	public Tower()
 	{
-		projectilesSpawned = new Projectile[50];	
+		projectilesSpawned = new Projectile[500];	
 	}
 	//Setting an enemy as target
 	public void setTarget(Enemy target)
 	{
 		double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.towerRange), 2) 
 				+ Math.pow(Math.abs(target.locX-this.towerRange), 2));
-		if(distance < this.towerRange)
+		if(distance < this.towerRange && hasTarget==false)
 		{	
 			this.target = target;
 			hasTarget = true;
 			activateTower();
 		}
+	}
+	
+	public void clearTarget()
+	{
+		hasTarget=false;
+		deactivateTower();
 	}
 	
 	//Activating the listener
@@ -54,16 +59,23 @@ public class Tower {
 				spawnProjectile(target);
 			}
 		};
-		new Timer(delay,taskPerformer).start();
+		myTimer = new Timer(delay,taskPerformer);
+		myTimer.start();
+		//new Timer(delay,taskPerformer).start();
 	}
-
+	
+	public void deactivateTower()
+	{
+		myTimer.stop();
+	}
+	
 	public void spawnProjectile(Enemy target){
 
 		Projectile spawnedProjectile = new Projectile(locX,locY,target);
 		
 		projectilesSpawned[projectileCount] = spawnedProjectile;
 		projectileCount++;
-		   
+		
 	}
 	
 	///////////////////////////////////////////////////////

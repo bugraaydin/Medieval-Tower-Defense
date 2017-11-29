@@ -127,17 +127,33 @@ public class GameplayPanel extends JPanel{
 	//UPDATING TOWER TARGETS
 	private void updateTowerTargets(){
 		for(int i=0; i<towerManager.towerCount; i++){	
-			for(int j=0; j<enemyManager.enemyCount; j++){
-				/*if(!towerManager.towerList[i].hasTarget()
+			for(int j=0; j<enemyManager.enemyCount; j++)
+			{
+				if(!towerManager.towerList[i].hasTarget()
 						&&
 						Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList[j].locX) < towerManager.towerList[i].getTowerRange()
 						&&
 						Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList[j].locY) < towerManager.towerList[i].getTowerRange())
-				{*/
+				{
 				System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
 				towerManager.towerList[i].setTarget(enemyManager.enemyList[j]);
 				j = enemyManager.enemyList.length;
-				//}
+				}
+				//CLEAR TARGET NOT WORKING YET
+				//
+				//
+				else if(towerManager.towerList[i].hasTarget()
+						&&
+						Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList[j].locX) > towerManager.towerList[i].getTowerRange()
+						&&
+						Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList[j].locY) > towerManager.towerList[i].getTowerRange())
+				{
+					if(j == enemyManager.enemyCount)
+						towerManager.towerList[i].clearTarget();
+				}
+				//
+				//
+				//
 			}
 		}
 	}
@@ -182,14 +198,26 @@ public class GameplayPanel extends JPanel{
 		}
 	}
 	
-	private void drawProjectiles(Graphics g){
-		for(int i=0; i<towerManager.towerCount; i++){
-			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++){
-				if(towerManager.towerList[i].getProjectilesSpawned()[j].getLocY() < 580){ // shop screena kaçmasýn
-					g.drawImage(towerManager.towerList[i].getProjectilesSpawned()[j].projectileImage,
-							towerManager.towerList[i].getProjectilesSpawned()[j].getLocX(),
-							towerManager.towerList[i].getProjectilesSpawned()[j].getLocY(),
-							this);		
+	private void drawProjectiles(Graphics g)
+	{
+		for(int i=0; i<towerManager.towerCount; i++)
+		{
+			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++)
+			{
+				if(towerManager.towerList[i].getProjectilesSpawned()[j].getLocY() < 580
+						&& towerManager.towerList[i].getProjectilesSpawned()[j] != null)
+				{ // shop screena kaçmasýn
+					if(towerManager.towerList[i].getProjectilesSpawned()[j].isAlive == false)
+						towerManager.towerList[i].getProjectilesSpawned()[j] = null;
+					else
+					{
+						g.drawImage(towerManager.towerList[i].getProjectilesSpawned()[j].projectileImage,
+								towerManager.towerList[i].getProjectilesSpawned()[j].getLocX(),
+								towerManager.towerList[i].getProjectilesSpawned()[j].getLocY(),
+								this);
+					}
+
+					
 				}
 			}	
 		}

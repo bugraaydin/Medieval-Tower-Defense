@@ -81,10 +81,11 @@ public class Projectile {
 		targetLocY =  target.locY;
 	}
 	
-	/**
+	
 	public void move(){
 		//System.out.println("locX 1: " + locX);
-		
+		if(!isAlive)
+			return;
 			locX = spawnLocationX + ((targetLocX-locX)/10) * 2;
 			//System.out.println("locX 2: " + locX);
 			locY = spawnLocationY + ((targetLocY-locY)/10) * 2;
@@ -92,7 +93,7 @@ public class Projectile {
 			targetLocY =  target.locY-locY;
 		//System.out.println(locX);
 		
-		/*if(Math.abs(locX - target.locX) < 20 && Math.abs(target.locY - locY) < 20)
+		if(Math.abs(locX - target.locX) < 20 && Math.abs(target.locY - locY) < 20)
 		{
 			dealDamage();
 			isAlive = false;
@@ -100,7 +101,7 @@ public class Projectile {
 			targetLocY = 0;
 		}
 	}
-	*/
+	
 	
 	public void dealDamage(){
 		target.takeDamage(damage);
