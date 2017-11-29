@@ -105,7 +105,12 @@ public class GameplayPanel extends JPanel{
 			public void actionPerformed(ActionEvent e){
 				updateEnemies(); // updating enemies
 				updateTowerTargets(); // updating targets
-				updateProjectiles(); //updating projectiles
+				try {
+					updateProjectiles();
+				} catch (Throwable e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} //updating projectiles
 			}
 		};
 		new Timer(delay,taskPerformer).start();
@@ -137,10 +142,10 @@ public class GameplayPanel extends JPanel{
 		}
 	}
 	//UPDATE PROJECTILES
-	private void updateProjectiles(){
+	private void updateProjectiles() throws Throwable{
 		for(int i=0; i<towerManager.towerCount; i++){
 			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++){
-				towerManager.towerList[i].getProjectilesSpawned()[j].move();
+				towerManager.towerList[i].getProjectilesSpawned()[j].update();
 			}
 		}
 	}

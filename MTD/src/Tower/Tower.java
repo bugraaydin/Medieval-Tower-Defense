@@ -33,9 +33,11 @@ public class Tower {
 	//Setting an enemy as target
 	public void setTarget(Enemy target)
 	{
-		this.target = target;
-		hasTarget = true;
-		activateTower();
+		//if(Math.abs(target.locX-this.towerRange) <= this.towerRange && Math.abs(target.locY-this.towerRange) <= this.towerRange)
+			this.target = target;
+			hasTarget = true;
+			activateTower();
+		//}
 	}
 	
 	//Activating the listener
