@@ -17,6 +17,7 @@ import javax.swing.Timer;
 
 import Grid.Grid;
 import classes.EnemyManager;
+import classes.GameManager;
 import classes.Projectile;
 import classes.Shop;
 import classes.TowerManager;
@@ -31,23 +32,14 @@ public class GameplayPanel extends JPanel{
 
 	private Graphics dbg;
 	//private BufferedImage tryImage;
-	Projectile[] projectileArray;
-	public EnemyManager enemyManager;
-	public TowerManager towerManager;
-	private Shop shop;
-	private Grid grid;	
-	private AL myAL;
-	private int projectileCount = 0;
-	private int playerGold = 300;
-	private int shopHeight = 200;
+	private GameManager game;
 	private int screenX = 640;
 	private int screenY = 640;
-	int rectX, rectY;
 
 	JButton backBut;
 	
 	public GameplayPanel(){
-		
+		game = new GameManager();
         backBut = new javax.swing.JButton();
         backBut.setText("Back");
         backBut.addActionListener(new java.awt.event.ActionListener() {
@@ -74,97 +66,11 @@ public class GameplayPanel extends JPanel{
         );
         
 		this.setPreferredSize(new Dimension(832,776));
-		/////////////////////////////*TEST
-		//////////////////////////////
-		shop = new Shop();
-		grid = new Grid(0);
-		enemyManager = new EnemyManager(0, grid.gridSlotWidthInPixels, grid.gridSlotHeightInPixels, grid);//SPAWNS ENEMIES  IT'S CONSTRUCTOR
-		projectileArray = new Projectile[100];
-		towerManager = new TowerManager();
-		
-		screenX = grid.gridSlotWidthInPixels * grid.gridWidth;
-		screenY = grid.gridSlotHeightInPixels * grid.gridHeight;
-
-		
-		setSize(screenX,screenY+shopHeight);
 		setVisible(true);
-		myAL = new AL();
-		addMouseListener(myAL);
-		addMouseMotionListener(myAL);
-
-		
-		updateObjects();
-	}
-	//////////////////////////////////////////////////////////////////////////////
-	//////////////////////////////UPDATES/////////////////////////////////////////
-	//////////////////////////////////////////////////////////////////////////////
-	public void updateObjects()
-	{
-		int delay = 100; // ~10 updates per second
-		ActionListener taskPerformer = new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				updateEnemies(); // updating enemies
-				updateTowerTargets(); // updating targets
-				try {
-					updateProjectiles();
-				} catch (Throwable e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} //updating projectiles
-			}
-		};
-		new Timer(delay,taskPerformer).start();
+		addMouseListener(game.getAL());
+		addMouseMotionListener(game.getAL());
 	}
 
-	//UPDATE ENEMIES
-	private void updateEnemies(){
-		for(int i=0; i<enemyManager.enemyCount; i++)
-		{
-			enemyManager.enemyList[i].move(grid.targetsX,grid.targetsY);
-			repaint();
-		}
-	}
-	//UPDATING TOWER TARGETS
-	private void updateTowerTargets(){
-		for(int i=0; i<towerManager.towerCount; i++){	
-			for(int j=0; j<enemyManager.enemyCount; j++)
-			{
-				if(!towerManager.towerList[i].hasTarget()
-						&&
-						Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList[j].locX) < towerManager.towerList[i].getTowerRange()
-						&&
-						Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList[j].locY) < towerManager.towerList[i].getTowerRange())
-				{
-				System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
-				towerManager.towerList[i].setTarget(enemyManager.enemyList[j]);
-				j = enemyManager.enemyList.length;
-				}
-				//CLEAR TARGET NOT WORKING YET
-				//
-				//
-				else if(towerManager.towerList[i].hasTarget()
-						&&
-						Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList[j].locX) > towerManager.towerList[i].getTowerRange()
-						&&
-						Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList[j].locY) > towerManager.towerList[i].getTowerRange())
-				{
-					if(j == enemyManager.enemyCount)
-						towerManager.towerList[i].clearTarget();
-				}
-				//
-				//
-				//
-			}
-		}
-	}
-	//UPDATE PROJECTILES
-	private void updateProjectiles() throws Throwable{
-		for(int i=0; i<towerManager.towerCount; i++){
-			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++){
-				towerManager.towerList[i].getProjectilesSpawned()[j].update();
-			}
-		}
-	}
 	//////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////PAINT OBJECTS//////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
@@ -182,39 +88,41 @@ public class GameplayPanel extends JPanel{
 	
 	
 	private void drawGridsAndTowers(Graphics g){
-		for(int i = 0; i < grid.gridWidth;i++){
-			for(int j = 0; j < grid.gridHeight;j++){
-				g.drawImage(grid.thisGrid[i][j].gridSlotImage, 64*i, 64*j, this);
-				if(grid.thisGrid[i][j].hasTower==true){
-					g.drawImage(grid.thisGrid[i][j].towerImage, grid.gridSlotWidthInPixels*i, grid.gridSlotHeightInPixels*j, this);
+		for(int i = 0; i < game.getGrid().gridWidth;i++){
+			for(int j = 0; j < game.getGrid().gridHeight;j++){
+				g.drawImage(game.getGrid().thisGrid[i][j].gridSlotImage, 64*i, 64*j, this);
+				if(game.getGrid().thisGrid[i][j].hasTower==true){
+					g.drawImage(game.getGrid().thisGrid[i][j].towerImage, game.getGrid().gridSlotWidthInPixels*i, game.getGrid().gridSlotHeightInPixels*j, this);
 				}
 			}
 		}
 	}
 	
 	private void drawEnemies(Graphics g){
-		for(int i=0; i<enemyManager.enemyList.length; i++){	
-			g.drawImage(enemyManager.enemyList[i].enemyImage, enemyManager.enemyList[i].getLocX(),enemyManager.enemyList[i].getLocY(), this);
+		for(int i=0; i<game.getEnemyManager().enemyList.length; i++){	
+			g.drawImage(game.getEnemyManager().enemyList[i].enemyImage,game.getEnemyManager().enemyList[i].getLocX(),game.getEnemyManager().enemyList[i].getLocY(), this);
+			repaint();
 		}
 	}
 	
 	private void drawProjectiles(Graphics g)
 	{
-		for(int i=0; i<towerManager.towerCount; i++)
+		for(int i=0; i<game.getTowerManager().towerCount; i++)
 		{
-			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++)
+			for(int j = 0; j < game.getTowerManager().towerList[i].getProjectileCount(); j++)
 			{
-				if(towerManager.towerList[i].getProjectilesSpawned()[j].getLocY() < 580
-						&& towerManager.towerList[i].getProjectilesSpawned()[j] != null)
+				if(game.getTowerManager().towerList[i].getProjectilesSpawned()[j].getLocY() < 580
+						&& game.getTowerManager().towerList[i].getProjectilesSpawned()[j] != null)
 				{ // shop screena kaçmasýn
-					if(towerManager.towerList[i].getProjectilesSpawned()[j].isAlive == false)
-						towerManager.towerList[i].getProjectilesSpawned()[j] = null;
+					if(game.getTowerManager().towerList[i].getProjectilesSpawned()[j].isAlive == false)
+						game.getTowerManager().towerList[i].getProjectilesSpawned()[j] = null;
 					else
 					{
-						g.drawImage(towerManager.towerList[i].getProjectilesSpawned()[j].projectileImage,
-								towerManager.towerList[i].getProjectilesSpawned()[j].getLocX(),
-								towerManager.towerList[i].getProjectilesSpawned()[j].getLocY(),
+						g.drawImage(game.getTowerManager().towerList[i].getProjectilesSpawned()[j].projectileImage,
+								game.getTowerManager().towerList[i].getProjectilesSpawned()[j].getLocX(),
+								game.getTowerManager().towerList[i].getProjectilesSpawned()[j].getLocY(),
 								this);
+								repaint();
 					}
 
 					
@@ -224,15 +132,15 @@ public class GameplayPanel extends JPanel{
 	}
 	
 	private void drawShop(Graphics g){
-		g.drawImage(shop.backgroundImage,0,576,this);
-		g.drawImage(shop.itemImage[0],0,576,this);
-		g.drawImage(shop.itemImage[1],60,576,this);
-		g.drawImage(shop.itemImage[2],120,576,this);
-		g.drawImage(shop.itemImage[3],180,576,this);
-		g.drawImage(shop.itemImage[4],0,636,this);
-		g.drawImage(shop.itemImage[5],60,636,this);
-		g.drawImage(shop.itemImage[6],120,636,this);
-		g.drawImage(shop.itemImage[7],180,636,this);
+		g.drawImage(game.getShop().backgroundImage,0,576,this);
+		g.drawImage(game.getShop().itemImage[0],0,576,this);
+		g.drawImage(game.getShop().itemImage[1],60,576,this);
+		g.drawImage(game.getShop().itemImage[2],120,576,this);
+		g.drawImage(game.getShop().itemImage[3],180,576,this);
+		g.drawImage(game.getShop().itemImage[4],0,636,this);
+		g.drawImage(game.getShop().itemImage[5],60,636,this);
+		g.drawImage(game.getShop().itemImage[6],120,636,this);
+		g.drawImage(game.getShop().itemImage[7],180,636,this);
 		backBut.repaint();
 	}
 	
@@ -249,48 +157,7 @@ public class GameplayPanel extends JPanel{
     }  
 	
 	
-//////////////////CONTROLLER	
-	public class AL extends MouseAdapter{
-		private int gridNoY, gridNoX;
 
-		public void mouseMoved(MouseEvent e){
-			rectX = e.getX()-12;
-			rectY = e.getY()-12;
-		}
-		
-		public void mousePressed(MouseEvent e) {
-			int myX = e.getX();
-			int myY = e.getY();
-			if(e.getY()>screenY)
-			{
-				//System.out.println(myX);
-				shop.buyTower(myX,myY, playerGold);
-			}
-			else
-			{
-				System.out.println("Hit on tower slot");
-				gridNoX = (e.getX())/(grid.gridSlotWidthInPixels);
-				gridNoY = (e.getY())/(grid.gridSlotHeightInPixels);
-				boolean b = grid.thisGrid[gridNoX][gridNoY].mouseHitThisSlot(shop.towerBought, shop.towerToPlace, gridNoX*grid.gridSlotWidthInPixels, gridNoY*grid.gridSlotHeightInPixels);
-				repaint();
-				if(b)
-				{
-					towerManager.towerList[towerManager.towerCount] = shop.towerToPlace;
-					towerManager.addTower(shop.towerToPlace);
-					shop.towerBought = false;
-				}
-				//grid.thisGrid[gridNoX][gridNoY].testFunction("ASDADASDSADSA");
-				System.out.println("gridNoX: " + gridNoX);
-				System.out.println("gridNoY: " + gridNoY);
-				
-				//System.out.println("gridHeight: " + grid.gridHeight);
-				//System.out.println("screenX: " + screenX);
-				//System.out.println("mouseX: " + e.getX());
-			}
-		}
-                                   
-
-	}
 	
 
 	
