@@ -7,21 +7,15 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 import Enemy.*;
+import classes.GameObject;
 import classes.Projectile;
 
-public class Tower {
+public class Tower extends GameObject{
 	
 	private Enemy target;
-	
-	
-	//private Projectile[] projectilesSpawned;
-	ArrayList<Projectile> projectilesSpawned = new ArrayList<Projectile>();
-	
-	private int projectileCount; //= 0;
-	
-	
+	private ArrayList<Projectile> projectilesSpawned;
 	private String towerImageFile;
-	private boolean hasTarget;// = false;
+	private boolean hasTarget;
 	private Timer myTimer;
 	
 	private int locX;
@@ -34,11 +28,10 @@ public class Tower {
 	//Constructor
 	public Tower()
 	{
-		//projectilesSpawned = new Projectile[500];	
+		projectilesSpawned  = new ArrayList<Projectile>();
 	}
 	//Setting an enemy as target
-	public void setTarget(Enemy target)
-	{
+	public void setTarget(Enemy target){
 		double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.towerRange), 2) 
 				+ Math.pow(Math.abs(target.locX-this.towerRange), 2));
 		if(distance < this.towerRange && hasTarget==false)
@@ -77,12 +70,8 @@ public class Tower {
 	}
 	
 	public void spawnProjectile(Enemy target){
-
 		Projectile spawnedProjectile = new Projectile(locX,locY,target);
 		projectilesSpawned.add(spawnedProjectile);
-		//projectilesSpawned[projectileCount] = spawnedProjectile;
-		projectileCount++;
-		
 	}
 	
 	///////////////////////////////////////////////////////
@@ -120,4 +109,9 @@ public class Tower {
 	public int getCost(){ return cost;}
 	public int getAttackSpeed(){ return attackSpeed;}
 	///////////////////////////////////////////////////////
+	@Override
+	public void draw() {
+		// TODO Auto-generated method stub
+		
+	}
 }

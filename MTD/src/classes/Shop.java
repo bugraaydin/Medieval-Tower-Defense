@@ -1,5 +1,6 @@
 package classes;
 
+import java.awt.Graphics;
 //import java.awt.event.*;
 import java.awt.image.*;
 import java.io.IOException;
@@ -11,32 +12,27 @@ public class Shop {
 	
 
 	private int itemCount;
-	private String[] towersInShop;
-	
-	public BufferedImage[] itemImage;
-	public Tower towerToPlace;
-	public boolean towerBought = false;
-	private String backgroundImageBuffer = "/images/shop/shopBackground.jpg";
-	public BufferedImage backgroundImage; 
+	private BufferedImage[] itemImage;
+	private Tower towerToPlace;
+	private boolean towerBought = false;
+	private String backgroundImageBuffer;
+	private BufferedImage backgroundImage; 
 	
 	public Shop()
 	{
+		backgroundImageBuffer = "/images/shop/shopBackground.jpg";
 		try {
 			backgroundImage = ImageIO.read(getClass().getResourceAsStream(backgroundImageBuffer));
 		}	catch(IOException exc) {
 				exc.printStackTrace();
 		}
 		itemCount = 8;
-		towersInShop = new String[itemCount];
 		setShopItems();
 	}
 	public void buyTower(int mouseX, int mouseY, int playerGold)
 	{
-
-		//System.out.println("Buy tower called");
 		if((mouseX > 0 && mouseX<60) && (mouseY < 636 && mouseY > 576))
 		{
-			System.out.println("IN BUY ARCANE TOWER MODE");
 			if(playerGold>100)
 			{
 				towerToPlace = new ArcaneTower();
@@ -48,7 +44,6 @@ public class Shop {
 		}
 		else if((mouseX>60&&mouseX<120) && (mouseY < 636 && mouseY > 576) )
 		{
-			System.out.println("BUY ARROW TOWER CALLED");
 			if(playerGold>150)
 			{
 				towerToPlace = new ArrowTower();
@@ -60,7 +55,6 @@ public class Shop {
 		}
 		else if((mouseX>120&&mouseX<180) && (mouseY < 636 && mouseY > 576))
 		{
-			System.out.println("BUY Balista TOWER CALLED");
 			if(playerGold>150)
 			{
 				towerToPlace = new BalistaTower();
@@ -72,7 +66,6 @@ public class Shop {
 		}
 		else if((mouseX>180&&mouseX<240) && (mouseY < 636 && mouseY > 576))
 		{
-			System.out.println("BUY CANNON TOWER CALLED");
 			if(playerGold>150)
 			{
 				towerToPlace = new CannonTower();
@@ -84,7 +77,6 @@ public class Shop {
 		}
 		else if((mouseX>0&&mouseX<60) && (mouseY < 696 && mouseY > 636))
 		{
-			System.out.println("BUY ICE TOWER CALLED");
 			if(playerGold>150)
 			{
 				towerToPlace = new IceTower();
@@ -96,7 +88,6 @@ public class Shop {
 		}
 		else if((mouseX>60&&mouseX<120) && (mouseY < 696 && mouseY > 636))
 		{
-			System.out.println("BUY MORTAr TOWER CALLED");
 			if(playerGold>150)
 			{
 				towerToPlace = new MortarTower();
@@ -108,7 +99,6 @@ public class Shop {
 		}
 		else if((mouseX>120&&mouseX<180) && (mouseY < 696 && mouseY > 636))
 		{
-			System.out.println("BUY OIL TOWER CALLED");
 			if(playerGold>150)
 			{
 				towerToPlace = new OilTower();
@@ -120,7 +110,6 @@ public class Shop {
 		}
 		else if((mouseX>180&&mouseX<240) && (mouseY < 696 && mouseY > 636))
 		{
-			System.out.println("BUY Poison TOWER CALLED");
 			if(playerGold>150)
 			{
 				towerToPlace = new PoisonTower();
@@ -177,8 +166,29 @@ public class Shop {
 				exc.printStackTrace();
 		}
 	}
-	
+	//GETTERS
 	public int getItemCount(){
 		return itemCount;
+	}
+	public boolean getTowerBought(){
+		return towerBought;
+	}
+	public Tower getTowerToPlace(){
+		return towerToPlace;
+	}
+	//SETTERS
+	public void setTowerBought(boolean inp){
+		towerBought = inp;
+	}
+	public void draw(Graphics g){
+		g.drawImage(backgroundImage,0,576,null);
+		g.drawImage(itemImage[0],0,576,null);
+		g.drawImage(itemImage[1],60,576,null);
+		g.drawImage(itemImage[2],120,576,null);
+		g.drawImage(itemImage[3],180,576,null);
+		g.drawImage(itemImage[4],0,636,null);
+		g.drawImage(itemImage[5],60,636,null);
+		g.drawImage(itemImage[6],120,636,null);
+		g.drawImage(itemImage[7],180,636,null);
 	}
 }

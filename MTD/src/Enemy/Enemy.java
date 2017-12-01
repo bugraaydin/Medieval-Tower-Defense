@@ -1,16 +1,10 @@
 package Enemy;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.*;
 import java.io.IOException;
-
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
-import javax.swing.Timer;
 
 public class Enemy {
 	
@@ -23,27 +17,16 @@ public class Enemy {
 	int frames = 0;
 	
 	public int targetCount = 0;
-
 	public int locX = 300; // if enemy is dead, x and y are both -100
-
 	public int locY = 300;
-	
 	private int targetLocX;
 	private int targetLocY;
-
 	private int speed = 10;  // current speed
-
 	private int armor;  // current armor
-
 	private int health;  // current hp
-
 	private int debuffDPS; // from poison tower, taken per sec
-
 	private int resourceGiven;
-	
 	private boolean isGettingHit = false;
-
-	//public Timer effectTimer;
 	
 	public BufferedImage enemyImage;
 	
@@ -78,7 +61,6 @@ public class Enemy {
 		}
 		/*
 		ActionListener taskPerformer = new ActionListener(){
-
 			public void actionPerformed(ActionEvent e){
 				
 			}

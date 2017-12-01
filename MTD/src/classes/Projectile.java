@@ -5,12 +5,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.sun.javafx.geom.Vec2d;
 
 import Enemy.*;
 
-//Projectile Class
-//Projectile that is created by Tower class
 
 public class Projectile {
 	private String projectileImageBuffer;

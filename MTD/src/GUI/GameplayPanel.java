@@ -3,45 +3,34 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 
-import Grid.Grid;
-import classes.EnemyManager;
+import Grid.TowerGrid;
 import classes.GameManager;
-import classes.Projectile;
-import classes.Shop;
-import classes.TowerManager;
-
-import java.awt.event.*;
 
 public class GameplayPanel extends JPanel{
-	/////////////////////
-	//int gridSize = 10;
-	/////////////////////
-	//private Image dbImage;
 
 	private Graphics dbg;
-	//private BufferedImage tryImage;
 	private GameManager game;
-	private int screenX = 640;
-	private int screenY = 640;
-
-	JButton backBut;
+	private JButton backBut;
 	
+	String timeImageBuffer;
+	String resourceImageBuffer;
+	BufferedImage timeImage; 
+	BufferedImage resourceImage;
+	String layoutBackgroundBuffer;
+	BufferedImage layoutBackground;
+	String waveImageBuffer;
+	BufferedImage waveImage;
 	private ImageIcon myImageIcon = new ImageIcon("/Sequences/64x48/explosion1_003.png");
-	
 	public GameplayPanel(){
+
 		game = new GameManager();
         backBut = new javax.swing.JButton();
         backBut.setText("Back");
@@ -50,7 +39,7 @@ public class GameplayPanel extends JPanel{
                 backButActionPerformed(evt);
             }
         });
-
+        backBut.setVisible(true);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,14 +59,16 @@ public class GameplayPanel extends JPanel{
         
 		this.setPreferredSize(new Dimension(832,776));
 		setVisible(true);
-		addMouseListener(game.getAL());
-		addMouseMotionListener(game.getAL());
+		addMouseListener(game.getControl());
+		addMouseMotionListener(game.getControl());
+		backBut.repaint();
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////PAINT OBJECTS//////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
 	public void paint(Graphics g){
+		//DRAWIN EFFECTS
 		drawEffects(g);
 		//DRAW GRIDS AND TOWERS
 		drawGridsAndTowers(g);
@@ -86,11 +77,11 @@ public class GameplayPanel extends JPanel{
 		//DRAW PROJECTILES
 		drawProjectiles(g);
 		//DRAW SHOP
-		drawShop(g);
-		
-
+		game.getShop().draw(g);
+		//DRAW LAYOUT ELEMENTS
+		drawLayoutElements(g);
+		backBut.repaint();
 	}
-	
 	private void drawEffects(Graphics g)
 	{
 		myImageIcon.paintIcon(this, g, 345, 345);
@@ -107,7 +98,7 @@ public class GameplayPanel extends JPanel{
 		for(int i = 0; i < game.getGrid().gridWidth;i++){
 			for(int j = 0; j < game.getGrid().gridHeight;j++){
 				g.drawImage(game.getGrid().thisGrid[i][j].gridSlotImage, 64*i, 64*j, this);
-				if(game.getGrid().thisGrid[i][j].hasTower==true){
+				if(game.getGrid().thisGrid[i][j] instanceof TowerGrid){
 					g.drawImage(game.getGrid().thisGrid[i][j].towerImage, game.getGrid().gridSlotWidthInPixels*i, game.getGrid().gridSlotHeightInPixels*j, this);
 				}
 			}
@@ -129,7 +120,7 @@ public class GameplayPanel extends JPanel{
 			{
 				if(game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).getLocY() < 580
 						&& game.getTowerManager().towerList[i].getProjectilesSpawned().get(j) != null)
-				{ // shop screena kaçmasýn
+				{ 
 					if(game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).isAlive == false)
 						game.getTowerManager().towerList[i].getProjectilesSpawned().remove(j);
 					else
@@ -139,42 +130,41 @@ public class GameplayPanel extends JPanel{
 								game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).getLocY(),
 								this);
 								repaint();
-					}
-
-					
+					}	
 				}
 			}	
 		}
 	}
-	
-	private void drawShop(Graphics g){
-		g.drawImage(game.getShop().backgroundImage,0,576,this);
-		g.drawImage(game.getShop().itemImage[0],0,576,this);
-		g.drawImage(game.getShop().itemImage[1],60,576,this);
-		g.drawImage(game.getShop().itemImage[2],120,576,this);
-		g.drawImage(game.getShop().itemImage[3],180,576,this);
-		g.drawImage(game.getShop().itemImage[4],0,636,this);
-		g.drawImage(game.getShop().itemImage[5],60,636,this);
-		g.drawImage(game.getShop().itemImage[6],120,636,this);
-		g.drawImage(game.getShop().itemImage[7],180,636,this);
-		backBut.repaint();
+	private void drawLayoutElements(Graphics g){
+		timeImageBuffer = "/images/shop/layout/time_icon.png";
+		resourceImageBuffer = "/images/shop/layout/resource_icon.png";
+		waveImageBuffer = "/images/shop/layout/wave_icon.png";
+		layoutBackgroundBuffer = "/images/shop/layout/layout_background.jpg";
+		try {timeImage = ImageIO.read(getClass().getResourceAsStream(timeImageBuffer));}	
+		catch(IOException exc) {exc.printStackTrace();}
+		try {resourceImage = ImageIO.read(getClass().getResourceAsStream(resourceImageBuffer));}	
+		catch(IOException exc) {exc.printStackTrace();}
+		try {waveImage = ImageIO.read(getClass().getResourceAsStream(waveImageBuffer));}	
+		catch(IOException exc) {exc.printStackTrace();}
+		try {layoutBackground = ImageIO.read(getClass().getResourceAsStream(layoutBackgroundBuffer));}
+		catch(IOException exc) {exc.printStackTrace();}
+		
+		g.drawImage(layoutBackground,0,736,this);		
+		g.drawImage(timeImage,216,743,this);
+		g.drawString(game.getTime(),248,758);
+		g.drawImage(resourceImage,349,743,this);
+		g.drawString(game.getPlayerGold()+"",381,758);
+		g.drawImage(waveImage,482,743,this);
+		//change to current wave
+		g.drawString("50/50",514,758); // will be updated
+		repaint();
+		backBut.repaint(); // bugged idk why
+		
+		
 	}
-	
-	public void paintComponent(Graphics g) {
-		g.setColor(Color.BLACK);
-	}
-	
-	
-	
 //BACK BUTTON
     private void backButActionPerformed(java.awt.event.ActionEvent evt) {                                        
     	this.hide();
     	GameFrame settingsTriggered = new GameFrame(new MainMenuPanel());
     }  
-	
-	
-
-	
-
-	
 }

@@ -6,8 +6,14 @@ import javax.imageio.ImageIO;
 
 public class EnemyGrid extends GridSlot{
 	
-	public EnemyGrid(String s, boolean b) {
-		super(s,b);
+	public EnemyGrid() {
+		super();
+		canPlaceTower = false;
+		try {
+			gridSlotImage = ImageIO.read(getClass().getResourceAsStream("/images/grids/enemy_grid.jpg"));
+		}	catch(IOException exc) {
+				exc.printStackTrace();
+		}
 	}
 
 }

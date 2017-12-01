@@ -41,19 +41,16 @@ public class Grid {
 			for(int i=0; i<gridWidth; i++)
 				for(int j=0; j<gridHeight; j++)
 				{
-					thisGrid[i][j] = new GridSlot("/images/grids/tower_grid.jpg", true);
+					thisGrid[i][j] = new TowerGrid();
 				}
 			for(int i=0; i<gridHeight-2; i++)///DÜZ YOL ÇÝZ
 			{
-				thisGrid[2][i].setSlotImage("/images/grids/enemy_grid.jpg");
-				thisGrid[2][i].canPlaceTower = false;
+				thisGrid[2][i] = new EnemyGrid();
 			}
 			for(int i=0; i<gridWidth-2; i++)///DÜZ YOL ÇÝZ
 			{
-				thisGrid[i+2][7].setSlotImage("/images/grids/enemy_grid.jpg");
-				thisGrid[i+2][7].canPlaceTower = false;
+				thisGrid[i+2][7] = new EnemyGrid();
 			}
-					//g.drawImage(tryImage, 64*i, 64*j, this);
 		}
 	}
 
