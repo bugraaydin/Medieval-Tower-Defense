@@ -1,13 +1,20 @@
 package Enemy;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.*;
 import java.io.IOException;
 
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
+import javax.swing.Timer;
 
 public class Enemy {
+	
+	private ImageIcon impactImageIcon;
 	
 	private boolean b = true;
 	
@@ -33,7 +40,11 @@ public class Enemy {
 	private int debuffDPS; // from poison tower, taken per sec
 
 	private int resourceGiven;
+	
+	private boolean isGettingHit = false;
 
+	//public Timer effectTimer;
+	
 	public BufferedImage enemyImage;
 	
 	public String enemyImageBuffer;
@@ -46,11 +57,32 @@ public class Enemy {
 		this.locY = locY;
 	}
 	
-	public void takeDamage(int dmg)
+	public void onDamageTaken(int dmg)
 	{
+		if(!isAlive)
+			return;
 		health = health - dmg;
+		isGettingHit=true;
 		if(health<1)
+		{
 			isAlive = false;
+		}
+		for(int i=1; i<90; i++)
+		{
+			impactImageIcon = new ImageIcon("/Sequences/64x48/explosion1_00" + i + ".png");
+			if(i==89)
+				isGettingHit = false;
+		}
+		/*
+		ActionListener taskPerformer = new ActionListener(){
+
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		};
+		int delay = 750;
+		effectTimer = new Timer(delay,taskPerformer);
+		*/
 	}
 		
 	
@@ -72,7 +104,7 @@ public class Enemy {
 			if(targetCount +1< targetsX.length)
 			{
 				targetCount++;
-				System.out.println("TARGET COUNT ++++++++");
+				//System.out.println("TARGET COUNT ++++++++");
 				b=true;
 			}
 
@@ -176,7 +208,16 @@ public class Enemy {
 		return this.resourceGiven;
 
 	}
-
+	
+	public ImageIcon getImpactImageIcon()
+	{
+		return impactImageIcon;
+	}
+	
+	public boolean isGettingHit()
+	{
+		return isGettingHit;
+	}
 	////////////////////
 
 

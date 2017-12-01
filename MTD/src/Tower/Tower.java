@@ -2,6 +2,7 @@ package Tower;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
@@ -11,8 +12,14 @@ import classes.Projectile;
 public class Tower {
 	
 	private Enemy target;
-	private Projectile[] projectilesSpawned;
+	
+	
+	//private Projectile[] projectilesSpawned;
+	ArrayList<Projectile> projectilesSpawned = new ArrayList<Projectile>();
+	
 	private int projectileCount; //= 0;
+	
+	
 	private String towerImageFile;
 	private boolean hasTarget;// = false;
 	private Timer myTimer;
@@ -27,7 +34,7 @@ public class Tower {
 	//Constructor
 	public Tower()
 	{
-		projectilesSpawned = new Projectile[500];	
+		//projectilesSpawned = new Projectile[500];	
 	}
 	//Setting an enemy as target
 	public void setTarget(Enemy target)
@@ -72,8 +79,8 @@ public class Tower {
 	public void spawnProjectile(Enemy target){
 
 		Projectile spawnedProjectile = new Projectile(locX,locY,target);
-		
-		projectilesSpawned[projectileCount] = spawnedProjectile;
+		projectilesSpawned.add(spawnedProjectile);
+		//projectilesSpawned[projectileCount] = spawnedProjectile;
 		projectileCount++;
 		
 	}
@@ -102,7 +109,7 @@ public class Tower {
 		attackSpeed = speed;
 	}
 	//Getters
-	public Projectile[] getProjectilesSpawned(){ return projectilesSpawned;}
+	public ArrayList<Projectile> getProjectilesSpawned(){ return projectilesSpawned;}
 	public int getProjectileCount(){ return projectileCount;}
 	public boolean hasTarget(){ return hasTarget;}
 	public String getImage(){ return towerImageFile;}

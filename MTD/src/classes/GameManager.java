@@ -114,7 +114,7 @@ public class GameManager {
 	private void updateProjectiles() throws Throwable{
 		for(int i=0; i<towerManager.towerCount; i++){
 			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++){
-				towerManager.towerList[i].getProjectilesSpawned()[j].update();
+				towerManager.towerList[i].getProjectilesSpawned().get(j).update();
 			}
 		}
 	}

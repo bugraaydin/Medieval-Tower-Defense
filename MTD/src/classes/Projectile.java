@@ -104,7 +104,7 @@ public class Projectile {
 	
 	
 	public void dealDamage(){
-		target.takeDamage(damage);
+		target.onDamageTaken(damage);
 	}
 	
 	

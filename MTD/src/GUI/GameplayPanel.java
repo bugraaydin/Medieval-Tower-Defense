@@ -84,8 +84,19 @@ public class GameplayPanel extends JPanel{
 		drawProjectiles(g);
 		//DRAW SHOP
 		drawShop(g);
+		
+		drawEffects(g);
 	}
 	
+	private void drawEffects(Graphics g)
+	{
+		for(int i=0; i<game.getEnemyManager().enemyList.length; i++)
+		{
+			if(game.getEnemyManager().enemyList[i].isGettingHit())
+				g.drawImage(game.getEnemyManager().enemyList[i].getImpactImageIcon().getImage(),game.getEnemyManager().enemyList[i].getLocX(),game.getEnemyManager().enemyList[i].getLocY(), this);
+			//repaint();
+		}
+	}
 	
 	private void drawGridsAndTowers(Graphics g){
 		for(int i = 0; i < game.getGrid().gridWidth;i++){
@@ -111,16 +122,16 @@ public class GameplayPanel extends JPanel{
 		{
 			for(int j = 0; j < game.getTowerManager().towerList[i].getProjectileCount(); j++)
 			{
-				if(game.getTowerManager().towerList[i].getProjectilesSpawned()[j].getLocY() < 580
-						&& game.getTowerManager().towerList[i].getProjectilesSpawned()[j] != null)
+				if(game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).getLocY() < 580
+						&& game.getTowerManager().towerList[i].getProjectilesSpawned().get(j) != null)
 				{ // shop screena kaçmasýn
-					if(game.getTowerManager().towerList[i].getProjectilesSpawned()[j].isAlive == false)
-						game.getTowerManager().towerList[i].getProjectilesSpawned()[j] = null;
+					if(game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).isAlive == false)
+						game.getTowerManager().towerList[i].getProjectilesSpawned().remove(j);
 					else
 					{
-						g.drawImage(game.getTowerManager().towerList[i].getProjectilesSpawned()[j].projectileImage,
-								game.getTowerManager().towerList[i].getProjectilesSpawned()[j].getLocX(),
-								game.getTowerManager().towerList[i].getProjectilesSpawned()[j].getLocY(),
+						g.drawImage(game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).projectileImage,
+								game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).getLocX(),
+								game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).getLocY(),
 								this);
 								repaint();
 					}
