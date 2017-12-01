@@ -120,9 +120,10 @@ public class Projectile {
 		dy = dy/dist;
 		
 		// update x and y to the target's x y
-		if(targetLocX == this.getLocX() && targetLocY == this.getLocY()) {
+		if(Math.abs(targetLocX - this.getLocX()) < 15 && Math.abs(targetLocY - this.getLocY()) < 15 ) {
 			collision();	
 			dealDamage();
+			isAlive = false;
 			System.out.println("Target's health:" + target.getHealth());
 			return;
 		}

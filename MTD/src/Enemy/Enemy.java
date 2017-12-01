@@ -59,6 +59,7 @@ public class Enemy {
 	
 	public void onDamageTaken(int dmg)
 	{
+		System.out.println("ON DAMAGE TAKEN");
 		if(!isAlive)
 			return;
 		health = health - dmg;
@@ -70,6 +71,7 @@ public class Enemy {
 		for(int i=1; i<90; i++)
 		{
 			impactImageIcon = new ImageIcon("/Sequences/64x48/explosion1_00" + i + ".png");
+			System.out.println("Yeni imajikon");
 			if(i==89)
 				isGettingHit = false;
 		}

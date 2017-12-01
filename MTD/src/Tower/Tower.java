@@ -110,7 +110,7 @@ public class Tower {
 	}
 	//Getters
 	public ArrayList<Projectile> getProjectilesSpawned(){ return projectilesSpawned;}
-	public int getProjectileCount(){ return projectileCount;}
+	public int getProjectileCount(){ return projectilesSpawned.size();}
 	public boolean hasTarget(){ return hasTarget;}
 	public String getImage(){ return towerImageFile;}
 	public int getDamage(){return dmg;}
