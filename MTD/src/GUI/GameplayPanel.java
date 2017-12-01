@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -37,6 +38,8 @@ public class GameplayPanel extends JPanel{
 	private int screenY = 640;
 
 	JButton backBut;
+	
+	private ImageIcon myImageIcon = new ImageIcon("/Sequences/64x48/explosion1_003.png");
 	
 	public GameplayPanel(){
 		game = new GameManager();
@@ -75,7 +78,7 @@ public class GameplayPanel extends JPanel{
 	///////////////////////////////PAINT OBJECTS//////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
 	public void paint(Graphics g){
-
+		drawEffects(g);
 		//DRAW GRIDS AND TOWERS
 		drawGridsAndTowers(g);
 		//DRAW ENEMIES
@@ -85,11 +88,13 @@ public class GameplayPanel extends JPanel{
 		//DRAW SHOP
 		drawShop(g);
 		
-		drawEffects(g);
+
 	}
 	
 	private void drawEffects(Graphics g)
 	{
+		myImageIcon.paintIcon(this, g, 345, 345);
+		g.drawImage(myImageIcon.getImage(), 345, 345, this);
 		for(int i=0; i<game.getEnemyManager().enemyList.length; i++)
 		{
 			if(game.getEnemyManager().enemyList[i].isGettingHit())

@@ -55,6 +55,7 @@ public class Enemy {
 	{
 		this.locX = locX;
 		this.locY = locY;
+		impactImageIcon = new ImageIcon("/Sequences/64x48/explosion1_001.png");
 	}
 	
 	public void onDamageTaken(int dmg)
@@ -73,7 +74,7 @@ public class Enemy {
 			impactImageIcon = new ImageIcon("/Sequences/64x48/explosion1_00" + i + ".png");
 			System.out.println("Yeni imajikon");
 			if(i==89)
-				isGettingHit = false;
+				isGettingHit = true;
 		}
 		/*
 		ActionListener taskPerformer = new ActionListener(){
