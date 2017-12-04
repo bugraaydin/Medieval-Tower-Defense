@@ -19,7 +19,7 @@ public class GameFrame extends JFrame{
 	static Dimension size = new Dimension(780,740);
 	
 	public GameFrame(){
-		music = new SoundManager();
+		//music = new SoundManager();
 		mainMenu = new MainMenuPanel();
 		add(mainMenu);
 		init();

@@ -16,6 +16,6 @@ public class SaintJohnsKnight extends Enemy{
 
 		setResourceGiven(100);
 
-		setEnemyImage("/images/enemies/footman/footman.png");
+		//setEnemyImage("/images/enemies/footman/footman.png");
 	}
 }

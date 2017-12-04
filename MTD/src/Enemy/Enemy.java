@@ -17,8 +17,8 @@ public class Enemy {
 	int frames = 0;
 	
 	public int targetCount = 0;
-	public int locX = 300; // if enemy is dead, x and y are both -100
-	public int locY = 300;
+	public int locX; 
+	public int locY;
 	private int targetLocX;
 	private int targetLocY;
 	private int speed = 10;  // current speed
@@ -29,8 +29,7 @@ public class Enemy {
 	private boolean isGettingHit = false;
 	
 	public BufferedImage enemyImage;
-	
-	public String enemyImageBuffer;
+	public String[] enemyImageBuffer;
 	
 	public boolean isAlive = true;
 	
@@ -38,6 +37,7 @@ public class Enemy {
 	{
 		this.locX = locX;
 		this.locY = locY;
+		enemyImageBuffer = new String[18];
 		impactImageIcon = new ImageIcon("/Sequences/64x48/explosion1_001.png");
 	}
 	
@@ -59,15 +59,6 @@ public class Enemy {
 			if(i==89)
 				isGettingHit = true;
 		}
-		/*
-		ActionListener taskPerformer = new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				
-			}
-		};
-		int delay = 750;
-		effectTimer = new Timer(delay,taskPerformer);
-		*/
 	}
 		
 	
@@ -97,15 +88,13 @@ public class Enemy {
 	}
 	//////////Setters
 	
-	public void setEnemyImage(String s)
+	public void setEnemyImage(int i)
 	{
-		enemyImageBuffer = s;
-		try {
-			enemyImage = ImageIO.read(getClass().getResourceAsStream(s));
-		}	catch(IOException exc) {
-				exc.printStackTrace();
-		}
-		
+			try {
+				enemyImage = ImageIO.read(getClass().getResourceAsStream(enemyImageBuffer[i]));
+			}	catch(IOException exc) {
+					exc.printStackTrace();
+			}
 	}
 
 	public void setX(int x){

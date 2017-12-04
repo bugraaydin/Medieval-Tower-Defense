@@ -3,12 +3,12 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
 import Control.Control;
+import Enemy.Enemy;
 import Grid.*;
 
 public class GameManager {
@@ -22,23 +22,35 @@ public class GameManager {
 	private Control control;
 	private int minute;
 	private int second;
-	private int milisecond;
+	private int frameRate;
 	private String time;
+	private int remainingChances;
+	
+	//CHANGE
+	private ArrayList<Enemy> graveyard;
+	//
 	public GameManager(){
 
+		//
+		remainingChances = 10;
+		graveyard = new ArrayList<Enemy>();
+		//
 		minute = 0;
 		second = 0;
-		milisecond = 0;
+		frameRate = 0;
 		time = minute + ":" + second;
 		playerGold = 300;
 		shop = new Shop();
 		grid = new Grid(0);
 		control = new Control();
-		enemyManager = new EnemyManager(0, grid.gridSlotWidthInPixels, grid.gridSlotHeightInPixels, grid);//SPAWNS ENEMIES  IT'S CONSTRUCTOR
+		enemyManager = new EnemyManager();
+		enemyManager.initializeEnemies(0); // initializing the first wave
 		towerManager = new TowerManager();
-		screenX = grid.gridSlotWidthInPixels * grid.gridWidth;
-		screenY = grid.gridSlotHeightInPixels * grid.gridHeight;
+		screenX = grid.gridSlotWidth * grid.gridHeight;
+		screenY = grid.gridSlotHeight * grid.gridHeight;
 		updateObjects();
+		
+		
 	}
 	//////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////UPDATES/////////////////////////////////////////
@@ -49,9 +61,11 @@ public class GameManager {
 		ActionListener taskPerformer = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				updateTime();
+				updateWave();
 				updateEnemies(); // updating enemies
 				updateTowerTargets(); // updating targets
 				updateUserInputs(); // updating the controller
+				updateGraveyard();
 				try {
 					updateProjectiles();
 				} catch (Throwable e1) {
@@ -64,8 +78,8 @@ public class GameManager {
 	}
 	//UPDATE TIME
 	private void updateTime(){
-		milisecond++;
-		if(milisecond%10 == 0){
+		frameRate++;
+		if(frameRate%10 == 0){
 			second++;
 			if(second>59){
 				minute++;
@@ -74,11 +88,39 @@ public class GameManager {
 		}
 		time = minute+":"+second;
 	}
+	//UPDATING WAVES
+	public void updateWave(){
+		if(frameRate == 50){ //INITIALIZE SECOND WAVE AT 5TH SECOND
+			enemyManager.initializeEnemies(1); //initializing the second wave
+		}
+	}
 	//UPDATE ENEMIES
 	private void updateEnemies(){
-		for(int i=0; i<enemyManager.enemyCount; i++)
-		{
-			enemyManager.enemyList[i].move(grid.targetsX,grid.targetsY);
+		//update alive enemies
+		for(int i = 0; i < enemyManager.enemyList.size();i++){
+			if(!(enemyManager.enemyList.get(i).isAlive)){
+				graveyard.add(enemyManager.enemyList.get(i));
+				enemyManager.killEnemy(i);
+			}
+		}
+		
+		int imageSelection;
+		imageSelection = frameRate/3 % 5;
+		if(enemyManager.enemyCount != 0){
+			for(int i=0; i<enemyManager.enemyCount; i++)
+			{	
+				enemyManager.enemyList.get(i).setEnemyImage(imageSelection);
+			}
+			for(int i=0; i<enemyManager.enemyCount; i++)
+			{	
+				enemyManager.enemyList.get(i).move(grid.targetsX,grid.targetsY);
+			}
+		}
+	}
+	//UPDATING GRAVEYARD
+	private void updateGraveyard(){
+		for(int i = 0; i < graveyard.size(); i++){
+			graveyard.get(i).setEnemyImage(15);
 		}
 	}
 	//UPDATING TOWER TARGETS
@@ -87,22 +129,22 @@ public class GameManager {
 				for(int j=0; j<enemyManager.enemyCount; j++){
 					if(!towerManager.towerList[i].hasTarget()
 							&&
-							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList[j].locX) < towerManager.towerList[i].getTowerRange()
+							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList[i].getTowerRange()
 							&&
-							Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList[j].locY) < towerManager.towerList[i].getTowerRange())
+							Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList.get(j).locY) < towerManager.towerList[i].getTowerRange())
 					{
 					System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
-					towerManager.towerList[i].setTarget(enemyManager.enemyList[j]);
-					j = enemyManager.enemyList.length;
+					towerManager.towerList[i].setTarget(enemyManager.enemyList.get(j));
+					j = enemyManager.enemyList.size();
 					}
 					//CLEAR TARGET NOT WORKING YET
 					//
 					//
 					else if(towerManager.towerList[i].hasTarget()
 							&&
-							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList[j].locX) > towerManager.towerList[i].getTowerRange()
+							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList.get(j).locX) > towerManager.towerList[i].getTowerRange()
 							&&
-							Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList[j].locY) > towerManager.towerList[i].getTowerRange())
+							Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList.get(j).locY) > towerManager.towerList[i].getTowerRange())
 					{
 						if(j == enemyManager.enemyCount)
 							towerManager.towerList[i].clearTarget();
@@ -151,9 +193,9 @@ public class GameManager {
 		}
 		else
 		{
-			int gridNoX = (control.getMouseX())/(grid.gridSlotWidthInPixels);
-			int gridNoY = (control.getMouseY())/(grid.gridSlotHeightInPixels);
-			boolean b = grid.thisGrid[gridNoX][gridNoY].mouseHitThisSlot(shop.getTowerBought(), shop.getTowerToPlace(), gridNoX*grid.gridSlotWidthInPixels, gridNoY*grid.gridSlotHeightInPixels);
+			int gridNoX = (control.getMouseX())/64;
+			int gridNoY = (control.getMouseY())/64;
+			boolean b = grid.getGridSlot(gridNoX,gridNoY).mouseHitThisSlot(shop.getTowerBought(), shop.getTowerToPlace(), gridNoX*grid.gridSlotWidth, gridNoY*grid.gridSlotHeight);
 			if(b)
 			{
 				towerManager.towerList[towerManager.towerCount] = shop.getTowerToPlace();
@@ -162,6 +204,12 @@ public class GameManager {
 			}
 
 		}
+	}
+	public ArrayList<Enemy> getGraveyard(){
+		return graveyard;
+	}
+	public int getRemainingChances(){
+		return remainingChances;
 	}
 }
 	

@@ -20,17 +20,37 @@ public class GameplayPanel extends JPanel{
 	private GameManager game;
 	private JButton backBut;
 	
-	String timeImageBuffer;
-	String resourceImageBuffer;
-	BufferedImage timeImage; 
-	BufferedImage resourceImage;
-	String layoutBackgroundBuffer;
-	BufferedImage layoutBackground;
-	String waveImageBuffer;
-	BufferedImage waveImage;
+	private String timeImageBuffer;
+	private String resourceImageBuffer;
+	private BufferedImage timeImage; 
+	private BufferedImage resourceImage;
+	private String layoutBackgroundBuffer;
+	private BufferedImage layoutBackground;
+	private String waveImageBuffer;
+	private BufferedImage waveImage;
+	private String lifeImageBuffer;
+	private BufferedImage lifeImage;
 	private ImageIcon myImageIcon = new ImageIcon("/Sequences/64x48/explosion1_003.png");
 	public GameplayPanel(){
 
+		////////////////////////////
+		timeImageBuffer = "/images/shop/layout/time_icon.png";
+		resourceImageBuffer = "/images/shop/layout/resource_icon.png";
+		waveImageBuffer = "/images/shop/layout/wave_icon.png";
+		lifeImageBuffer = "/images/shop/layout/life_icon.png";
+		layoutBackgroundBuffer = "/images/shop/layout/layout_background.jpg";
+		try {timeImage = ImageIO.read(getClass().getResourceAsStream(timeImageBuffer));}	
+		catch(IOException exc) {exc.printStackTrace();}
+		try {resourceImage = ImageIO.read(getClass().getResourceAsStream(resourceImageBuffer));}	
+		catch(IOException exc) {exc.printStackTrace();}
+		try {waveImage = ImageIO.read(getClass().getResourceAsStream(waveImageBuffer));}	
+		catch(IOException exc) {exc.printStackTrace();}
+		try {lifeImage = ImageIO.read(getClass().getResourceAsStream(lifeImageBuffer));}
+		catch(IOException exc) {exc.printStackTrace();}
+		try {layoutBackground = ImageIO.read(getClass().getResourceAsStream(layoutBackgroundBuffer));}
+		catch(IOException exc) {exc.printStackTrace();}
+
+		//////////////////////////
 		game = new GameManager();
         backBut = new javax.swing.JButton();
         backBut.setText("Back");
@@ -62,6 +82,9 @@ public class GameplayPanel extends JPanel{
 		addMouseListener(game.getControl());
 		addMouseMotionListener(game.getControl());
 		backBut.repaint();
+		
+		
+		
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -69,11 +92,13 @@ public class GameplayPanel extends JPanel{
 	//////////////////////////////////////////////////////////////////////////////
 	public void paint(Graphics g){
 		//DRAWIN EFFECTS
-		drawEffects(g);
+	//	drawEffects(g);
 		//DRAW GRIDS AND TOWERS
 		drawGridsAndTowers(g);
 		//DRAW ENEMIES
 		drawEnemies(g);
+		//DRAW GRAVEYARD
+		drawGraveyard(g);
 		//DRAW PROJECTILES
 		drawProjectiles(g);
 		//DRAW SHOP
@@ -86,10 +111,10 @@ public class GameplayPanel extends JPanel{
 	{
 		myImageIcon.paintIcon(this, g, 345, 345);
 		g.drawImage(myImageIcon.getImage(), 345, 345, this);
-		for(int i=0; i<game.getEnemyManager().enemyList.length; i++)
+		for(int i=0; i<game.getEnemyManager().enemyList.size(); i++)
 		{
-			if(game.getEnemyManager().enemyList[i].isGettingHit())
-				g.drawImage(game.getEnemyManager().enemyList[i].getImpactImageIcon().getImage(),game.getEnemyManager().enemyList[i].getLocX(),game.getEnemyManager().enemyList[i].getLocY(), this);
+			if(game.getEnemyManager().enemyList.get(i).isGettingHit())
+				g.drawImage(game.getEnemyManager().enemyList.get(i).getImpactImageIcon().getImage(),game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
 			//repaint();
 		}
 	}
@@ -97,21 +122,30 @@ public class GameplayPanel extends JPanel{
 	private void drawGridsAndTowers(Graphics g){
 		for(int i = 0; i < game.getGrid().gridWidth;i++){
 			for(int j = 0; j < game.getGrid().gridHeight;j++){
-				g.drawImage(game.getGrid().thisGrid[i][j].gridSlotImage, 64*i, 64*j, this);
-				if(game.getGrid().thisGrid[i][j] instanceof TowerGrid){
-					g.drawImage(game.getGrid().thisGrid[i][j].towerImage, game.getGrid().gridSlotWidthInPixels*i, game.getGrid().gridSlotHeightInPixels*j, this);
+				g.drawImage(game.getGrid().getGridSlot(i,j).gridSlotImage, 64*i, 64*j, this);
+				repaint();
+				if(game.getGrid().getGridSlot(i,j) instanceof TowerGrid){
+					g.drawImage(game.getGrid().getGridSlot(i,j).towerImage, game.getGrid().gridSlotWidth*i, game.getGrid().gridSlotHeight*j, this);
+					repaint();
 				}
 			}
 		}
 	}
 	
 	private void drawEnemies(Graphics g){
-		for(int i=0; i<game.getEnemyManager().enemyList.length; i++){	
-			g.drawImage(game.getEnemyManager().enemyList[i].enemyImage,game.getEnemyManager().enemyList[i].getLocX(),game.getEnemyManager().enemyList[i].getLocY(), this);
+		for(int i=0; i<game.getEnemyManager().enemyList.size(); i++){	
+			g.drawImage(game.getEnemyManager().enemyList.get(i).enemyImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
 			repaint();
 		}
 	}
-	
+	//
+	private void drawGraveyard(Graphics g){
+		for(int i = 0; i < game.getGraveyard().size();i++){
+			g.drawImage(game.getGraveyard().get(i).enemyImage,game.getGraveyard().get(i).getLocX(),game.getGraveyard().get(i).getLocY(),this);
+			repaint();
+		}
+	}
+	//
 	private void drawProjectiles(Graphics g)
 	{
 		for(int i=0; i<game.getTowerManager().towerCount; i++)
@@ -136,27 +170,17 @@ public class GameplayPanel extends JPanel{
 		}
 	}
 	private void drawLayoutElements(Graphics g){
-		timeImageBuffer = "/images/shop/layout/time_icon.png";
-		resourceImageBuffer = "/images/shop/layout/resource_icon.png";
-		waveImageBuffer = "/images/shop/layout/wave_icon.png";
-		layoutBackgroundBuffer = "/images/shop/layout/layout_background.jpg";
-		try {timeImage = ImageIO.read(getClass().getResourceAsStream(timeImageBuffer));}	
-		catch(IOException exc) {exc.printStackTrace();}
-		try {resourceImage = ImageIO.read(getClass().getResourceAsStream(resourceImageBuffer));}	
-		catch(IOException exc) {exc.printStackTrace();}
-		try {waveImage = ImageIO.read(getClass().getResourceAsStream(waveImageBuffer));}	
-		catch(IOException exc) {exc.printStackTrace();}
-		try {layoutBackground = ImageIO.read(getClass().getResourceAsStream(layoutBackgroundBuffer));}
-		catch(IOException exc) {exc.printStackTrace();}
+
 		
 		g.drawImage(layoutBackground,0,736,this);		
-		g.drawImage(timeImage,216,743,this);
-		g.drawString(game.getTime(),248,758);
-		g.drawImage(resourceImage,349,743,this);
-		g.drawString(game.getPlayerGold()+"",381,758);
-		g.drawImage(waveImage,482,743,this);
-		//change to current wave
-		g.drawString("50/50",514,758); // will be updated
+		g.drawImage(timeImage,170,743,this);
+		g.drawString(game.getTime(),202,758);
+		g.drawImage(resourceImage,312,743,this);
+		g.drawString(game.getPlayerGold()+"",342,758);
+		g.drawImage(waveImage,452,743,this);
+		g.drawString((game.getEnemyManager().getWaveNo() + 1) + "" +"/15" ,484,758); // will be updated
+		g.drawImage(lifeImage,594,743,this);
+		g.drawString(game.getRemainingChances()+"/10",626,758);
 		repaint();
 		backBut.repaint(); // bugged idk why
 		

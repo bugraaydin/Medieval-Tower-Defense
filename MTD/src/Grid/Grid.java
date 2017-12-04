@@ -1,25 +1,23 @@
 package Grid;
 
 public class Grid {
-	public GridSlot[][] thisGrid;
-	public int gridSlotWidthInPixels = 64;
-	public int gridSlotHeightInPixels = 64;
+	private GridSlot[][] gameGrid;
+	public int gridSlotWidth;
+	public int gridSlotHeight;
 	public int gridWidth;
 	public int gridHeight;
-	int enemySpawnLocX = 0;
-	int enemyspawnLocY = 0;
 	public int[] targetsX;
 	public int[] targetsY;
 	
 	public Grid(int level)
 	{
+		gridWidth = 13;
+		gridHeight = 9;
+		gridSlotWidth = 64;
+		gridSlotHeight = 64;
+		gameGrid = new GridSlot[gridWidth][gridHeight];
 		initializeLevel(level);
-	}
-	public Grid()
-	{
-		gridSlotWidthInPixels = 64;
-		gridSlotHeightInPixels = 64;
-		initializeLevel(0);
+
 	}
 	
 	public void initializeLevel(int levelNo)
@@ -35,23 +33,27 @@ public class Grid {
 			targetsX[2] = 700;
 			targetsY[2] = 470;
 			
-			gridWidth = 13;
-			gridHeight = 9;
-			thisGrid = new GridSlot[gridWidth][gridHeight];
-			for(int i=0; i<gridWidth; i++)
+			for(int i=0; i<gridWidth; i++){
 				for(int j=0; j<gridHeight; j++)
 				{
-					thisGrid[i][j] = new TowerGrid();
+					gameGrid[i][j] = new TowerGrid();
 				}
-			for(int i=0; i<gridHeight-2; i++)///DÜZ YOL ÇÝZ
-			{
-				thisGrid[2][i] = new EnemyGrid();
 			}
-			for(int i=0; i<gridWidth-2; i++)///DÜZ YOL ÇÝZ
+			for(int i=0; i<gridHeight-2; i++)///Enemy grids
 			{
-				thisGrid[i+2][7] = new EnemyGrid();
+				gameGrid[2][i] = new EnemyGrid();
+			}
+			for(int i=0; i<gridWidth-2; i++)///Enemy grids
+			{
+				gameGrid[i+2][7] = new EnemyGrid();
 			}
 		}
+	}
+	
+	//GETTERS
+
+	public GridSlot getGridSlot(int i,int j){
+		return gameGrid[i][j];
 	}
 
 }

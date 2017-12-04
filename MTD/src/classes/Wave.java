@@ -3,11 +3,25 @@ import Enemy.*;
 
 public class Wave {
 	
-	Enemy[] enemiesInWave;
+	EnemyManager[] wave;
+	EnemyManager currentWave;
+	int waveNumber;
 	
-	public Wave(int enemyCount){
-		enemiesInWave = new Enemy[enemyCount];
+	public Wave(int waveCount){
+		wave = new EnemyManager[waveCount];
+		currentWave = wave[0];
+		waveNumber = 0;
+		initWaves();
 	}
-
+	private void initWaves(){
+		
+	}
+	
+	public void updateWave(){
+		if(waveNumber < wave.length){
+			currentWave = wave[waveNumber+1];
+			waveNumber++;
+		}
+	}
 	
 }
