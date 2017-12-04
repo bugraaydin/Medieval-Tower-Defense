@@ -57,7 +57,7 @@ public class GameManager {
 	//////////////////////////////////////////////////////////////////////////////
 	public void updateObjects()
 	{
-		int delay = 100; // ~10 updates per second
+		int delay = 100; // ~5 updates per second
 		ActionListener taskPerformer = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				updateTime();
@@ -119,9 +119,28 @@ public class GameManager {
 	}
 	//UPDATING GRAVEYARD
 	private void updateGraveyard(){
+		int updateFrequency = frameRate % 2;
+		if(updateFrequency == 0)
+			updateDyingEnemy();
+	}
+	//UPDATE DYING ENEMY
+	private void updateDyingEnemy(){
+		
 		for(int i = 0; i < graveyard.size(); i++){
-			graveyard.get(i).setEnemyImage(15);
-		}
+			int timeForCorpse = frameRate % 30;
+			if(graveyard.get(i).getEnemyImageNumber() == 15)
+			graveyard.get(i).setEnemyImage(16);
+			else if(graveyard.get(i).getEnemyImageNumber() == 16)
+			graveyard.get(i).setEnemyImage(17);
+			else if(graveyard.get(i).getEnemyImageNumber() == 17 && timeForCorpse == 28){
+				graveyard.remove(i);
+			}
+			else if(graveyard.get(i).getEnemyImageNumber() == 17 && timeForCorpse < 29){
+				graveyard.get(i).setEnemyImage(17);	
+			}
+			else
+				graveyard.get(i).setEnemyImage(15);	
+		}	
 	}
 	//UPDATING TOWER TARGETS
 	private void updateTowerTargets(){

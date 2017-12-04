@@ -28,6 +28,7 @@ public class Enemy {
 	private int resourceGiven;
 	private boolean isGettingHit = false;
 	
+	private int enemyImageNumber;
 	public BufferedImage enemyImage;
 	public String[] enemyImageBuffer;
 	
@@ -86,12 +87,16 @@ public class Enemy {
 
 		}
 	}
-	//////////Setters
 	
+	public int getEnemyImageNumber(){
+		return enemyImageNumber;
+	}
+	//////////Setters
 	public void setEnemyImage(int i)
 	{
 			try {
 				enemyImage = ImageIO.read(getClass().getResourceAsStream(enemyImageBuffer[i]));
+				enemyImageNumber = i;
 			}	catch(IOException exc) {
 					exc.printStackTrace();
 			}
