@@ -24,7 +24,13 @@ public class EnemyManager {
 		if(waveNo == 0){
 			this.waveNo = 0;
 			for(int i = 0; i < 1; i++){ 
-				enemyList.add(new Footman(enemySpawnLocX, enemySpawnLocY)); // first wave consists of 5 footmans
+				//enemyList.add(new Footman(enemySpawnLocX, enemySpawnLocY)); 
+				//enemyList.add(new GryphonRider(enemySpawnLocX, enemySpawnLocY));
+				//enemyList.add(new Mage(enemySpawnLocX, enemySpawnLocY));
+				//enemyList.add(new Grunt(enemySpawnLocX, enemySpawnLocY));
+				//enemyList.add(new DwarvenDemolishers(enemySpawnLocX, enemySpawnLocY));
+				//enemyList.add(new ElvenArcher(enemySpawnLocX, enemySpawnLocY));
+				enemyList.add(new FlyingMachine(enemySpawnLocX, enemySpawnLocY));
 				enemyCount++;
 			}
 		}
@@ -32,7 +38,7 @@ public class EnemyManager {
 		if(waveNo == 1){
 			this.waveNo = 1;
 			for(int i = 0; i < 1; i++){
-				enemyList.add(new Knight(enemySpawnLocX, enemySpawnLocY)); // first wave consists of 5 footmans
+				enemyList.add(new Knight(enemySpawnLocX, enemySpawnLocY)); 
 				enemyCount++;
 			}
 		}
