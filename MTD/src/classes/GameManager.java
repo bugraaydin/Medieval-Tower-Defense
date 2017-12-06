@@ -189,8 +189,8 @@ public class GameManager {
 				for(int j=0; j<enemyManager.enemyCount; j++){
 					Enemy en = enemyManager.enemyList.get(enemyManager.enemyCount-1);
 					if(//!towerManager.towerList[i].hasTarget()
-							//en.isAlive
-							//&&
+							en.isAlive
+							&&
 							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList[i].getTowerRange()
 							&&
 							Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList.get(j).locY) < towerManager.towerList[i].getTowerRange())
@@ -216,7 +216,7 @@ public class GameManager {
 					{
 						if(j == enemyManager.enemyCount) {
 							towerManager.towerList[i].setTarget(null);
-							continue;
+							//continue;
 						}
 					}
 				}
