@@ -17,7 +17,6 @@ public class Tower extends GameObject{
 	private String towerImageFile;
 	private boolean hasTarget;
 	private Timer myTimer;
-	
 	private int locX;
 	private int locY;
 	private int towerRange;
@@ -33,12 +32,17 @@ public class Tower extends GameObject{
 	//Setting an enemy as target
 	public void setTarget(Enemy target){
 		double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.towerRange), 2) 
-				+ Math.pow(Math.abs(target.locX-this.towerRange), 2));
-		if(distance < this.towerRange && hasTarget==false)
-		{	
+				+ Math.pow(Math.abs(target.locY-this.towerRange), 2));
+		if(distance < this.towerRange && hasTarget==false && target.isAlive == true)
+		{				
 			this.target = target;
 			hasTarget = true;
 			activateTower();
+		}
+		else if(target.isAlive == false || distance < this.towerRange){			
+			hasTarget = false;
+			this.target = null;
+			clearTarget();
 		}
 	}
 	
@@ -56,7 +60,9 @@ public class Tower extends GameObject{
 		ActionListener taskPerformer = new ActionListener(){
 
 			public void actionPerformed(ActionEvent e){
-				spawnProjectile(target);
+				if(target.isAlive) {
+					spawnProjectile(target);
+				}
 			}
 		};
 		myTimer = new Timer(delay,taskPerformer);
@@ -70,8 +76,8 @@ public class Tower extends GameObject{
 	}
 	
 	public void spawnProjectile(Enemy target){
-		Projectile spawnedProjectile = new Projectile(locX,locY,target);
-		projectilesSpawned.add(spawnedProjectile);
+			Projectile spawnedProjectile = new Projectile(locX,locY,target);
+			projectilesSpawned.add(spawnedProjectile);
 	}
 	
 	///////////////////////////////////////////////////////
@@ -97,6 +103,9 @@ public class Tower extends GameObject{
 	public void setAttackSpeed(int speed){
 		attackSpeed = speed;
 	}
+	public void setHasTarget(boolean has_target){
+		hasTarget = has_target;
+	}
 	//Getters
 	public ArrayList<Projectile> getProjectilesSpawned(){ return projectilesSpawned;}
 	public int getProjectileCount(){ return projectilesSpawned.size();}
@@ -104,6 +113,7 @@ public class Tower extends GameObject{
 	public String getImage(){ return towerImageFile;}
 	public int getDamage(){return dmg;}
 	public int getLocX(){ return locX;}
+	public Enemy getEnemy(){ return target;}
 	public int getLocY(){ return locY;}
 	public int getTowerRange(){ return towerRange;}
 	public int getCost(){ return cost;}
