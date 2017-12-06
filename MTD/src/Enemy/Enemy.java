@@ -73,8 +73,8 @@ public class Enemy {
 			b= false;
 		}
 ////////////////////////////////////////////////////
-		locX = locX+ (targetLocX/50) * 2;
-		locY = locY+ (targetLocY/50) * 2;
+		locX = locX+ (targetLocX/100) * 2;
+		locY = locY+ (targetLocY/100) * 2;
 		//System.out.println(locX);
 		if(Math.abs(locX - targetsX[targetCount]) < 30 && Math.abs(targetsY[targetCount] - locY) < 30)
 		{

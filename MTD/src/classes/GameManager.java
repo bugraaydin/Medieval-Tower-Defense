@@ -189,8 +189,8 @@ public class GameManager {
 				for(int j=0; j<enemyManager.enemyCount; j++){
 					Enemy en = enemyManager.enemyList.get(enemyManager.enemyCount-1);
 					if(//!towerManager.towerList[i].hasTarget()
-							//en.isAlive
-							//&&
+							en.isAlive
+							&&
 							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList[i].getTowerRange()
 							&&
 							Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList.get(j).locY) < towerManager.towerList[i].getTowerRange())
@@ -198,25 +198,19 @@ public class GameManager {
 						System.out.println("INRANGEEEEEEEEEEEEEEEEEE of tower: "+towerManager.towerList[i].getLocX()+","+towerManager.towerList[i].getLocY());
 						towerManager.towerList[i].setTarget(enemyManager.enemyList.get(j));
 						j = enemyManager.enemyList.size();
-					/*	if(towerManager.towerList[i].getEnemy().getHealth()<=0) {
-							Enemy enemy = towerManager.towerList[i].getEnemy();
-							enemyManager.enemyList.remove(enemy);
-							continue;
-						}*/
-							
+												
 					}
 					//CLEAR TARGET NOT WORKING YET
 					//
 					//
-					else if(//towerManager.towerList[i].hasTarget()
-							//&&
+					else if(towerManager.towerList[i].hasTarget()
+							&&
 							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList.get(j).locX) > towerManager.towerList[i].getTowerRange()
 							&&
 							Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList.get(j).locY) > towerManager.towerList[i].getTowerRange())
 					{
 						if(j == enemyManager.enemyCount) {
 							towerManager.towerList[i].setTarget(null);
-							continue;
 						}
 					}
 				}
