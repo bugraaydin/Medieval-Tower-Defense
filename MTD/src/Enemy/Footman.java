@@ -12,7 +12,7 @@ public class Footman extends Enemy{
 
 		setArmor(10);
 
-		setHealth(1000);
+		setHealth(50);
 
 		setDebuffDPS(0);
 

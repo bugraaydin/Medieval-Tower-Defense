@@ -61,6 +61,7 @@ public class Projectile {
 	public Projectile(int x, int y, Enemy target){
 		projectileImageBuffer = "/images/projectiles/ex0.png";
 		this.locX = x;
+
 		this.locY = y;
 		
 		spawnLocationX = this.locX;
@@ -78,7 +79,7 @@ public class Projectile {
 	}
 	
 	
-	/*public void move(){
+	public void move(){
 		//System.out.println("locX 1: " + locX);
 		if(!isAlive)
 			return;
@@ -96,7 +97,7 @@ public class Projectile {
 			targetLocX = 0;
 			targetLocY = 0;
 		}
-	}*/
+	}
 	
 	
 	public void dealDamage(){
