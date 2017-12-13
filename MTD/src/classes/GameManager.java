@@ -56,8 +56,8 @@ public class GameManager {
 							{0,0,0,0,0,0,1,0,0},
 							{0,0,1,1,1,1,1,0,0},
 							{0,0,1,0,0,0,0,0,0},
-							{0,0,1,1,1,0,0,0,0},
-							{0,0,0,0,1,0,0,0,0}
+							{0,0,1,1,1,1,1,0,0},
+							{0,0,0,0,0,0,1,0,0}
 						};
 		grid = new Grid(test);
 		control = new Control();
@@ -81,15 +81,10 @@ public class GameManager {
 				updateTime();
 				updateWave();
 				updateEnemies(); // updating enemies
-				//updateTowerTargets(); // updating targets
+				updateTowerTargets(); // updating targets
 				updateUserInputs(); // updating the controller
-				updateGraveyard();
-				try {
-					// updateProjectiles();
-				} catch (Throwable e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} //updating projectiles
+				updateGraveyard(); //
+				updateProjectiles();//updating the projectiles
 			}
 		};
 		new Timer(delay,taskPerformer).start();
@@ -275,63 +270,84 @@ public class GameManager {
 	}
 	//UPDATING TOWER TARGETS
 	private void updateTowerTargets(){
-			for(int i=0; i<towerManager.towerCount; i++){	
-				for(int j=0; j<enemyManager.enemyCount; j++){
-					Enemy en = enemyManager.enemyList.get(enemyManager.enemyCount-1);
-					if(//!towerManager.towerList[i].hasTarget()
-							en.isAlive
-<<<<<<< HEAD
-=======
-							&&
-							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList[i].getTowerRange()
->>>>>>> 3839234eb24193f646cb799d4184fcdc58325b22
+			for(int i=0; i<towerManager.towerList.size(); i++){	
+				for(int j=0; j<enemyManager.enemyList.size(); j++){
+
+					if(!towerManager.towerList.get(i).hasTarget()
 							&&
 							Math.abs(towerManager.towerList.get(i).getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList.get(i).getTowerRange()
 							&&
 							Math.abs(towerManager.towerList.get(i).getLocY() - enemyManager.enemyList.get(j).locY) < towerManager.towerList.get(i).getTowerRange())
 					{
-						System.out.println("INRANGEEEEEEEEEEEEEEEEEE of tower: "+towerManager.towerList.get(i).getLocX()+","+towerManager.towerList.get(i).getLocY());
-						towerManager.towerList.get(i).setTarget(enemyManager.enemyList.get(j));
-						j = enemyManager.enemyList.size();
-					/*	if(towerManager.towerList[i].getEnemy().getHealth()<=0) {
-							Enemy enemy = towerManager.towerList[i].getEnemy();
-							enemyManager.enemyList.remove(enemy);
-							continue;
-						}*/
-							
+					System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
+					towerManager.towerList.get(i).setTarget(enemyManager.enemyList.get(j));
+					j = enemyManager.enemyList.size();
 					}
-					//CLEAR TARGET NOT WORKING YET
-					//
-					//
-					else if(//towerManager.towerList[i].hasTarget()
-							//&&
-							Math.abs(towerManager.towerList.get(i).getLocX() - enemyManager.enemyList.get(j).locX) > towerManager.towerList.get(i).getTowerRange()
-							&&
-							Math.abs(towerManager.towerList.get(i).getLocY() - enemyManager.enemyList.get(j).locY) > towerManager.towerList.get(i).getTowerRange())
-					{
-						if(j == enemyManager.enemyCount) {
-<<<<<<< HEAD
+					if(towerManager.towerList.get(i).getTarget() != null)
+						if((!towerManager.towerList.get(i).getTarget().isAlive)){
 							towerManager.towerList.get(i).setTarget(null);
-=======
-							towerManager.towerList[i].setTarget(null);
->>>>>>> 3839234eb24193f646cb799d4184fcdc58325b22
-							//continue;
+							towerManager.towerList.get(i).setHasTarget(false);
+							System.out.println("sa");
+							return;
 						}
-					}
 				}
 			}
 		
 		
 	}
 	//UPDATE PROJECTILES
-	private void updateProjectiles() throws Throwable{
-		for(int i=0; i<towerManager.towerCount; i++){
-			for(int j = 0; j < towerManager.towerList.get(i).getProjectileCount(); j++){
+	private void updateProjectiles(){
+		int time = frameRate;
+		if(towerManager.towerList.size() == 0)
+			return;
+		for(int i=0; i<towerManager.towerList.size(); i++){
+			if(towerManager.towerList.get(i).getTarget() != null)
+				if(towerManager.towerList.get(i).getTarget().isAlive == true && frameRate % 8 == 0){
+					towerManager.spawnProjectile(i);
+					System.out.println("wow");
+				}
+			for(int j = 0; j < towerManager.towerList.get(i).getProjectilesSpawned().size(); j++){
+				
 				towerManager.towerList.get(i).getProjectilesSpawned().get(j).update();
+				if(towerManager.towerList.get(i).getTarget() == null )
+					towerManager.towerList.get(i).getProjectilesSpawned().remove(j);
+
+				
 			}
 		}
 	}
 	
+	
+	private void updateUserInputs(){
+		boolean b;
+		if(control.getMouseY()>screenY)
+		{
+			shop.buyTower(control.getMouseX(),control.getMouseY(), playerGold);
+		}
+		else
+		{
+			if(control.getMouseX() == 0 && control.getMouseY() == 0)
+				return;
+			int gridNoX = (control.getMouseX())/64;
+			int gridNoY = (control.getMouseY())/64;
+			if(!(grid.getGridSlot(gridNoX, gridNoY) instanceof TowerGrid))
+					return;
+			b = ((TowerGrid) grid.getGridSlot(gridNoX,gridNoY)).mouseHitThisSlot(shop.getTowerBought(), shop.getTowerToPlace(), gridNoX*grid.getGridHeight(), gridNoY*grid.getGridWidth());
+			if(b)
+			{
+
+				towerManager.addTower(shop.getTowerToPlace());
+				int gridX = control.getMouseX() / 64;
+				int gridY = control.getMouseY() / 64;
+				shop.getTowerToPlace().setLocX(gridX * 64 + 32);
+				shop.getTowerToPlace().setLocY(gridY * 64 + 32);
+				control.setMouseX(0);
+				control.setMouseY(0);
+				shop.setTowerBought(false);
+			}
+
+		}
+	}
 	//getters
 	public Grid getGrid(){
 		return grid;
@@ -353,26 +369,6 @@ public class GameManager {
 	}
 	public int getPlayerGold(){
 		return playerGold;
-	}
-	
-	private void updateUserInputs(){
-		if(control.getMouseY()>screenY)
-		{
-			shop.buyTower(control.getMouseX(),control.getMouseY(), playerGold);
-		}
-		else
-		{
-			int gridNoX = (control.getMouseX())/64;
-			int gridNoY = (control.getMouseY())/64;
-			boolean b = grid.getGridSlot(gridNoX,gridNoY).mouseHitThisSlot(shop.getTowerBought(), shop.getTowerToPlace(), gridNoX*grid.getGridHeight(), gridNoY*grid.getGridWidth());
-			if(b)
-			{
-				towerManager.towerList.add(shop.getTowerToPlace());
-				towerManager.addTower(shop.getTowerToPlace());
-				shop.setTowerBought(false);
-			}
-
-		}
 	}
 	public ArrayList<Enemy> getGraveyard(){
 		return graveyard;

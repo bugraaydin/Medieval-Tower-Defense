@@ -19,4 +19,10 @@ public class Control extends MouseAdapter{
 	public int getMouseY(){
 		return mouseY;
 	}
+	public void setMouseX(int x){
+		mouseX = x;
+	}
+	public void setMouseY(int y){
+		mouseY = y;
+	}
 }

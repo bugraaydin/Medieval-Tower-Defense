@@ -15,9 +15,6 @@ public class EnemyGrid extends GridSlot{
 		setGridSlotImage(EnemyImageBuffer);
 	}
 	
-	public boolean mouseHitThisSlot(boolean isInBuyMode, Tower towerToPlace, int x, int y)
-	{
-		return false;
-	}
+
 
 }

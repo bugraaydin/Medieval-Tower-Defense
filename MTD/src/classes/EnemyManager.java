@@ -23,7 +23,7 @@ public class EnemyManager {
 		//initialize 1st wave
 		if(waveNo == 0){
 			this.waveNo = 0;
-			for(int i = 0; i < 10; i++){ 
+			for(int i = 0; i < 1; i++){ 
 				enemyList.add(new Footman(enemySpawnLocX, enemySpawnLocY)); 
 				//enemyList.add(new Grunt(enemySpawnLocX, enemySpawnLocY));
 				//enemyList.add(new DwarvenDemolishers(enemySpawnLocX, enemySpawnLocY));

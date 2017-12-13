@@ -20,7 +20,6 @@ public class Grid {
 					gameGrid[i][j] = new TowerGrid();
 				if(level[i][j] == 1)
 					gameGrid[i][j] = new EnemyGrid();
-					
 			}
 		}
 	}

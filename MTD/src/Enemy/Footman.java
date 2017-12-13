@@ -8,11 +8,11 @@ public class Footman extends Enemy{
 
 		super(locX,locY);
 		
-		setSpeed(10);
+		setSpeed(5);
 
 		setArmor(10);
 
-		setHealth(300);
+		setHealth(50);
 
 		setDebuffDPS(0);
 

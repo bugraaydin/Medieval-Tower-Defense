@@ -100,7 +100,7 @@ public class GameplayPanel extends JPanel{
 		//DRAW GRAVEYARD
 		drawGraveyard(g);
 		//DRAW PROJECTILES
-		//drawProjectiles(g);
+		drawProjectiles(g);
 		//DRAW SHOP
 		game.getShop().draw(g);
 		//DRAW LAYOUT ELEMENTS

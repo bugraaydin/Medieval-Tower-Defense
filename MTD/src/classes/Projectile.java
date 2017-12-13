@@ -2,70 +2,38 @@ package classes;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
-
 import Enemy.*;
 
 
 public class Projectile {
 	private String projectileImageBuffer;
 	public BufferedImage projectileImage;
-	private int spawnLocationX;
-	private int spawnLocationY;
 	private int locX;
 	private int locY;
-	private double timeTillHit = 20;
-	private int damage = 25;
+	private double timeTillHit;
+	private int damage;
 	private int damageType;
-	private int slowRate= 0;
-	private int armorReduce= 0;
-	private int damagePerSec = 0;
+	private int slowRate;
+	private int armorReduce;
+	private int damagePerSec;
 	private Enemy target;
-	private int speed = 10;
+	private int speed;
 	private int targetLocX;
 	private int targetLocY;
 	public boolean isAlive = true;
-	// private onhit effect2d :: 2d image
 
-	// projectile animation :: 2dimage sequence
-
-	// projectile brigtness : float
-
-	//projectile sound effect :: sound2d
-	
-
-	public Projectile(int x,int y,int damage,int damageType,int slowRate,int armorReduce,int damagePerSec,Enemy target, String projectileImageBuffer){
-
-		this.projectileImageBuffer = projectileImageBuffer;
-		
-		try {
-			projectileImage = ImageIO.read(getClass().getResourceAsStream(projectileImageBuffer));
-		}	catch(IOException exc) {
-				exc.printStackTrace();
-		}
-		
-		this.locX = x;
-		this.locY = y;
-		this.damage = damage;
-		this.damageType = damageType;
-		this.slowRate = slowRate;
-		this.armorReduce = armorReduce;
-		this.damagePerSec = damagePerSec;
-		this.target = target;
-		targetLocX = target.locX;
-		targetLocY =  target.locY;
-	}
 	
 	public Projectile(int x, int y, Enemy target){
+		timeTillHit = 20;
+		damage = 25;
+		slowRate = 0;
+		armorReduce = 0;
+		damagePerSec = 0;
+		speed = 10;
 		projectileImageBuffer = "/images/projectiles/ex0.png";
 		this.locX = x;
-
 		this.locY = y;
-		
-		spawnLocationX = this.locX;
-		spawnLocationY = this.locY;
 		this.target = target;
 		
 		try {
@@ -76,27 +44,6 @@ public class Projectile {
 		
 		targetLocX = target.locX;
 		targetLocY =  target.locY;
-	}
-	
-	
-	public void move(){
-		//System.out.println("locX 1: " + locX);
-		if(!isAlive)
-			return;
-			locX = spawnLocationX + ((targetLocX-locX)/10) * 2;
-			//System.out.println("locX 2: " + locX);
-			locY = spawnLocationY + ((targetLocY-locY)/10) * 2;
-			targetLocX = target.locX-locX;
-			targetLocY =  target.locY-locY;
-		//System.out.println(locX);
-		
-		if(Math.abs(locX - target.locX) < 20 && Math.abs(target.locY - locY) < 20)
-		{
-			dealDamage();
-			isAlive = false;
-			targetLocX = 0;
-			targetLocY = 0;
-		}
 	}
 	
 	
@@ -107,7 +54,6 @@ public class Projectile {
 	
 	
 	public void update(){
-
 		targetLocX = target.locX;
 		targetLocY =  target.locY;
 		double dx = target.locX - this.locX;
@@ -115,25 +61,15 @@ public class Projectile {
 		double dist = Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
 		dx = dx/dist;
 		dy = dy/dist;
-		
-		// update x and y to the target's x y
 		if(Math.abs(targetLocX - this.getLocX()) < 15 && Math.abs(targetLocY - this.getLocY()) < 15 ) {
 			collision();	
 			dealDamage();
 			isAlive = false;
-			System.out.println("Target's health:" + target.getHealth());
 			return;
 		}
 		else {
-			//time is defined at top
-			//if(targetLocX > this.locX) {
 				locX = (int) (dx*timeTillHit + locX);
 				locY = (int) (dy*timeTillHit + locY);
-			//}
-			//else {
-			//	locX = (int) (dx*timeTillHit - locX);
-			//	locY = (int) (dy*timeTillHit - locY);
-			//}
 		}
 	}
 

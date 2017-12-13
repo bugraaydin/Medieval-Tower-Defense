@@ -26,9 +26,6 @@ public class GridSlot {
 		}
 	}
 	
-	public boolean mouseHitThisSlot(boolean isInBuyMode, Tower towerToPlace, int x, int y) {
-		return false;
-	}
 
 	
 	//getters

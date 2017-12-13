@@ -9,19 +9,10 @@ import javax.swing.ImageIcon;
 public class Enemy {
 	
 	private ImageIcon impactImageIcon;
-	
-	private boolean b = true;
-	
-	int second = 0;
-
-	int frames = 0;
-	
 	public int targetCount = 0;
 	public int locX; 
 	public int locY;
-	private int targetLocX;
-	private int targetLocY;
-	private int speed = 5;  // current speed
+	private int speed;
 	private int[] velocity = new int[2];
 	private int armor;  // current armor
 	private int health;  // current hp
@@ -65,9 +56,6 @@ public class Enemy {
 
 	}
 	
-	public int getEnemyImageNumber(){
-		return enemyImageNumber;
-	}
 	//////////Setters
 	public void setEnemyImage(int i)
 	{
@@ -180,6 +168,9 @@ public class Enemy {
 	}
 	public int[] getVelocity(){
 		return velocity;
+	}
+	public int getEnemyImageNumber(){
+		return enemyImageNumber;
 	}
 	////////////////////
 
