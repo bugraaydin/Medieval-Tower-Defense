@@ -24,9 +24,9 @@ public class Projectile {
 	public boolean isAlive = true;
 
 	
-	public Projectile(int x, int y, Enemy target){
+	public Projectile(int x, int y, Enemy target, int damage){
 		timeTillHit = 20;
-		damage = 25;
+		this.damage = damage;
 		slowRate = 0;
 		armorReduce = 0;
 		damagePerSec = 0;

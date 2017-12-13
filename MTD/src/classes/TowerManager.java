@@ -22,10 +22,10 @@ public class TowerManager {
 	}
 	
 
-	
+	/**	COMMENTING THIS PART OUT, MOVING BACK TO TOWER CLASS
 	public void spawnProjectile(int i){
 		System.out.println(towerList.get(i).getLocX()+","+towerList.get(i).getLocY());
-		Projectile spawnedProjectile = new Projectile(towerList.get(i).getLocX(),towerList.get(i).getLocY(),towerList.get(i).getTarget());
+		Projectile spawnedProjectile = new Projectile(towerList.get(i).getLocX(),towerList.get(i).getLocY(),towerList.get(i).getTarget(),towerList.get(i).getDamage());
 		towerList.get(i).getProjectilesSpawned().add(spawnedProjectile);
-}
+}*/
 }

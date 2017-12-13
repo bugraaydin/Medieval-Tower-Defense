@@ -1,6 +1,11 @@
 package Tower;
 
 import java.util.ArrayList;
+
+import javax.swing.Timer;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import Enemy.*;
 import classes.GameObject;
 import classes.Projectile;
@@ -10,6 +15,8 @@ public class Tower extends GameObject{
 	private Enemy target;
 	private ArrayList<Projectile> projectilesSpawned;
 	private String towerImageFile;
+	private Timer myTimer;
+	
 	private boolean hasTarget;
 	private int locX;
 	private int locY;
@@ -23,7 +30,7 @@ public class Tower extends GameObject{
 		projectilesSpawned  = new ArrayList<Projectile>();
 	}
 
-	
+	/**
 	public void setTarget(Enemy target){
 		if(target == null){
 			hasTarget = false;
@@ -36,6 +43,50 @@ public class Tower extends GameObject{
 			this.target = target;
 			hasTarget = true;
 		}
+	}
+	*/
+	
+	public void setTarget(Enemy target){
+		double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.locX), 2) 
+				+ Math.pow(Math.abs(target.locY-this.locY), 2));
+		if(distance < this.towerRange && hasTarget==false)
+		{	
+			this.target = target;
+			hasTarget = true;
+			activateTower();
+		}
+	}
+	
+	public void clearTarget()
+	{
+		hasTarget=false;
+		deactivateTower();
+	}
+	
+	//Activating the listener
+	public void activateTower()
+	{
+		int delay = 750;//(1/attackSpeed)*500; // ~10 updates per second
+
+		ActionListener taskPerformer = new ActionListener(){
+
+			public void actionPerformed(ActionEvent e){
+				spawnProjectile(target);
+			}
+		};
+		myTimer = new Timer(delay,taskPerformer);
+		myTimer.start();
+		//new Timer(delay,taskPerformer).start();
+	}
+	
+	public void deactivateTower()
+	{
+		myTimer.stop();
+	}
+
+	public void spawnProjectile(Enemy target){
+		Projectile spawnedProjectile = new Projectile(locX,locY,target,dmg);
+		projectilesSpawned.add(spawnedProjectile);
 	}
 	
 	//Setters

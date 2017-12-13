@@ -164,6 +164,7 @@ public class GameManager {
 		
 		int imageSelection;
 		imageSelection = frameRate/3 % 5;
+		//IMAGE SELECTION FOR ENEMY MOVEMENT
 		if(enemyManager.enemyCount != 0){
 			for(int i=0; i<enemyManager.enemyList.size(); i++)
 			{	
@@ -275,14 +276,31 @@ public class GameManager {
 
 					if(!towerManager.towerList.get(i).hasTarget()
 							&&
-							Math.abs(towerManager.towerList.get(i).getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList.get(i).getTowerRange()
-							&&
-							Math.abs(towerManager.towerList.get(i).getLocY() - enemyManager.enemyList.get(j).locY) < towerManager.towerList.get(i).getTowerRange())
+							Math.sqrt((towerManager.towerList.get(i).getLocX() - enemyManager.enemyList.get(j).locX)*
+									(towerManager.towerList.get(i).getLocX() - enemyManager.enemyList.get(j).locX)+
+									(towerManager.towerList.get(i).getLocY() - enemyManager.enemyList.get(j).locY)*
+									(towerManager.towerList.get(i).getLocY() - enemyManager.enemyList.get(j).locY))
+							< towerManager.towerList.get(i).getTowerRange()
+						)		
 					{
-					System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
-					towerManager.towerList.get(i).setTarget(enemyManager.enemyList.get(j));
-					j = enemyManager.enemyList.size();
+						System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
+						towerManager.towerList.get(i).setTarget(enemyManager.enemyList.get(j));
+						j = enemyManager.enemyList.size();
 					}
+					else if(towerManager.towerList.get(i).hasTarget()
+							&&
+							Math.sqrt((towerManager.towerList.get(i).getLocX() - towerManager.towerList.get(i).getTarget().locX)*
+									(towerManager.towerList.get(i).getLocX() - towerManager.towerList.get(i).getTarget().locX)+
+									(towerManager.towerList.get(i).getLocY() - towerManager.towerList.get(i).getTarget().locY)*
+									(towerManager.towerList.get(i).getLocY() - towerManager.towerList.get(i).getTarget().locY))
+							> towerManager.towerList.get(i).getTowerRange()
+							)
+					{
+						towerManager.towerList.get(i).clearTarget();
+						j=enemyManager.enemyList.size();
+					}
+						
+						
 					if(towerManager.towerList.get(i).getTarget() != null)
 						if((!towerManager.towerList.get(i).getTarget().isAlive)){
 							towerManager.towerList.get(i).setTarget(null);
@@ -300,12 +318,15 @@ public class GameManager {
 		int time = frameRate;
 		if(towerManager.towerList.size() == 0)
 			return;
+		
 		for(int i=0; i<towerManager.towerList.size(); i++){
+			/**
 			if(towerManager.towerList.get(i).getTarget() != null)
 				if(towerManager.towerList.get(i).getTarget().isAlive == true && frameRate % 8 == 0){
 					towerManager.spawnProjectile(i);
 					System.out.println("wow");
 				}
+			*/
 			for(int j = 0; j < towerManager.towerList.get(i).getProjectilesSpawned().size(); j++){
 				
 				towerManager.towerList.get(i).getProjectilesSpawned().get(j).update();
