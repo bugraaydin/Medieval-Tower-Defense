@@ -280,6 +280,11 @@ public class GameManager {
 					Enemy en = enemyManager.enemyList.get(enemyManager.enemyCount-1);
 					if(//!towerManager.towerList[i].hasTarget()
 							en.isAlive
+<<<<<<< HEAD
+=======
+							&&
+							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList[i].getTowerRange()
+>>>>>>> 3839234eb24193f646cb799d4184fcdc58325b22
 							&&
 							Math.abs(towerManager.towerList.get(i).getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList.get(i).getTowerRange()
 							&&
@@ -305,7 +310,11 @@ public class GameManager {
 							Math.abs(towerManager.towerList.get(i).getLocY() - enemyManager.enemyList.get(j).locY) > towerManager.towerList.get(i).getTowerRange())
 					{
 						if(j == enemyManager.enemyCount) {
+<<<<<<< HEAD
 							towerManager.towerList.get(i).setTarget(null);
+=======
+							towerManager.towerList[i].setTarget(null);
+>>>>>>> 3839234eb24193f646cb799d4184fcdc58325b22
 							//continue;
 						}
 					}

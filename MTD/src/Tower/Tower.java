@@ -39,7 +39,7 @@ public class Tower extends GameObject{
 		else if(target.isAlive == false || distance < this.towerRange){			
 			hasTarget = false;
 			this.target = null;
-			clearTarget();
+			//clearTarget();
 		}
 	}
 	

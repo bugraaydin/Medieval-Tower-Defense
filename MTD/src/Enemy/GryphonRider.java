@@ -12,7 +12,7 @@ public class GryphonRider extends Enemy{
 
 		setArmor(10);
 
-		setHealth(50);
+		setHealth(300);
 
 		setDebuffDPS(0);
 
