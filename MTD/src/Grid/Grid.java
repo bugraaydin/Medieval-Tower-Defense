@@ -2,50 +2,25 @@ package Grid;
 
 public class Grid {
 	private GridSlot[][] gameGrid;
-	public int gridSlotWidth;
-	public int gridSlotHeight;
-	public int gridWidth;
-	public int gridHeight;
-	public int[] targetsX;
-	public int[] targetsY;
+	private static final int gridHeight = 9;
+	private static final int gridWidth = 13;
+	private static final int gridSlotSize = 64;
+
 	
-	public Grid(int level)
+	public Grid(int[][] level)
 	{
-		gridWidth = 13;
-		gridHeight = 9;
-		gridSlotWidth = 64;
-		gridSlotHeight = 64;
 		gameGrid = new GridSlot[gridWidth][gridHeight];
 		initializeLevel(level);
-
 	}
 	
-	public void initializeLevel(int levelNo)
-	{
-		if(levelNo==0)
-		{
-			targetsX = new int[3];
-			targetsY = new int[3];
-			targetsX[0] = 150;
-			targetsY[0] = 470;
-			targetsX[1] = 470;
-			targetsY[1] = 470;
-			targetsX[2] = 700;
-			targetsY[2] = 470;
-			
-			for(int i=0; i<gridWidth; i++){
-				for(int j=0; j<gridHeight; j++)
-				{
+	public void initializeLevel(int[][] level){ /// if 0 tower grid, if 1 enemy grid
+		for(int i = 0; i < gridWidth; i++){
+			for(int j = 0; j < gridHeight; j++){
+				if(level[i][j] == 0)
 					gameGrid[i][j] = new TowerGrid();
-				}
-			}
-			for(int i=0; i<gridHeight-2; i++)///Enemy grids
-			{
-				gameGrid[2][i] = new EnemyGrid();
-			}
-			for(int i=0; i<gridWidth-2; i++)///Enemy grids
-			{
-				gameGrid[i+2][7] = new EnemyGrid();
+				if(level[i][j] == 1)
+					gameGrid[i][j] = new EnemyGrid();
+					
 			}
 		}
 	}
@@ -54,6 +29,15 @@ public class Grid {
 
 	public GridSlot getGridSlot(int i,int j){
 		return gameGrid[i][j];
+	}
+	public int getGridHeight(){
+		return gridHeight;
+	}
+	public int getGridWidth(){
+		return gridWidth;
+	}
+	public int getGridSlotSize(){
+		return gridSlotSize;
 	}
 
 }

@@ -100,7 +100,7 @@ public class GameplayPanel extends JPanel{
 		//DRAW GRAVEYARD
 		drawGraveyard(g);
 		//DRAW PROJECTILES
-		drawProjectiles(g);
+		//drawProjectiles(g);
 		//DRAW SHOP
 		game.getShop().draw(g);
 		//DRAW LAYOUT ELEMENTS
@@ -120,12 +120,12 @@ public class GameplayPanel extends JPanel{
 	}
 	
 	private void drawGridsAndTowers(Graphics g){
-		for(int i = 0; i < game.getGrid().gridWidth;i++){
-			for(int j = 0; j < game.getGrid().gridHeight;j++){
-				g.drawImage(game.getGrid().getGridSlot(i,j).gridSlotImage, 64*i, 64*j, this);
+		for(int i = 0; i < game.getGrid().getGridWidth();i++){
+			for(int j = 0; j < game.getGrid().getGridHeight();j++){
+				g.drawImage(game.getGrid().getGridSlot(i,j).getGridSlotImage(), game.getGrid().getGridSlotSize()*i, game.getGrid().getGridSlotSize()*j, this);
 				repaint();
 				if(game.getGrid().getGridSlot(i,j) instanceof TowerGrid){
-					g.drawImage(game.getGrid().getGridSlot(i,j).towerImage, game.getGrid().gridSlotWidth*i, game.getGrid().gridSlotHeight*j, this);
+					g.drawImage((game.getGrid().getGridSlot(i,j)).towerImage, game.getGrid().getGridSlotSize()*i, game.getGrid().getGridSlotSize()*j, this);
 					repaint();
 				}
 			}
@@ -150,18 +150,18 @@ public class GameplayPanel extends JPanel{
 	{
 		for(int i=0; i<game.getTowerManager().towerCount; i++)
 		{
-			for(int j = 0; j < game.getTowerManager().towerList[i].getProjectileCount(); j++)
+			for(int j = 0; j < game.getTowerManager().towerList.get(i).getProjectileCount(); j++)
 			{
-				if(game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).getLocY() < 580
-						&& game.getTowerManager().towerList[i].getProjectilesSpawned().get(j) != null)
+				if(game.getTowerManager().towerList.get(i).getProjectilesSpawned().get(j).getLocY() < 580
+						&& game.getTowerManager().towerList.get(i).getProjectilesSpawned().get(j) != null)
 				{ 
-					if(game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).isAlive == false)
-						game.getTowerManager().towerList[i].getProjectilesSpawned().remove(j);
+					if(game.getTowerManager().towerList.get(i).getProjectilesSpawned().get(j).isAlive == false)
+						game.getTowerManager().towerList.get(i).getProjectilesSpawned().remove(j);
 					else
 					{
-						g.drawImage(game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).projectileImage,
-								game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).getLocX(),
-								game.getTowerManager().towerList[i].getProjectilesSpawned().get(j).getLocY(),
+						g.drawImage(game.getTowerManager().towerList.get(i).getProjectilesSpawned().get(j).projectileImage,
+								game.getTowerManager().towerList.get(i).getProjectilesSpawned().get(j).getLocX(),
+								game.getTowerManager().towerList.get(i).getProjectilesSpawned().get(j).getLocY(),
 								this);
 								repaint();
 					}	

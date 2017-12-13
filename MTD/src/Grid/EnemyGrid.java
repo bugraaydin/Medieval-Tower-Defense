@@ -4,16 +4,20 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import Tower.Tower;
+
 public class EnemyGrid extends GridSlot{
+	
+	private static final String EnemyImageBuffer = "/images/grids/enemy_grid.jpg";
 	
 	public EnemyGrid() {
 		super();
-		canPlaceTower = false;
-		try {
-			gridSlotImage = ImageIO.read(getClass().getResourceAsStream("/images/grids/enemy_grid.jpg"));
-		}	catch(IOException exc) {
-				exc.printStackTrace();
-		}
+		setGridSlotImage(EnemyImageBuffer);
+	}
+	
+	public boolean mouseHitThisSlot(boolean isInBuyMode, Tower towerToPlace, int x, int y)
+	{
+		return false;
 	}
 
 }

@@ -3,9 +3,7 @@ package Tower;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.Timer;
-
 import Enemy.*;
 import classes.GameObject;
 import classes.Projectile;
@@ -31,8 +29,7 @@ public class Tower extends GameObject{
 	}
 	//Setting an enemy as target
 	public void setTarget(Enemy target){
-		double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.towerRange), 2) 
-				+ Math.pow(Math.abs(target.locY-this.towerRange), 2));
+		double distance = Math.hypot(target.locX-locX, target.locY-locY);
 		if(distance < this.towerRange && hasTarget==false && target.isAlive == true)
 		{				
 			this.target = target;
@@ -55,12 +52,12 @@ public class Tower extends GameObject{
 	//Activating the listener
 	public void activateTower()
 	{
-		int delay = 750;//(1/attackSpeed)*500; // ~10 updates per second
+		int delay = 250;//(1/attackSpeed)*500; // ~10 updates per second
 
 		ActionListener taskPerformer = new ActionListener(){
 
 			public void actionPerformed(ActionEvent e){
-				if(target.isAlive) {
+				if(target.isAlive && target != null) {
 					spawnProjectile(target);
 				}
 			}

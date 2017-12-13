@@ -106,7 +106,7 @@ public class Projectile {
 	
 	
 	
-	public void update() throws Throwable{
+	public void update(){
 
 		targetLocX = target.locX;
 		targetLocY =  target.locY;

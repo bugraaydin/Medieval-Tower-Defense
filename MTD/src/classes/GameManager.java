@@ -26,6 +26,9 @@ public class GameManager {
 	private String time;
 	private int remainingChances;
 	
+	//
+	
+	
 	//CHANGE
 	private ArrayList<Enemy> graveyard;
 	//
@@ -41,13 +44,28 @@ public class GameManager {
 		time = minute + ":" + second;
 		playerGold = 300;
 		shop = new Shop();
-		grid = new Grid(0);
+		int[][] test = {
+							{0,0,0,0,0,0,0,0,0},
+							{0,0,0,0,0,0,0,0,0},
+							{1,1,1,1,0,0,0,0,0},
+							{0,0,0,1,0,0,0,0,0},
+							{0,0,0,1,0,0,0,0,0},
+							{0,0,0,1,0,0,0,0,0},
+							{0,0,0,1,1,1,1,0,0},
+							{0,0,0,0,0,0,1,0,0},
+							{0,0,0,0,0,0,1,0,0},
+							{0,0,1,1,1,1,1,0,0},
+							{0,0,1,0,0,0,0,0,0},
+							{0,0,1,1,1,0,0,0,0},
+							{0,0,0,0,1,0,0,0,0}
+						};
+		grid = new Grid(test);
 		control = new Control();
 		enemyManager = new EnemyManager();
 		enemyManager.initializeEnemies(0); // initializing the first wave
 		towerManager = new TowerManager();
-		screenX = grid.gridSlotWidth * grid.gridHeight;
-		screenY = grid.gridSlotHeight * grid.gridHeight;
+		screenX = grid.getGridSlotSize() * grid.getGridWidth();
+		screenY = grid.getGridSlotSize() * grid.getGridHeight();
 		updateObjects();
 		
 		
@@ -63,11 +81,11 @@ public class GameManager {
 				updateTime();
 				updateWave();
 				updateEnemies(); // updating enemies
-				updateTowerTargets(); // updating targets
+				//updateTowerTargets(); // updating targets
 				updateUserInputs(); // updating the controller
 				updateGraveyard();
 				try {
-					updateProjectiles();
+					// updateProjectiles();
 				} catch (Throwable e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -90,9 +108,11 @@ public class GameManager {
 	}
 	//UPDATING WAVES
 	public void updateWave(){
+		
 		if(frameRate == 50){ // second = 5
 			enemyManager.initializeEnemies(1); //initializing the 2. wave
 		}
+		
 		if(frameRate == 100){ // second = 10
 			enemyManager.initializeEnemies(2); //initializing the 3. wave
 		}
@@ -111,6 +131,7 @@ public class GameManager {
 		if(frameRate == 350){ // second = 35
 			enemyManager.initializeEnemies(7); //initializing the 8. wave
 		}
+		
 		/*
 		if(frameRate == 400){ // second = 40
 			enemyManager.initializeEnemies(8); //initializing the 9. wave
@@ -144,17 +165,86 @@ public class GameManager {
 				enemyManager.killEnemy(i);
 			}
 		}
+
 		
 		int imageSelection;
 		imageSelection = frameRate/3 % 5;
 		if(enemyManager.enemyCount != 0){
-			for(int i=0; i<enemyManager.enemyCount; i++)
+			for(int i=0; i<enemyManager.enemyList.size(); i++)
 			{	
-				enemyManager.enemyList.get(i).setEnemyImage(imageSelection);
+				if(enemyManager.enemyList.get(i).getVelocity()[0] == 0 && enemyManager.enemyList.get(i).getVelocity()[1] == enemyManager.enemyList.get(i).getSpeed())
+					enemyManager.enemyList.get(i).setEnemyImage(imageSelection);
+				else if(enemyManager.enemyList.get(i).getVelocity()[0] == enemyManager.enemyList.get(i).getSpeed() && enemyManager.enemyList.get(i).getVelocity()[1] == 0)
+					enemyManager.enemyList.get(i).setEnemyImage(imageSelection+5);
+				else if(enemyManager.enemyList.get(i).getVelocity()[0] == 0&& enemyManager.enemyList.get(i).getVelocity()[1] == -enemyManager.enemyList.get(i).getSpeed())
+ 					enemyManager.enemyList.get(i).setEnemyImage(imageSelection+10);
 			}
-			for(int i=0; i<enemyManager.enemyCount; i++)
+			for(int i=0; i<enemyManager.enemyList.size(); i++)
 			{	
-				enemyManager.enemyList.get(i).move(grid.targetsX,grid.targetsY);
+				int gridX = enemyManager.enemyList.get(i).locX / 64;
+				int gridY = enemyManager.enemyList.get(i).locY / 64;
+				if(enemyManager.enemyList.get(i).getVelocity()[1] == -enemyManager.enemyList.get(i).getSpeed() && grid.getGridSlot(gridX+1, gridY) instanceof EnemyGrid && enemyManager.enemyList.get(i).getLocY() > 5 + gridY * grid.getGridSlotSize())
+					gridY++;
+
+				if(gridX == grid.getGridWidth()-1 && enemyManager.enemyList.get(i).getVelocity()[0] == enemyManager.enemyList.get(i).getSpeed()){
+					enemyManager.enemyList.remove(i);
+					remainingChances--;
+					continue;
+				}
+				if(gridY == grid.getGridHeight()-1 && enemyManager.enemyList.get(i).getVelocity()[1] == enemyManager.enemyList.get(i).getSpeed()){
+					enemyManager.enemyList.remove(i);
+					remainingChances--;
+					continue;
+				}
+				if(gridY == 0 && enemyManager.enemyList.get(i).getVelocity()[1] == -enemyManager.enemyList.get(i).getSpeed()){
+					enemyManager.enemyList.remove(i);
+					remainingChances--;
+					continue;
+				}
+				
+				int switchCase;
+				if(gridY == 0)
+					switchCase = -1; //start
+				else if(grid.getGridSlot(gridX, gridY + 1) instanceof EnemyGrid && enemyManager.enemyList.get(i).getVelocity()[1] == enemyManager.enemyList.get(i).getSpeed())
+					switchCase = 1; //DOWN
+				else if(grid.getGridSlot(gridX , gridY - 1) instanceof EnemyGrid && enemyManager.enemyList.get(i).getVelocity()[1] != enemyManager.enemyList.get(i).getSpeed() && !(grid.getGridSlot(gridX+1, gridY ) instanceof EnemyGrid))
+					switchCase = 2; //UP
+				else if(grid.getGridSlot(gridX + 1, gridY) instanceof EnemyGrid)
+					switchCase = 3; //RIGHT
+
+				else 
+					switchCase = 0; //DEFAULT
+				
+				switch(switchCase){
+					case -1:{
+						enemyManager.enemyList.get(i).setVelocity(0, (enemyManager.enemyList.get(i).getSpeed()));
+						enemyManager.enemyList.get(i).move(enemyManager.enemyList.get(i).getVelocity()[0], enemyManager.enemyList.get(i).getVelocity()[1]);
+						break;
+					}
+					case 1:{
+						enemyManager.enemyList.get(i).setVelocity(0, (enemyManager.enemyList.get(i).getSpeed()));
+						enemyManager.enemyList.get(i).move(enemyManager.enemyList.get(i).getVelocity()[0], enemyManager.enemyList.get(i).getVelocity()[1]);
+						break;
+					}
+					case 2:{
+						enemyManager.enemyList.get(i).setVelocity(0, -(enemyManager.enemyList.get(i).getSpeed()));
+						enemyManager.enemyList.get(i).move(enemyManager.enemyList.get(i).getVelocity()[0], enemyManager.enemyList.get(i).getVelocity()[1]);
+						break;
+					}
+					case 3:{
+						enemyManager.enemyList.get(i).setVelocity((enemyManager.enemyList.get(i).getSpeed()),0 );
+						enemyManager.enemyList.get(i).move(enemyManager.enemyList.get(i).getVelocity()[0], enemyManager.enemyList.get(i).getVelocity()[1]);
+						break;
+					}
+					default:{
+						enemyManager.enemyList.get(i).setVelocity(0, (enemyManager.enemyList.get(i).getSpeed()));
+						enemyManager.enemyList.get(i).move(enemyManager.enemyList.get(i).getVelocity()[0], enemyManager.enemyList.get(i).getVelocity()[1]);
+						break;
+					}
+				
+				}	
+			
+
 			}
 		}
 	}
@@ -189,14 +279,14 @@ public class GameManager {
 				for(int j=0; j<enemyManager.enemyCount; j++){
 					Enemy en = enemyManager.enemyList.get(enemyManager.enemyCount-1);
 					if(//!towerManager.towerList[i].hasTarget()
-							//en.isAlive
-							//&&
-							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList[i].getTowerRange()
+							en.isAlive
 							&&
-							Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList.get(j).locY) < towerManager.towerList[i].getTowerRange())
+							Math.abs(towerManager.towerList.get(i).getLocX() - enemyManager.enemyList.get(j).locX) < towerManager.towerList.get(i).getTowerRange()
+							&&
+							Math.abs(towerManager.towerList.get(i).getLocY() - enemyManager.enemyList.get(j).locY) < towerManager.towerList.get(i).getTowerRange())
 					{
-						System.out.println("INRANGEEEEEEEEEEEEEEEEEE of tower: "+towerManager.towerList[i].getLocX()+","+towerManager.towerList[i].getLocY());
-						towerManager.towerList[i].setTarget(enemyManager.enemyList.get(j));
+						System.out.println("INRANGEEEEEEEEEEEEEEEEEE of tower: "+towerManager.towerList.get(i).getLocX()+","+towerManager.towerList.get(i).getLocY());
+						towerManager.towerList.get(i).setTarget(enemyManager.enemyList.get(j));
 						j = enemyManager.enemyList.size();
 					/*	if(towerManager.towerList[i].getEnemy().getHealth()<=0) {
 							Enemy enemy = towerManager.towerList[i].getEnemy();
@@ -210,13 +300,13 @@ public class GameManager {
 					//
 					else if(//towerManager.towerList[i].hasTarget()
 							//&&
-							Math.abs(towerManager.towerList[i].getLocX() - enemyManager.enemyList.get(j).locX) > towerManager.towerList[i].getTowerRange()
+							Math.abs(towerManager.towerList.get(i).getLocX() - enemyManager.enemyList.get(j).locX) > towerManager.towerList.get(i).getTowerRange()
 							&&
-							Math.abs(towerManager.towerList[i].getLocY() - enemyManager.enemyList.get(j).locY) > towerManager.towerList[i].getTowerRange())
+							Math.abs(towerManager.towerList.get(i).getLocY() - enemyManager.enemyList.get(j).locY) > towerManager.towerList.get(i).getTowerRange())
 					{
 						if(j == enemyManager.enemyCount) {
-							towerManager.towerList[i].setTarget(null);
-							continue;
+							towerManager.towerList.get(i).setTarget(null);
+							//continue;
 						}
 					}
 				}
@@ -227,8 +317,8 @@ public class GameManager {
 	//UPDATE PROJECTILES
 	private void updateProjectiles() throws Throwable{
 		for(int i=0; i<towerManager.towerCount; i++){
-			for(int j = 0; j < towerManager.towerList[i].getProjectileCount(); j++){
-				towerManager.towerList[i].getProjectilesSpawned().get(j).update();
+			for(int j = 0; j < towerManager.towerList.get(i).getProjectileCount(); j++){
+				towerManager.towerList.get(i).getProjectilesSpawned().get(j).update();
 			}
 		}
 	}
@@ -265,10 +355,10 @@ public class GameManager {
 		{
 			int gridNoX = (control.getMouseX())/64;
 			int gridNoY = (control.getMouseY())/64;
-			boolean b = grid.getGridSlot(gridNoX,gridNoY).mouseHitThisSlot(shop.getTowerBought(), shop.getTowerToPlace(), gridNoX*grid.gridSlotWidth, gridNoY*grid.gridSlotHeight);
+			boolean b = grid.getGridSlot(gridNoX,gridNoY).mouseHitThisSlot(shop.getTowerBought(), shop.getTowerToPlace(), gridNoX*grid.getGridHeight(), gridNoY*grid.getGridWidth());
 			if(b)
 			{
-				towerManager.towerList[towerManager.towerCount] = shop.getTowerToPlace();
+				towerManager.towerList.add(shop.getTowerToPlace());
 				towerManager.addTower(shop.getTowerToPlace());
 				shop.setTowerBought(false);
 			}

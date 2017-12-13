@@ -1,21 +1,23 @@
 package classes;
 
+import java.util.ArrayList;
+
 import Tower.*;
 
 public class TowerManager {
 
-	public Tower[] towerList;
+	public ArrayList<Tower> towerList;
 	
 	public int towerCount = 0;
 	
 	public TowerManager()
 	{
-		towerList = new Tower[50];
+		towerList = new ArrayList<>();
 	}
 	
 	public void addTower(Tower towerToAdd)
 	{
-		towerList[towerCount] = towerToAdd;
+		towerList.add(towerToAdd);
 		towerCount++;
 	}
 }

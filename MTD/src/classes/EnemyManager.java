@@ -8,8 +8,8 @@ import Grid.*;
 public class EnemyManager {
 	public ArrayList<Enemy> enemyList;
 	public int enemyCount = 0;
-	int enemySpawnLocX = 150;
-	int enemySpawnLocY = 60;
+	int enemySpawnLocX = 128;
+	int enemySpawnLocY = 64;
 	private int waveNo;
 
 	public EnemyManager(){
@@ -87,6 +87,7 @@ public class EnemyManager {
 			}
 		}
 	}
+
 	public void killEnemy(int index){
 		enemyList.remove(index);
 		enemyCount--;

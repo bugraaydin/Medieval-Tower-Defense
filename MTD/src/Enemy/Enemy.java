@@ -21,7 +21,8 @@ public class Enemy {
 	public int locY;
 	private int targetLocX;
 	private int targetLocY;
-	private int speed = 10;  // current speed
+	private int speed = 5;  // current speed
+	private int[] velocity = new int[2];
 	private int armor;  // current armor
 	private int health;  // current hp
 	private int debuffDPS; // from poison tower, taken per sec
@@ -38,13 +39,13 @@ public class Enemy {
 	{
 		this.locX = locX;
 		this.locY = locY;
+		velocity[0] = 0;
+		velocity[1] = 0;
 		enemyImageBuffer = new String[18];
-		impactImageIcon = new ImageIcon("/Sequences/64x48/explosion1_001.png");
 	}
 	
 	public void onDamageTaken(int dmg)
 	{
-		System.out.println("ON DAMAGE TAKEN");
 		if(!isAlive)
 			return;
 		health = health - dmg;
@@ -53,39 +54,15 @@ public class Enemy {
 		{
 			isAlive = false;
 		}
-		for(int i=1; i<90; i++)
-		{
-			impactImageIcon = new ImageIcon("/Sequences/64x48/explosion1_00" + i + ".png");
-			System.out.println("Yeni imajikon");
-			if(i==89)
-				isGettingHit = true;
-		}
+
 	}
 		
 	
-	public void move(int[] targetsX, int[] targetsY)
+	public void move(int velocityX, int velocityY)
 	{
-		
-		if(b)
-		{
-			targetLocX = targetsX[targetCount]-locX;
-			targetLocY = targetsY[targetCount]-locY;
-			b= false;
-		}
-////////////////////////////////////////////////////
-		locX = locX+ (targetLocX/50) * 2;
-		locY = locY+ (targetLocY/50) * 2;
-		//System.out.println(locX);
-		if(Math.abs(locX - targetsX[targetCount]) < 30 && Math.abs(targetsY[targetCount] - locY) < 30)
-		{
-			if(targetCount +1< targetsX.length)
-			{
-				targetCount++;
-				//System.out.println("TARGET COUNT ++++++++");
-				b=true;
-			}
+		locX = locX + velocityX;
+		locY = locY + velocityY;
 
-		}
 	}
 	
 	public int getEnemyImageNumber(){
@@ -143,6 +120,10 @@ public class Enemy {
 		this.resourceGiven = resourceGiven;
 
 	}
+	public void setVelocity(int i,int j){
+		velocity[0] = i;
+		velocity[1] = j;
+	}
 
 	//////////Getters
 
@@ -196,6 +177,9 @@ public class Enemy {
 	public boolean isGettingHit()
 	{
 		return isGettingHit;
+	}
+	public int[] getVelocity(){
+		return velocity;
 	}
 	////////////////////
 
