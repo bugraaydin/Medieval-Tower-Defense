@@ -47,14 +47,14 @@ public class Tower extends GameObject{
 	*/
 	
 	public void setTarget(Enemy target){
-		double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.locX), 2) 
-				+ Math.pow(Math.abs(target.locY-this.locY), 2));
-		if(distance < this.towerRange && hasTarget==false)
-		{	
+		//double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.locX), 2) 
+		//		+ Math.pow(Math.abs(target.locY-this.locY), 2));
+		//if(distance < this.towerRange && hasTarget==false)
+		//{	
 			this.target = target;
 			hasTarget = true;
 			activateTower();
-		}
+		//}
 	}
 	
 	public void clearTarget()
@@ -71,7 +71,9 @@ public class Tower extends GameObject{
 		ActionListener taskPerformer = new ActionListener(){
 
 			public void actionPerformed(ActionEvent e){
-				spawnProjectile(target);
+				if(target!=null)
+					if(target.isAlive==true)
+						spawnProjectile(target);
 			}
 		};
 		myTimer = new Timer(delay,taskPerformer);

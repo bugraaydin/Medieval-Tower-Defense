@@ -107,13 +107,13 @@ public class GameManager {
 		if(frameRate == 50){ // second = 5
 			enemyManager.initializeEnemies(1); //initializing the 2. wave
 		}
-		
+		/**
 		if(frameRate == 100){ // second = 10
 			enemyManager.initializeEnemies(2); //initializing the 3. wave
 		}
 		if(frameRate == 150){ // second = 15
 			enemyManager.initializeEnemies(3); //initializing the 4. wave
-		}
+		}*/
 		if(frameRate == 200){ // second = 20
 			enemyManager.initializeEnemies(4); //initializing the 5. wave
 		}
@@ -269,6 +269,7 @@ public class GameManager {
 				graveyard.get(i).setEnemyImage(15);	
 		}	
 	}
+	int testNumber=1;
 	//UPDATING TOWER TARGETS
 	private void updateTowerTargets(){
 			for(int i=0; i<towerManager.towerList.size(); i++){	
@@ -283,31 +284,48 @@ public class GameManager {
 							< towerManager.towerList.get(i).getTowerRange()
 						)		
 					{
-						System.out.println("INRANGEEEEEEEEEEEEEEEEEE");
-						towerManager.towerList.get(i).setTarget(enemyManager.enemyList.get(j));
-						j = enemyManager.enemyList.size();
+
+						if(enemyManager.enemyList.get(j).isAlive==true)
+						{
+							System.out.println(testNumber);
+							testNumber++;
+							towerManager.towerList.get(i).setTarget(enemyManager.enemyList.get(j));
+							j = enemyManager.enemyList.size();					
+						}
+
 					}
-					else if(towerManager.towerList.get(i).hasTarget()
-							&&
-							Math.sqrt((towerManager.towerList.get(i).getLocX() - towerManager.towerList.get(i).getTarget().locX)*
-									(towerManager.towerList.get(i).getLocX() - towerManager.towerList.get(i).getTarget().locX)+
-									(towerManager.towerList.get(i).getLocY() - towerManager.towerList.get(i).getTarget().locY)*
-									(towerManager.towerList.get(i).getLocY() - towerManager.towerList.get(i).getTarget().locY))
-							> towerManager.towerList.get(i).getTowerRange()
-							)
+					
+					else if(towerManager.towerList.get(i).hasTarget())
 					{
-						towerManager.towerList.get(i).clearTarget();
-						j=enemyManager.enemyList.size();
+						if(towerManager.towerList.get(i).getTarget().isAlive==false)
+						{
+							towerManager.towerList.get(i).clearTarget();
+							return;
+						}
+						System.out.println("My target's speed is "+ towerManager.towerList.get(i).getTarget().getSpeed());
+						testNumber++;
+						if(Math.sqrt((towerManager.towerList.get(i).getLocX() - towerManager.towerList.get(i).getTarget().locX)*
+								(towerManager.towerList.get(i).getLocX() - towerManager.towerList.get(i).getTarget().locX)+
+								(towerManager.towerList.get(i).getLocY() - towerManager.towerList.get(i).getTarget().locY)*
+								(towerManager.towerList.get(i).getLocY() - towerManager.towerList.get(i).getTarget().locY))
+						> towerManager.towerList.get(i).getTowerRange()
+							)				
+						{
+							System.out.println("CLEAR TARGET");
+							towerManager.towerList.get(i).clearTarget();
+							j=enemyManager.enemyList.size();
+						}
+											
 					}
-						
-						
+
+						/**
 					if(towerManager.towerList.get(i).getTarget() != null)
 						if((!towerManager.towerList.get(i).getTarget().isAlive)){
 							towerManager.towerList.get(i).setTarget(null);
 							towerManager.towerList.get(i).setHasTarget(false);
 							System.out.println("sa");
 							return;
-						}
+						}*/
 				}
 			}
 		

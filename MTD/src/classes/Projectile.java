@@ -54,6 +54,8 @@ public class Projectile {
 	
 	
 	public void update(){
+		if(target==null)
+			return;
 		targetLocX = target.locX;
 		targetLocY =  target.locY;
 		double dx = target.locX - this.locX;
@@ -75,7 +77,7 @@ public class Projectile {
 
 	public void collision(){
 		//if x and y is equal to the enemy's x y // enemy's healt/armor etc is reduced
-		onHitDebuff();
+		//onHitDebuff();
 	}
 
 	public void onHitDebuff(){
