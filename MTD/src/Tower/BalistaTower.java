@@ -8,6 +8,7 @@ public class BalistaTower extends Tower{
 		setDamage(100);
 		setTowerRange(125);
 		setAttackSpeed(25);
+		setUpgradeCost(50);
 	}
 	public void upgradeTower(int playerMoney) {
 		
@@ -15,6 +16,8 @@ public class BalistaTower extends Tower{
 		setUpgradeCost(2*upgradeCost);
 		setTowerRange(25+towerRange);
 		setAttackSpeed(15+attackSpeed);
+		playerMoney -= upgradeCost;
+		System.out.println("Player gold: " + playerMoney);
 	}
 
 }

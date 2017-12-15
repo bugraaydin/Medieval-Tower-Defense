@@ -136,12 +136,6 @@ public class Tower extends GameObject{
 	
 	///////////////////////////////////////////////////////
 	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
-		
-	}
-	public void upgradeTower() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void draw() {}
+	public void upgradeTower(int playerMoney) {}
 }
