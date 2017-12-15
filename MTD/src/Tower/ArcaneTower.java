@@ -5,7 +5,7 @@ public class ArcaneTower extends Tower{
 	public ArcaneTower(){
 		super();
 		setImage("/images/towers/arcane_tower.png");
-		setDamage(25);
+		setDamage(10);
 		setTowerRange(225);
 		setAttackSpeed(25);
 		setProjectileType(0);

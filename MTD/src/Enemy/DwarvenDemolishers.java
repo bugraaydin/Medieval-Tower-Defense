@@ -8,11 +8,11 @@ public class DwarvenDemolishers extends Enemy{
 
 		super(locX,locY);
 		
-		setSpeed(10);
+		setSpeed(4);
 
-		setArmor(10);
+		setArmor(4);
 
-		setHealth(50);
+		setHealth(600);
 
 		setDebuffDPS(0);
 

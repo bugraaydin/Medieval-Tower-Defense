@@ -10,9 +10,9 @@ public class Troll extends Enemy{
 		
 		setSpeed(10);
 
-		setArmor(10);
+		setArmor(0);
 
-		setHealth(50);
+		setHealth(200);
 
 		setDebuffDPS(0);
 

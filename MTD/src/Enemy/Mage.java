@@ -8,11 +8,11 @@ public class Mage extends Enemy{
 
 		super(locX,locY);
 		
-		setSpeed(10);
+		setSpeed(7);
 
-		setArmor(10);
+		setArmor(60);
 
-		setHealth(50);
+		setHealth(100);
 
 		setDebuffDPS(0);
 
