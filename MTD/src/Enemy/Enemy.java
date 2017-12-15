@@ -51,9 +51,9 @@ public class Enemy {
 		hitEffectCode = "/Sequences/64x48/explosion1_00";
 	}
 	
-	public void onDamageTaken(int dmg, Projectile dmgInflictorProjectile)
+	public void onDamageTaken(int dmg, int onHitEffectFramerate)
 	{
-
+		
 		if(!isAlive)
 			return;
 		dmg = dmg - (dmg/armor)*3;
@@ -62,7 +62,7 @@ public class Enemy {
 		hitEffectNumber=1;
 		
 		if(!isPlayingHitAnimation)
-			playEffectAnimation(dmgInflictorProjectile.getOnHitEffectFramerate());
+			playEffectAnimation(onHitEffectFramerate);
 		
 		
 		

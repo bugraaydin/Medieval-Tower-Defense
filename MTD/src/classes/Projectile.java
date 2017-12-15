@@ -52,7 +52,7 @@ public class Projectile {
 	
 	
 	public void dealDamage(){
-		target.onDamageTaken(damage, this);
+		target.onDamageTaken(damage, onHitEffectFramerate);
 	}
 	
 	public void setProjectileProperties(int projectileType)
