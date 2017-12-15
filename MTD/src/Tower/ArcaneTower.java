@@ -9,5 +9,12 @@ public class ArcaneTower extends Tower{
 		setTowerRange(225);
 		setAttackSpeed(25);
 	}
+	public void upgradeTower(int playerMoney) {
+		
+		setDamage(10+dmg);
+		setUpgradeCost(2*upgradeCost);
+		setTowerRange(25+towerRange);
+		setAttackSpeed(15+attackSpeed);
+	}
 
 }
