@@ -8,11 +8,11 @@ public class Knight extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(14);
+		setSpeed(10);
 
-		setArmor(60);
+		setArmor(10);
 
-		setHealth(150);
+		setHealth(50);
 
 		setDebuffDPS(0);
 

@@ -8,9 +8,9 @@ public class ElvenArcher extends Enemy{
 
 		super(locX,locY);
 		
-		setSpeed(6);
+		setSpeed(10);
 
-		setArmor(4);
+		setArmor(10);
 
 		setHealth(50);
 

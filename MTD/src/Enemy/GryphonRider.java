@@ -8,11 +8,11 @@ public class GryphonRider extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(14);
+		setSpeed(10);
 
-		setArmor(40);
+		setArmor(10);
 
-		setHealth(300);
+		setHealth(50);
 
 		setDebuffDPS(0);
 

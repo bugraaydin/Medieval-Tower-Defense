@@ -8,7 +8,7 @@ public class Skeleton extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(4);
+		setSpeed(10);
 
 		setArmor(10);
 
