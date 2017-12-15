@@ -22,9 +22,13 @@ public class Projectile {
 	private int targetLocX;
 	private int targetLocY;
 	public boolean isAlive = true;
-
+	private int onHitEffectFramerate;
+	private int projectileFramerate;//NOT USED YET, ONLY USED IF PROJECTILE ITSELF IS AN ANIMATION, NOT THE ON HIT EFFECT
 	
-	public Projectile(int x, int y, Enemy target, int damage){
+	public Projectile(int x, int y, Enemy target, int damage, int projectileType){
+		
+		setProjectileProperties(projectileType);
+		
 		timeTillHit = 20;
 		this.damage = damage;
 		slowRate = 0;
@@ -48,10 +52,30 @@ public class Projectile {
 	
 	
 	public void dealDamage(){
-		target.onDamageTaken(damage);
+		target.onDamageTaken(damage, this);
 	}
 	
+	public void setProjectileProperties(int projectileType)
+	{
+		if(projectileType==0)
+		{
+			setOnHitEffectFramerate(89);
+		}
+		else if(projectileType==1)
+		{
+			//SET SECOND PROJECTILE TYPE FRAMERATE
+		}
+	}
 	
+	public void setProjectileFramerate(int projectileFramerate)
+	{
+		this.projectileFramerate = projectileFramerate;
+	}
+	
+	public void setOnHitEffectFramerate(int onHitEffectFramerate)
+	{
+		this.onHitEffectFramerate = onHitEffectFramerate;
+	}
 	
 	public void update(){
 		if(target==null)
@@ -111,5 +135,9 @@ public class Projectile {
 	}
 	public Enemy getTarget(){
 		return this.target;
+	}
+	public int getOnHitEffectFramerate()
+	{
+		return onHitEffectFramerate;
 	}
 }

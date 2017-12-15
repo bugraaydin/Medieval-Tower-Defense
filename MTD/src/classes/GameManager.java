@@ -30,7 +30,7 @@ public class GameManager {
 	
 	//
 	
-	
+	private Timer fpsTimer;
 	//CHANGE
 	private ArrayList<Enemy> graveyard;
 	//
@@ -95,7 +95,10 @@ public class GameManager {
 				updateEnemies(); // updating enemies
 				updateTowerTargets(); // updating targets
 				updateUserInputs(); // updating the controller
-				updateGraveyard(); //
+				
+				//set90FPSTimer();
+				
+				updateAnimations(); //
 				updateProjectiles();//updating the projectiles
 			}
 		};
@@ -118,7 +121,7 @@ public class GameManager {
 	//UPDATING WAVES
 	public void updateWave(){
 		//FIRST WAVE__________________________________________________
-		if(frameRate == 30){ // second = 3
+		if(frameRate == 21){ // second = 3
 			enemyManager.initializeEnemies(0,0); //initializing 1.1 enemy
 		}
 		if(frameRate == 40){ // second = 4
@@ -273,11 +276,26 @@ public class GameManager {
 		}
 	}
 	//UPDATING GRAVEYARD
-	private void updateGraveyard(){
+	private void updateAnimations(){
 		int updateFrequency = frameRate % 2;
 		if(updateFrequency == 0)
 			updateDyingEnemy();
 	}
+	
+	/**
+	private void updateEffects()
+	{
+		for(int i = 0; i < enemyManager.enemyList.size();i++)
+		{
+			if(enemyManager.enemyList.get(i).isGettingHit())
+			{
+				if(!enemyManager.enemyList.get(i).isPlayingHitAnimation)
+					enemyManager.enemyList.get(i).playEffectAnimation();
+			}
+		}
+	}*/
+	
+	
 	//UPDATE DYING ENEMY
 	private void updateDyingEnemy(){
 		

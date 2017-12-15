@@ -24,9 +24,11 @@ public class Tower extends GameObject{
 	private int cost;
 	private int attackSpeed; 
 	private int dmg;
+	private int projectileType;
 	//Constructor
 	public Tower()
 	{
+		projectileType=0;
 		cost = 100;
 		projectilesSpawned  = new ArrayList<Projectile>();
 	}
@@ -88,7 +90,7 @@ public class Tower extends GameObject{
 	}
 
 	public void spawnProjectile(Enemy target){
-		Projectile spawnedProjectile = new Projectile(locX,locY,target,dmg);
+		Projectile spawnedProjectile = new Projectile(locX,locY,target,dmg,projectileType);
 		projectilesSpawned.add(spawnedProjectile);
 	}
 	public void upgradeTower(){
@@ -122,6 +124,10 @@ public class Tower extends GameObject{
 	public void setHasTarget(boolean hasTarget){
 		this.hasTarget = hasTarget;
 	}
+	public void setProjectileType(int projectileType)
+	{
+		this.projectileType = projectileType;
+	}
 	//Getters
 	public ArrayList<Projectile> getProjectilesSpawned(){ return projectilesSpawned;}
 	public int getProjectileCount(){ return projectilesSpawned.size();}
@@ -134,7 +140,6 @@ public class Tower extends GameObject{
 	public int getTowerRange(){ return towerRange;}
 	public int getCost(){ return cost;}
 	public int getAttackSpeed(){ return attackSpeed;}
-	
 	///////////////////////////////////////////////////////
 	@Override
 	public void draw() {

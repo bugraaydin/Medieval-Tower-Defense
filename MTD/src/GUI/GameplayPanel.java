@@ -109,8 +109,7 @@ public class GameplayPanel extends JPanel{
 	}
 	private void drawEffects(Graphics g)
 	{
-		myImageIcon.paintIcon(this, g, 345, 345);
-		g.drawImage(myImageIcon.getImage(), 345, 345, this);
+		//g.drawImage((game.getEnemyManager().enemyList.get(i).enemyImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
 		for(int i=0; i<game.getEnemyManager().enemyList.size(); i++)
 		{
 			if(game.getEnemyManager().enemyList.get(i).isGettingHit())
@@ -131,10 +130,20 @@ public class GameplayPanel extends JPanel{
 			}
 		}
 	}
-	
+	//ALSO DRAWS ON HIT EFFECTS
 	private void drawEnemies(Graphics g){
 		for(int i=0; i<game.getEnemyManager().enemyList.size(); i++){	
+			//DRAW ENEMIES
 			g.drawImage(game.getEnemyManager().enemyList.get(i).enemyImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
+			
+			//DRAW EFFECTS
+			
+			if(game.getEnemyManager().enemyList.get(i).isGettingHit())
+			{
+				//System.out.println("DRAWING AN EFFECT");
+				g.drawImage(game.getEnemyManager().enemyList.get(i).hitEffectImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
+			}
+			
 			repaint();
 		}
 	}
