@@ -10,7 +10,7 @@ public class Demon extends Enemy{
 		
 		setSpeed(18);
 
-		setArmor(2);
+		setArmor(8);
 
 		setHealth(125);
 

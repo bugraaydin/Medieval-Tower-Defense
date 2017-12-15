@@ -10,7 +10,7 @@ public class Skeleton extends Enemy{
 		
 		setSpeed(4);
 
-		setArmor(1.5);
+		setArmor(10);
 
 		setHealth(50);
 

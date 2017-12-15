@@ -12,7 +12,7 @@ public class Projectile {
 	private int locX;
 	private int locY;
 	private double timeTillHit;
-	private double damage;
+	private int damage;
 	private int damageType;
 	private int slowRate;
 	private int armorReduce;
@@ -24,9 +24,9 @@ public class Projectile {
 	public boolean isAlive = true;
 
 	
-	public Projectile(int x, int y, Enemy target, double dmg){
+	public Projectile(int x, int y, Enemy target, int damage){
 		timeTillHit = 20;
-		this.damage = dmg;
+		this.damage = damage;
 		slowRate = 0;
 		armorReduce = 0;
 		damagePerSec = 0;
@@ -94,7 +94,7 @@ public class Projectile {
 	public int getLocY(){
 		return this.locY;
 	}
-	public double getDamage(){
+	public int getDamage(){
 		return this.damage;
 	}
 	public int getDamageType(){

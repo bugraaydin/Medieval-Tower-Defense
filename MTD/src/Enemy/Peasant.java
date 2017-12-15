@@ -10,7 +10,7 @@ public class Peasant extends Enemy{
 		
 		setSpeed(6);
 
-		setArmor(1);
+		setArmor(0);
 
 		setHealth(30);
 

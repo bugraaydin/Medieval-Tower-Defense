@@ -10,7 +10,7 @@ public class Dragon extends Enemy{
 		
 		setSpeed(4);
 
-		setArmor(1);
+		setArmor(10);
 
 		setHealth(1000);
 

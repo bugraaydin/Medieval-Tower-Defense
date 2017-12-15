@@ -10,7 +10,7 @@ public class Footman extends Enemy{
 		
 		setSpeed(6);
 
-		setArmor(2);
+		setArmor(40);
 
 		setHealth(100);
 
