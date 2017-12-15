@@ -25,6 +25,8 @@ public class GameManager {
 	private int frameRate;
 	private String time;
 	private int remainingChances;
+	private boolean gameLost;
+	private boolean gameWon;
 	
 	//
 	
@@ -35,6 +37,9 @@ public class GameManager {
 	public GameManager(){
 
 		//
+		
+		gameLost = false;
+		gameWon = false;
 		remainingChances = 10;
 		graveyard = new ArrayList<Enemy>();
 		//
@@ -62,7 +67,6 @@ public class GameManager {
 		grid = new Grid(test);
 		control = new Control();
 		enemyManager = new EnemyManager();
-		enemyManager.initializeEnemies(0,0); //initializing 1.1 enemy
 		towerManager = new TowerManager();
 		screenX = grid.getGridSlotSize() * grid.getGridWidth();
 		screenY = grid.getGridSlotSize() * grid.getGridHeight();
@@ -78,6 +82,14 @@ public class GameManager {
 		int delay = 100; // ~5 updates per second
 		ActionListener taskPerformer = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				//Checking if game is lost
+				if(remainingChances < 1)
+					gameLost = true;
+				//Checking if game is won
+				if(enemyManager.getWaveNo() == 14 && enemyManager.enemyList.size() == 0)
+					gameWon = true;
+				if(gameLost || gameWon)
+					return;
 				updateTime();
 				updateWave();
 				updateEnemies(); // updating enemies
@@ -89,6 +101,8 @@ public class GameManager {
 		};
 		new Timer(delay,taskPerformer).start();
 	}
+
+
 	//UPDATE TIME
 	private void updateTime(){
 		frameRate++;
@@ -104,25 +118,65 @@ public class GameManager {
 	//UPDATING WAVES
 	public void updateWave(){
 		//FIRST WAVE__________________________________________________
-
-		if(frameRate == 10){ // second = 1
+		if(frameRate == 30){ // second = 3
+			enemyManager.initializeEnemies(0,0); //initializing 1.1 enemy
+		}
+		if(frameRate == 40){ // second = 4
 			enemyManager.initializeEnemies(0,1); //initializing 1.2 enemy
 		}
-		if(frameRate == 20){ // second = 2
+		if(frameRate == 50){ // second = 5
 			enemyManager.initializeEnemies(0,2);//initializing 1.3 enemy
+		}
+		if(frameRate == 60){ // second = 6
+			enemyManager.initializeEnemies(0,3);//initializing 1.4 enemy
 		}
 		//____________________________________________________________
 		//SECOND WAVE_________________________________________________
-		if(frameRate == 100){ // second = 10
+		if(frameRate == 150){ // second = 15
 			enemyManager.initializeEnemies(1,0); //initializing 2.1 enemy
 		}
-		if(frameRate == 110){ // second = 11
+		if(frameRate == 160){ // second = 16
 			enemyManager.initializeEnemies(1,1); //initializing the 2.2 enemy
 		}
-		if(frameRate == 120){ // second = 12
+		if(frameRate == 170){ // second = 17
 			enemyManager.initializeEnemies(1,2); //initializing the 2.3 enemy
 		}
-
+		if(frameRate == 180){ // second = 18
+			enemyManager.initializeEnemies(1,3); //initializing the 2.4 enemy
+		}
+		//_____________________________________________________________
+		//THIRD WAVE___________________________________________________
+		if(frameRate == 250){ // second = 25
+			enemyManager.initializeEnemies(2,0); //initializing 3.1 enemy
+		}
+		if(frameRate == 260){ // second = 26
+			enemyManager.initializeEnemies(2,1); //initializing the 3.2 enemy
+		}
+		if(frameRate == 270){ // second = 27
+			enemyManager.initializeEnemies(2,2); //initializing the 3.3 enemy
+		}
+		if(frameRate == 280){ // second = 28
+			enemyManager.initializeEnemies(2,3); //initializing the 3.4 enemy
+		}
+		//_____________________________________________________________
+		//FOURTH WAVE__________________________________________________
+		if(frameRate == 350){ // second = 35
+			enemyManager.initializeEnemies(3,0); //initializing 4.1 enemy
+		}
+		if(frameRate == 360){ // second = 36
+			enemyManager.initializeEnemies(3,1); //initializing the 4.2 enemy
+		}
+		if(frameRate == 370){ // second = 37
+			enemyManager.initializeEnemies(3,2); //initializing the 4.3 enemy
+		}
+		if(frameRate == 380){ // second = 38
+			enemyManager.initializeEnemies(3,3); //initializing the 4.4 enemy
+		}
+		//_________________________________________________________________
+		//FIFTH WAVE_______________________________________________________
+		if(frameRate == 450){ // second = 45
+			enemyManager.initializeEnemies(4,0); //initializing 4.1 enemy
+		}
 	}
 	//UPDATE ENEMIES
 	private void updateEnemies(){

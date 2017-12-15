@@ -23,7 +23,7 @@ public class EnemyManager {
 		//initialize 1st wave_________________________________________________________
 		if(waveNo == 0 && enemyNo == 0){
 			this.waveNo = 0;
-			enemyList.add(new Dragon(enemySpawnLocX, enemySpawnLocY)); 
+			enemyList.add(new Peasant(enemySpawnLocX, enemySpawnLocY)); 
 				enemyCount++;
 		}
 		if(waveNo == 0 && enemyNo == 1){
@@ -33,75 +33,86 @@ public class EnemyManager {
 		}
 		if(waveNo == 0 && enemyNo == 2){
 			this.waveNo = 0;
-			enemyList.add(new DeathKnight(enemySpawnLocX, enemySpawnLocY)); 
+			enemyList.add(new Peasant(enemySpawnLocX, enemySpawnLocY)); 
+			enemyCount++;
+		}
+		if(waveNo == 0 && enemyNo == 3){
+			this.waveNo = 0;
+			enemyList.add(new Peon(enemySpawnLocX, enemySpawnLocY)); 
 			enemyCount++;
 		}
 		//_______________________________________________________________________________
 		//initialize 2nd wave____________________________________________________________
 		if(waveNo == 1 && enemyNo == 0){
 			this.waveNo = 1;
-			enemyList.add(new Demon(enemySpawnLocX, enemySpawnLocY)); 
+			enemyList.add(new Footman(enemySpawnLocX, enemySpawnLocY)); 
 			enemyCount++;
 		}
 		if(waveNo == 1 && enemyNo == 1){
 			this.waveNo = 1;
-			enemyList.add(new Knight(enemySpawnLocX, enemySpawnLocY)); 
+			enemyList.add(new Footman(enemySpawnLocX, enemySpawnLocY)); 
 			enemyCount++;
 		}
 		if(waveNo == 1 && enemyNo == 2){
 			this.waveNo = 1;
-			enemyList.add(new Knight(enemySpawnLocX, enemySpawnLocY)); 
+			enemyList.add(new Grunt(enemySpawnLocX, enemySpawnLocY)); 
+			enemyCount++;
+		}
+		if(waveNo == 1 && enemyNo == 3){
+			this.waveNo = 1;
+			enemyList.add(new Grunt(enemySpawnLocX, enemySpawnLocY)); 
 			enemyCount++;
 		}
 		//_______________________________________________________________________________
 		//initialize 3rd wave
-		if(waveNo==2){
+		if(waveNo==2 && enemyNo == 0){
 			this.waveNo = 2;
-			for(int i = 0; i < 1; i++){
-				enemyList.add(new ElvenArcher(enemySpawnLocX, enemySpawnLocY));
-				enemyCount++;
-			}
+			enemyList.add(new ElvenArcher(enemySpawnLocX, enemySpawnLocY));
+			enemyCount++;
 		}
-		//initialize 4rd wave
-		if(waveNo==3){
+		if(waveNo==2 && enemyNo == 1){
+			this.waveNo = 2;
+			enemyList.add(new ElvenArcher(enemySpawnLocX, enemySpawnLocY));
+			enemyCount++;
+		}
+		if(waveNo==2 && enemyNo == 2){
+			this.waveNo = 2;
+			enemyList.add(new Troll(enemySpawnLocX, enemySpawnLocY));
+			enemyCount++;
+		}
+		if(waveNo==2 && enemyNo == 3){
+			this.waveNo = 2;
+			enemyList.add(new Troll(enemySpawnLocX, enemySpawnLocY));
+			enemyCount++;
+		}
+		//_______________________________________________________________________________
+		//initialize 4th wave
+		if(waveNo==3 && enemyNo == 0){
 			this.waveNo = 3;
-			for(int i = 0; i < 1; i++){
-				enemyList.add(new GryphonRider(enemySpawnLocX, enemySpawnLocY));
-				enemyCount++;
-			}
+			enemyList.add(new Skeleton(enemySpawnLocX, enemySpawnLocY));
+			enemyCount++;
 		}
-		//initialize 5th wave
-		if(waveNo==4){
+		if(waveNo==3 && enemyNo == 1){
+			this.waveNo = 3;
+			enemyList.add(new Skeleton(enemySpawnLocX, enemySpawnLocY));
+			enemyCount++;
+		}
+		if(waveNo==3 && enemyNo == 2){
+			this.waveNo = 3;
+			enemyList.add(new Mage(enemySpawnLocX, enemySpawnLocY));
+			enemyCount++;
+		}
+		if(waveNo==3 && enemyNo == 3){
+			this.waveNo = 3;
+			enemyList.add(new Mage(enemySpawnLocX, enemySpawnLocY));
+			enemyCount++;
+		}
+		if(waveNo==4 && enemyNo == 0){
 			this.waveNo = 4;
-			for(int i = 0; i < 1; i++){
-				enemyList.add(new Mage(enemySpawnLocX, enemySpawnLocY));
-				enemyCount++;
-			}
+			enemyList.add(new Demon(enemySpawnLocX, enemySpawnLocY));
+			enemyCount++;
 		}
-		//initialize 6th wave
-		if(waveNo==5){
-			this.waveNo = 5;
-			for(int i = 0; i < 1; i++){
-				enemyList.add(new FlyingMachine(enemySpawnLocX, enemySpawnLocY));
-				enemyCount++;
-			}
-		}
-		//initialize 7th wave
-		if(waveNo==6){
-			this.waveNo = 6;
-			for(int i = 0; i < 1; i++){
-				enemyList.add(new Grunt(enemySpawnLocX, enemySpawnLocY));
-				enemyCount++;
-			}
-		}
-		//initialize 8th wave
-		if(waveNo==7){
-			this.waveNo = 7;
-			for(int i = 0; i < 1; i++){
-				enemyList.add(new DwarvenDemolishers(enemySpawnLocX, enemySpawnLocY));
-				enemyCount++;
-			}
-		}
+
 	}
 
 	public void killEnemy(int index){
