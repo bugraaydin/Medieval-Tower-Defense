@@ -43,5 +43,8 @@ public class TowerGrid extends GridSlot{
 			}
 		}
 		return true;
-	}		
+	}	
+	public Tower getTower(){
+		return towerInThisSlot;
+	}
 }

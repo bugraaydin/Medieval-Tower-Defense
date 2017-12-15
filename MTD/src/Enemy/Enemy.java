@@ -33,6 +33,7 @@ public class Enemy {
 		velocity[0] = 0;
 		velocity[1] = 0;
 		enemyImageBuffer = new String[18];
+		resourceGiven = 100;
 	}
 	
 	public void onDamageTaken(int dmg)
@@ -171,6 +172,9 @@ public class Enemy {
 	}
 	public int getEnemyImageNumber(){
 		return enemyImageNumber;
+	}
+	public int getResource(){
+		return resourceGiven;
 	}
 	////////////////////
 

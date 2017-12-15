@@ -10,7 +10,6 @@ import javax.swing.Timer;
 import Control.Control;
 import Enemy.Enemy;
 import Grid.*;
-import Tower.Tower;
 
 public class GameManager {
 	private int playerGold;
@@ -48,7 +47,7 @@ public class GameManager {
 		second = 0;
 		frameRate = 0;
 		time = minute + ":" + second;
-		playerGold = 300;
+		playerGold = 400;
 		shop = new Shop();
 		int[][] test = {
 							{0,0,0,0,0,0,0,0,0},
@@ -185,6 +184,7 @@ public class GameManager {
 		for(int i = 0; i < enemyManager.enemyList.size();i++){
 			if(!(enemyManager.enemyList.get(i).isAlive)){
 				graveyard.add(enemyManager.enemyList.get(i));
+				playerGold = playerGold + enemyManager.enemyList.get(i).getResource();
 				enemyManager.killEnemy(i);
 			}
 		}
@@ -315,7 +315,6 @@ public class GameManager {
 
 						if(enemyManager.enemyList.get(j).isAlive==true)
 						{
-							System.out.println(testNumber);
 							testNumber++;
 							towerManager.towerList.get(i).setTarget(enemyManager.enemyList.get(j));
 							j = enemyManager.enemyList.size();					
@@ -330,8 +329,6 @@ public class GameManager {
 							towerManager.towerList.get(i).clearTarget();
 							return;
 						}
-						System.out.println("My target's speed is "+ towerManager.towerList.get(i).getTarget().getSpeed());
-						System.out.println("player's gold: "+ playerGold);
 						testNumber++;
 						if(Math.sqrt((towerManager.towerList.get(i).getLocX() - towerManager.towerList.get(i).getTarget().locX)*
 								(towerManager.towerList.get(i).getLocX() - towerManager.towerList.get(i).getTarget().locX)+
@@ -388,58 +385,53 @@ public class GameManager {
 	
 	private void updateUserInputs(){
 		boolean b;
+		int gridNoX = (control.getMouseX())/64;
+		int gridNoY = (control.getMouseY())/64;
+		if(control.getMouseX() == 0 && control.getMouseY() == 0)
+			return;
 		if(control.getMouseY()>screenY)
 		{
+			System.out.println(towerManager.towerList.size());
 			shop.buyTower(control.getMouseX(),control.getMouseY(), playerGold);
+			System.out.println(towerManager.towerList.size());
+			System.out.println("Tower selected");
+			control.setMouseX(0);
+			control.setMouseY(0);
+			return;
 		}
-		else
-		{
-			if(control.getMouseX() == 0 && control.getMouseY() == 0)
+		if(grid.getGridSlot(gridNoX, gridNoY) instanceof TowerGrid && control.getMouseX() != 0 && control.getMouseY() != 0 ){
+			if(((TowerGrid)grid.getGridSlot(gridNoX, gridNoY)).hasTower == true){
+				if(playerGold >= ((TowerGrid)grid.getGridSlot(gridNoX, gridNoY)).getTower().getCost()){
+				((TowerGrid)grid.getGridSlot(gridNoX, gridNoY)).getTower().upgradeTower();
+				System.out.println("Tower upgrade");
+				control.setMouseX(0);
+				control.setMouseY(0);
+				playerGold = playerGold - ((TowerGrid)grid.getGridSlot(gridNoX, gridNoY)).getTower().getCost();
 				return;
-			int gridNoX = (control.getMouseX())/64;
-			int gridNoY = (control.getMouseY())/64;
-			TowerGrid towerGridLoc;
-			//if clicked position is not towerGrid location
+				}
+			}
+			
+		}
+		
 			if(!(grid.getGridSlot(gridNoX, gridNoY) instanceof TowerGrid))
-				return;
-			else
-				towerGridLoc = (TowerGrid) grid.getGridSlot(gridNoX, gridNoY);
+					return;
 			b = ((TowerGrid) grid.getGridSlot(gridNoX,gridNoY)).mouseHitThisSlot(shop.getTowerBought(), shop.getTowerToPlace(), gridNoX*grid.getGridHeight(), gridNoY*grid.getGridWidth());
-			if(b)
-			{
-				if(towerGridLoc.hasTower == true) {
+			if(shop.getTowerToPlace() != null){
+				if(b && playerGold > shop.getTowerToPlace().getCost())
+				{
 					towerManager.addTower(shop.getTowerToPlace());
-					int gridX = control.getMouseX() / 64;
-					int gridY = control.getMouseY() / 64;
-					shop.getTowerToPlace().setLocX(gridX * 64 + 32);
-					shop.getTowerToPlace().setLocY(gridY * 64 + 32);
+					shop.getTowerToPlace().setLocX(gridNoX * 64 + 32);
+					shop.getTowerToPlace().setLocY(gridNoY * 64 + 32);
+					shop.setTowerBought(false);
 					control.setMouseX(0);
 					control.setMouseY(0);
-					shop.setTowerBought(false);
-					playerGold -= shop.getTowerToPlace().getCost();
-				}	
-			}
-			else {
-				//upgrade method called for the tower in this location, use for loop to find the tower, checking the xloc and yloc
-				
-				if(towerGridLoc.hasTower == true) {
-					for(int i = 0; i<towerManager.towerCount; i++) {
-						if(gridNoX == towerManager.towerList.get(i).getLocX() &&
-							   gridNoY == towerManager.towerList.get(i).getLocY()) 
-						{	
-							Tower twr = towerManager.towerList.get(i);
-							if(twr.getUpgradeCost() <= playerGold) {
-								twr.upgradeTower(playerGold);
-							}	
-						}
-					}
+					playerGold = playerGold - shop.getTowerToPlace().getCost();
+					System.out.println("Tower bought");
+					shop.setTowerToPlace(null);
 				}
-				else
-					return;
-			}		
+
 		}
 	}
-	
 	//getters
 	public Grid getGrid(){
 		return grid;

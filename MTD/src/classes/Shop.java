@@ -180,6 +180,9 @@ public class Shop {
 	public void setTowerBought(boolean inp){
 		towerBought = inp;
 	}
+	public void setTowerToPlace(Tower inp){
+		towerToPlace = inp;
+	}
 	public void draw(Graphics g){
 		g.drawImage(backgroundImage,0,576,null);
 		g.drawImage(itemImage[0],0,576,null);
