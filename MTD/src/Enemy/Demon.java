@@ -8,11 +8,11 @@ public class Demon extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(10);
+		setSpeed(18);
 
-		setArmor(10);
+		setArmor(8);
 
-		setHealth(50);
+		setHealth(125);
 
 		setDebuffDPS(0);
 
