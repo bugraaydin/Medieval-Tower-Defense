@@ -10,7 +10,7 @@ public class Knight extends Enemy{
 		
 		setSpeed(14);
 
-		setArmor(60);
+		setArmor(3);
 
 		setHealth(150);
 

@@ -10,7 +10,7 @@ public class Mage extends Enemy{
 		
 		setSpeed(7);
 
-		setArmor(60);
+		setArmor(5);
 
 		setHealth(100);
 

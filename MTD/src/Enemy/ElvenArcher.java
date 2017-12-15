@@ -10,7 +10,7 @@ public class ElvenArcher extends Enemy{
 		
 		setSpeed(6);
 
-		setArmor(4);
+		setArmor(2);
 
 		setHealth(50);
 

@@ -10,7 +10,7 @@ public class Peon extends Enemy{
 		
 		setSpeed(6);
 
-		setArmor(0);
+		setArmor(1);
 
 		setHealth(30);
 

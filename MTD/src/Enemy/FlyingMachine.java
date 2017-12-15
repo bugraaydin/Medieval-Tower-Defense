@@ -10,7 +10,7 @@ public class FlyingMachine extends Enemy{
 		
 		setSpeed(12);
 
-		setArmor(100);
+		setArmor(3);
 
 		setHealth(200);
 

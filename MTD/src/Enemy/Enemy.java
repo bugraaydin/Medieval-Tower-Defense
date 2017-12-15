@@ -14,8 +14,8 @@ public class Enemy {
 	public int locY;
 	private int speed;
 	private int[] velocity = new int[2];
-	private int armor;  // current armor
-	private int health;  // current hp
+	private double armor;  // current armor
+	private double health;  // current hp
 	private int debuffDPS; // from poison tower, taken per sec
 	private int resourceGiven;
 	private boolean isGettingHit = false;
@@ -36,11 +36,11 @@ public class Enemy {
 		resourceGiven = 100;
 	}
 	
-	public void onDamageTaken(int dmg)
+	public void onDamageTaken(double dmg)
 	{
 		if(!isAlive)
 			return;
-		health = health - dmg;
+		health = health - dmg/armor;
 		isGettingHit=true;
 		if(health<1)
 		{
@@ -86,9 +86,9 @@ public class Enemy {
 
 	}
 
-	public void setArmor(int armor){
+	public void setArmor(double d){
 
-		this.armor = armor;
+		this.armor = d;
 
 	}
 
@@ -134,13 +134,13 @@ public class Enemy {
 
 	}
 
-	public int getArmor(){
+	public double getArmor(){
 
 		return this.armor;
 
 	}
 
-	public int getHealth(){
+	public double getHealth(){
 
 		return this.health;
 

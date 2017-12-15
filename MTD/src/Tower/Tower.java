@@ -23,7 +23,7 @@ public class Tower extends GameObject{
 	private int towerRange;
 	private int cost;
 	private int attackSpeed; 
-	private int dmg;
+	private double dmg;
 	//Constructor
 	public Tower()
 	{
@@ -92,7 +92,7 @@ public class Tower extends GameObject{
 		projectilesSpawned.add(spawnedProjectile);
 	}
 	public void upgradeTower(){
-		setDamage(dmg+50);
+		setDamage(dmg+10);
 		setAttackSpeed(attackSpeed+1);
 		setTowerRange(towerRange+1);
 	}
@@ -101,8 +101,8 @@ public class Tower extends GameObject{
 	public void setImage(String input){
 		towerImageFile = input;
 	}
-	public void setDamage(int dmg){
-		this.dmg = dmg;
+	public void setDamage(double d){
+		this.dmg = d;
 	}
 	public void setLocX(int x){
 		locX = x;
@@ -127,7 +127,7 @@ public class Tower extends GameObject{
 	public int getProjectileCount(){ return projectilesSpawned.size();}
 	public boolean hasTarget(){ return hasTarget;}
 	public String getImage(){ return towerImageFile;}
-	public int getDamage(){return dmg;}
+	public double getDamage(){return dmg;}
 	public int getLocX(){ return locX;}
 	public Enemy getTarget(){ return target;}
 	public int getLocY(){ return locY;}

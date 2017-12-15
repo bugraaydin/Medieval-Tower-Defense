@@ -10,7 +10,7 @@ public class Grunt extends Enemy{
 		
 		setSpeed(8);
 
-		setArmor(20);
+		setArmor(2);
 
 		setHealth(100);
 

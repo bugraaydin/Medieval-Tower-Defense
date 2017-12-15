@@ -8,9 +8,9 @@ public class Goblins extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(18);
+		setSpeed(17);
 
-		setArmor(10);
+		setArmor(1);
 
 		setHealth(20);
 
