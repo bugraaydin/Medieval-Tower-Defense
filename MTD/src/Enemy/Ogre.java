@@ -12,7 +12,7 @@ public class Ogre extends Enemy{
 
 		setArmor(10);
 
-		setHealth(50);
+		setHealth(400);
 
 		setDebuffDPS(0);
 

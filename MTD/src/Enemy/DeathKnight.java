@@ -8,11 +8,11 @@ public class DeathKnight extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(10);
+		setSpeed(16);
 
-		setArmor(10);
+		setArmor(100);
 
-		setHealth(50);
+		setHealth(200);
 
 		setDebuffDPS(0);
 

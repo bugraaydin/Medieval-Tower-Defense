@@ -63,8 +63,9 @@ public class InformationPanel extends javax.swing.JPanel {
         		backButActionPerformed(evt);
         	}
         });
-        enemyComboBox.setMaximumRowCount(11);
-        enemyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Battering Ram", "Catapult", "Chengiz Khan Rider", "Elephant Rider", "Footman", "Jester", "Knight", "Light Cavaltry", "Pope", "Saint John's Knight", "Trojan Horse" }));
+        enemyComboBox.setMaximumRowCount(17);
+        enemyComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Death knight", "Demon", "Dragon", "Dwarven Demolishers", "Elven Archer", "Flying Machine", "Footman", 
+        																			 "Goblins", 	 "Grunt", "GryphonRider", "Knight", "Mage", "Ogre", "Peasant", "Peon", "Skeleton", "Troll" }));
         enemyComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enemyComboBoxActionPerformed(evt);
@@ -137,48 +138,72 @@ public class InformationPanel extends javax.swing.JPanel {
 
     private void enemyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {                                              
             selectedSpecUnit = enemyComboBox.getSelectedIndex();
-            if(selectedSpecUnit == 0){ //Battering ram
-                unitLabel = "<html>A tanky boss unit which has low speed, and great health&armor attributes. Ballista towers may counter it sufficiently.</html>"; 
+            if(selectedSpecUnit == 0){ //DeathKnight
+                unitLabel = "<html>Mounted units, which have higher speed, \nand a better armor. Armor reduction \nfor these units would be useful</html>"; 
                 unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 1){ //Catapult
-                unitLabel = "<html>Unit with low speed, and mediocre health and armor. Slow speed makes it vulnerable to towers that have fast fire rate.</html>";
+            if(selectedSpecUnit == 1){ //Demon
+                unitLabel = "<html>Demons are one of the fastest units \nin the game. A strong slow debuff is required.</html>";
                 unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 2){ // ChengizKhanRider
-                unitLabel = "<html>Boss unit with high speed, and very high health. Has mediocre armor, most vulnerable to speed debuffs.</html>";
+            if(selectedSpecUnit == 2){ //dragon
+                unitLabel = "<html>Magical creatures that doesn't prefer breathing fire. To counter them, high damage output and bleed effect would do great.</html>";
                 unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 3){ // Elephant Rider
-                unitLabel = "<html>High health and medium armor levels make this unit resistant to many various towers. Ballista towers, and mortar towers should be considered to handle them.</html>";
+            if(selectedSpecUnit == 3){ // DwarvenDemolishers
+                unitLabel = "<html>These demolishers are a bit slow, yet \nit's hard to take them down due to their \nvast health points. Bleeding them would do well.</html>";
                 unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 4){ //Footman
-               unitLabel = "<html>Default unit type with low attributes. Has a mediocre speed, and can be easily taken down with arrow towers.</html>";
+            if(selectedSpecUnit == 4){ // ElvenArcher
+                unitLabel = "<html>Archers have mediocre health and speed \nvalues. Countering them with arrows would \nbe a considerable and an ironic way.</html>";
+                unitLabelText.setText(unitLabel);
+            }
+            if(selectedSpecUnit == 5){ //FlyingMachine
+               unitLabel = "<html>Flying machines are fast and armored units. \nDebuff towers are strongly required to \ntake them down.</html>";
                unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 5){ // Jester
-                unitLabel = "<html>Has the highest speed attribute in game,\n and mediocre amount of health&armor points.\n ice towers are suggested.</html>";
+            if(selectedSpecUnit == 6){ //Footman
+                unitLabel = "<html>More handsome cousins of grunts. They trade better armor for less speed.</html>";
+                unitLabelText.setText(unitLabel);
+             }
+            if(selectedSpecUnit == 7){ // Goblins
+                unitLabel = "<html>Goblins are the most vulnurable units in the game. To counter this deficiency, they move faster</html>";
                 unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 6){ // Knight
-                unitLabel = "<html>These units have medium health, and low speed. However, armor attribute is quite great. Arcane towers will be useful to deal with knights.</html>";
+            if(selectedSpecUnit == 8){ // Grunt
+                unitLabel = "<html>Distant relatives of footmen. They prefer less armor for better speed.</html>";
                 unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 7){ //Light Cavalry
-                unitLabel = "<html>Considerably faster than most of the units, but and health is in low level. Can be countered with ice towers.</html>";
+            if(selectedSpecUnit == 9){ //GryphonRider
+                unitLabel = "<html>Flying units, which have better health and better speed than flying machines. .</html>";
                 unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 8){ // Pope
-                unitLabel = "<html>Last boss unit to be appeared. Beholding largest health bar as well as large armor attributes, and medium speed, this unit will be quite a challenge. Throw everything you can!</html>";
+            if(selectedSpecUnit == 10){ // Knight
+                unitLabel = "<html>They are mounted just like death knights, yet they are not powerful as much as them.</html>";
                 unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 9){ // SaitnJohn'sKnights
-                unitLabel = "<html>The boss unit with highest armor, and considerably high health points. Has low speed, and single targeting towers may be advantageous.</html>";
+            if(selectedSpecUnit == 11){ // Mage
+                unitLabel = "<html>Mages travel with a magical barrier(because it's fancier than saying better armor) that covers them up. .</html>";
                 unitLabelText.setText(unitLabel);
             }
-            if(selectedSpecUnit == 10){ // Trojan Horse
-                unitLabel = "<html>Health and armor values of this unit boss are tremendous. Speed is low on the other hand. Should be taken down easy with towers that can take out single targets easily.</html>";
+            if(selectedSpecUnit == 12){ // Ogre
+                unitLabel = "<html>Despite being slower, these units have a lot of health points .</html>";
+                unitLabelText.setText(unitLabel);
+            }
+            if(selectedSpecUnit == 13){ // Peasant
+                unitLabel = "<html>These poor guys are vulnurable to anything. Peasent = easy money.</html>";
+                unitLabelText.setText(unitLabel);
+            }
+            if(selectedSpecUnit == 14){ // Peon
+                unitLabel = "<html>Orc refugees, which are as miserable as peasents.</html>";
+                unitLabelText.setText(unitLabel);
+            }
+            if(selectedSpecUnit == 15){ // Skeleton
+                unitLabel = "<html>Skeletons are better than peasants or peons, yet they are not as good as footmen or grunts.</html>";
+                unitLabelText.setText(unitLabel);
+            }
+            if(selectedSpecUnit == 16){ // Troll
+                unitLabel = "<html>Trolls have no armor at all. They are slightly slower than the grunts, yet not as weak as the skeletons.</html>";
                 unitLabelText.setText(unitLabel);
             }
     }                                             
@@ -194,7 +219,7 @@ public class InformationPanel extends javax.swing.JPanel {
             unitLabelText.setText(unitLabel);
         }
         if(selectedSpecUnit == 2){ // Balista
-            unitLabel = "<html>The strongest attack point value that tower can have in the game. Range is also considerably high, yet it cost of attack frequency. Can be useful against boss units.</html>";
+            unitLabel = "<html>Balista has the strongest attack point value that tower can behold in the game. Range is also considerably high, yet it cost of attack frequency. Can be useful against boss units.</html>";
             unitLabelText.setText(unitLabel);
         }
         if(selectedSpecUnit == 3){ // Cannon
@@ -202,11 +227,11 @@ public class InformationPanel extends javax.swing.JPanel {
             unitLabelText.setText(unitLabel);
         }
         if(selectedSpecUnit == 4){ //Ice
-           unitLabel = "<html>This tower can be used to cause speed debuff to the targets. It has medium attack range and frequency, yet it lacks sufficient attack points.</html>";
+           unitLabel = "<html>This tower can be used to cause speed debuff against the targets. It has medium attack range and frequency, yet it lacks sufficient attack points.</html>";
            unitLabelText.setText(unitLabel);
         }
         if(selectedSpecUnit == 5){ // Mortar
-            unitLabel = "<html>It aims on single target with medium mediocre attack points, and has high range. It has low attack frequency. Most preferable as an economic choice against big tanky units</html>";
+            unitLabel = "<html>It aims on single target. Has medium mediocre attack points, and has high range. It has low attack frequency. Most preferable as an economic choice against big tanky units</html>";
             unitLabelText.setText(unitLabel);
         }
         if(selectedSpecUnit == 6){ // Oil
