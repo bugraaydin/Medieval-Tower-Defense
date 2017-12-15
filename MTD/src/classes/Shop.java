@@ -33,91 +33,107 @@ public class Shop {
 	{
 		if((mouseX > 0 && mouseX<60) && (mouseY < 636 && mouseY > 576))
 		{
-			if(playerGold>100)
-			{
-				towerToPlace = new ArcaneTower();
+			towerToPlace = new ArcaneTower();
+			if(playerGold >= towerToPlace.getCost()){
 				towerBought = true;
 				return;
 			}
-			else
+			else{
+				towerToPlace = null;
+				towerBought = false;
 				return;
+			}
 		}
 		else if((mouseX>60&&mouseX<120) && (mouseY < 636 && mouseY > 576) )
 		{
-			if(playerGold>150)
-			{
-				towerToPlace = new ArrowTower();
+			towerToPlace = new ArrowTower();
+			if(playerGold >= towerToPlace.getCost()){
 				towerBought = true;
 				return;
 			}
-			else
+			else{
+				towerToPlace = null;
+				towerBought = false;
 				return;
+			}
 		}
 		else if((mouseX>120&&mouseX<180) && (mouseY < 636 && mouseY > 576))
 		{
-			if(playerGold>150)
-			{
-				towerToPlace = new BalistaTower();
+			towerToPlace = new BalistaTower();
+			if(playerGold >= towerToPlace.getCost()){
 				towerBought = true;
 				return;
 			}
-			else
+			else{
+				towerToPlace = null;
+				towerBought = false;
 				return;
+			}
 		}
 		else if((mouseX>180&&mouseX<240) && (mouseY < 636 && mouseY > 576))
 		{
-			if(playerGold>150)
-			{
-				towerToPlace = new CannonTower();
+			towerToPlace = new CannonTower();
+			if(playerGold >= towerToPlace.getCost()){
 				towerBought = true;
 				return;
 			}
-			else
+			else{
+				towerToPlace = null;
+				towerBought = false;
 				return;
+			}
 		}
 		else if((mouseX>0&&mouseX<60) && (mouseY < 696 && mouseY > 636))
 		{
-			if(playerGold>150)
-			{
-				towerToPlace = new IceTower();
+			towerToPlace = new IceTower();
+			if(playerGold >= towerToPlace.getCost()){
 				towerBought = true;
 				return;
 			}
-			else
+			else{
+				towerToPlace = null;
+				towerBought = false;
 				return;
+			}
 		}
 		else if((mouseX>60&&mouseX<120) && (mouseY < 696 && mouseY > 636))
 		{
-			if(playerGold>150)
-			{
-				towerToPlace = new MortarTower();
+			towerToPlace = new MortarTower();
+			if(playerGold >= towerToPlace.getCost()){
 				towerBought = true;
 				return;
 			}
-			else
+			else{
+				towerToPlace = null;
+				towerBought = false;
 				return;
+			}
 		}
 		else if((mouseX>120&&mouseX<180) && (mouseY < 696 && mouseY > 636))
 		{
-			if(playerGold>150)
-			{
-				towerToPlace = new OilTower();
+			towerToPlace = new OilTower();
+			if(playerGold >= towerToPlace.getCost()){
 				towerBought = true;
 				return;
 			}
-			else
+			else{
+				towerToPlace = null;
+				towerBought = false;
 				return;
+			}
 		}
 		else if((mouseX>180&&mouseX<240) && (mouseY < 696 && mouseY > 636))
 		{
-			if(playerGold>150)
-			{
-				towerToPlace = new PoisonTower();
+			towerToPlace = new PoisonTower();
+			if(playerGold >= towerToPlace.getCost()){
 				towerBought = true;
 				return;
 			}
-			else
+			else{
+				towerToPlace = null;
+				towerBought = false;
 				return;
+			}
 		}
 		return;
 	}
