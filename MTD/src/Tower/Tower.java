@@ -20,10 +20,11 @@ public class Tower extends GameObject{
 	private boolean hasTarget;
 	private int locX;
 	private int locY;
-	private int towerRange;
-	private int cost;
-	private int attackSpeed; 
-	private int dmg;
+	protected int towerRange;
+	protected int cost;
+	protected int attackSpeed; 
+	protected int dmg;
+	protected int upgradeCost;
 	//Constructor
 	public Tower()
 	{
@@ -116,6 +117,9 @@ public class Tower extends GameObject{
 	public void setHasTarget(boolean hasTarget){
 		this.hasTarget = hasTarget;
 	}
+	public void setUpgradeCost(int upgradeCost) {
+		this.upgradeCost = upgradeCost;
+	}
 	//Getters
 	public ArrayList<Projectile> getProjectilesSpawned(){ return projectilesSpawned;}
 	public int getProjectileCount(){ return projectilesSpawned.size();}
@@ -128,11 +132,10 @@ public class Tower extends GameObject{
 	public int getTowerRange(){ return towerRange;}
 	public int getCost(){ return cost;}
 	public int getAttackSpeed(){ return attackSpeed;}
+	public int getUpgradeCost() { return upgradeCost;}
 	
 	///////////////////////////////////////////////////////
 	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void draw() {}
+	public void upgrade() {}
 }
