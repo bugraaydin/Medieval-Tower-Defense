@@ -62,7 +62,7 @@ public class GameManager {
 		grid = new Grid(test);
 		control = new Control();
 		enemyManager = new EnemyManager();
-		enemyManager.initializeEnemies(0); // initializing the first wave
+		enemyManager.initializeEnemies(0,0); //initializing 1.1 enemy
 		towerManager = new TowerManager();
 		screenX = grid.getGridSlotSize() * grid.getGridWidth();
 		screenY = grid.getGridSlotSize() * grid.getGridHeight();
@@ -103,53 +103,26 @@ public class GameManager {
 	}
 	//UPDATING WAVES
 	public void updateWave(){
-		
-		if(frameRate == 50){ // second = 5
-			enemyManager.initializeEnemies(1); //initializing the 2. wave
+		//FIRST WAVE__________________________________________________
+
+		if(frameRate == 10){ // second = 1
+			enemyManager.initializeEnemies(0,1); //initializing 1.2 enemy
 		}
-		/**
+		if(frameRate == 20){ // second = 2
+			enemyManager.initializeEnemies(0,2);//initializing 1.3 enemy
+		}
+		//____________________________________________________________
+		//SECOND WAVE_________________________________________________
 		if(frameRate == 100){ // second = 10
-			enemyManager.initializeEnemies(2); //initializing the 3. wave
+			enemyManager.initializeEnemies(1,0); //initializing 2.1 enemy
 		}
-		if(frameRate == 150){ // second = 15
-			enemyManager.initializeEnemies(3); //initializing the 4. wave
-		}*/
-		if(frameRate == 200){ // second = 20
-			enemyManager.initializeEnemies(4); //initializing the 5. wave
+		if(frameRate == 110){ // second = 11
+			enemyManager.initializeEnemies(1,1); //initializing the 2.2 enemy
 		}
-		if(frameRate == 250){ // second = 25
-			enemyManager.initializeEnemies(5); //initializing the 6. wave
+		if(frameRate == 120){ // second = 12
+			enemyManager.initializeEnemies(1,2); //initializing the 2.3 enemy
 		}
-		if(frameRate == 300){ // second = 30
-			enemyManager.initializeEnemies(6); //initializing the 7. wave
-		}
-		if(frameRate == 350){ // second = 35
-			enemyManager.initializeEnemies(7); //initializing the 8. wave
-		}
-		
-		/*
-		if(frameRate == 400){ // second = 40
-			enemyManager.initializeEnemies(8); //initializing the 9. wave
-		}
-		if(frameRate == 450){ // second = 45
-			enemyManager.initializeEnemies(9); //initializing the 10. wave
-		}
-		if(frameRate == 500){ // second = 50
-			enemyManager.initializeEnemies(10); //initializing the 11. wave
-		}
-		if(frameRate == 550){ // second = 60
-			enemyManager.initializeEnemies(3); //initializing the 12. wave
-		}
-		if(frameRate == 600){ // second = 65
-			enemyManager.initializeEnemies(3); //initializing the 13. wave
-		}
-		if(frameRate == 700){ // second = 70
-			enemyManager.initializeEnemies(3); //initializing the 14. wave
-		}
-		if(frameRate == 800){ // second = 75
-			enemyManager.initializeEnemies(3); //initializing the 15. wave
-		}
-		*/
+
 	}
 	//UPDATE ENEMIES
 	private void updateEnemies(){

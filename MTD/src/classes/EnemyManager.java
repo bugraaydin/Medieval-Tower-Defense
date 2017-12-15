@@ -14,30 +14,46 @@ public class EnemyManager {
 
 	public EnemyManager(){
 		enemyList = new ArrayList<Enemy>();	
-		enemySpawnLocX = 150;
-		enemySpawnLocY = 60;
+		enemySpawnLocX = 140;
+		enemySpawnLocY = 32;
 	}
 
 	
-	public void initializeEnemies(int waveNo){
-		//initialize 1st wave
-		if(waveNo == 0){
+	public void initializeEnemies(int waveNo, int enemyNo){
+		//initialize 1st wave_________________________________________________________
+		if(waveNo == 0 && enemyNo == 0){
 			this.waveNo = 0;
-			for(int i = 0; i < 1; i++){ 
-				enemyList.add(new Footman(enemySpawnLocX, enemySpawnLocY)); 
-				//enemyList.add(new Grunt(enemySpawnLocX, enemySpawnLocY));
-				//enemyList.add(new DwarvenDemolishers(enemySpawnLocX, enemySpawnLocY));
+			enemyList.add(new Dragon(enemySpawnLocX, enemySpawnLocY)); 
 				enemyCount++;
-			}
 		}
-		//initialize 2nd wave
-		if(waveNo == 1){
+		if(waveNo == 0 && enemyNo == 1){
+			this.waveNo = 0;
+			enemyList.add(new Peon(enemySpawnLocX, enemySpawnLocY)); 
+			enemyCount++;
+		}
+		if(waveNo == 0 && enemyNo == 2){
+			this.waveNo = 0;
+			enemyList.add(new DeathKnight(enemySpawnLocX, enemySpawnLocY)); 
+			enemyCount++;
+		}
+		//_______________________________________________________________________________
+		//initialize 2nd wave____________________________________________________________
+		if(waveNo == 1 && enemyNo == 0){
 			this.waveNo = 1;
-			for(int i = 0; i < 1; i++){
-				enemyList.add(new Knight(enemySpawnLocX, enemySpawnLocY)); 
-				enemyCount++;
-			}
+			enemyList.add(new Demon(enemySpawnLocX, enemySpawnLocY)); 
+			enemyCount++;
 		}
+		if(waveNo == 1 && enemyNo == 1){
+			this.waveNo = 1;
+			enemyList.add(new Knight(enemySpawnLocX, enemySpawnLocY)); 
+			enemyCount++;
+		}
+		if(waveNo == 1 && enemyNo == 2){
+			this.waveNo = 1;
+			enemyList.add(new Knight(enemySpawnLocX, enemySpawnLocY)); 
+			enemyCount++;
+		}
+		//_______________________________________________________________________________
 		//initialize 3rd wave
 		if(waveNo==2){
 			this.waveNo = 2;
