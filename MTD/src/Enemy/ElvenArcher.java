@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class ElvenArcher extends Enemy{
 
 	
@@ -8,9 +11,9 @@ public class ElvenArcher extends Enemy{
 
 		super(locX,locY);
 		
-		setSpeed(6);
+		setSpeed(10);
 
-		setArmor(4);
+		setArmor(10);
 
 		setHealth(50);
 
@@ -43,5 +46,13 @@ public class ElvenArcher extends Enemy{
 		setEnemyImage(0);
 	}
 
-
+	public void playEnemyDie(){
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/elf_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 }

@@ -23,12 +23,12 @@ public class EnemyManager {
 		//initialize 1st wave_________________________________________________________
 		if(waveNo == 0 && enemyNo == 0){
 			this.waveNo = 0;
-			enemyList.add(new Peasant(enemySpawnLocX, enemySpawnLocY)); 
+			enemyList.add(new Peon(enemySpawnLocX, enemySpawnLocY)); 
 				enemyCount++;
 		}
 		if(waveNo == 0 && enemyNo == 1){
 			this.waveNo = 0;
-			enemyList.add(new Peon(enemySpawnLocX, enemySpawnLocY)); 
+			enemyList.add(new Ogre(enemySpawnLocX, enemySpawnLocY)); 
 			enemyCount++;
 		}
 		if(waveNo == 0 && enemyNo == 2){

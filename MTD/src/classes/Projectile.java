@@ -7,8 +7,6 @@ import Enemy.*;
 
 
 public class Projectile {
-	private String projectileImageBuffer;
-	public BufferedImage projectileImage;
 	private int locX;
 	private int locY;
 	private double timeTillHit;
@@ -16,35 +14,26 @@ public class Projectile {
 	private int damageType;
 	private int slowRate;
 	private int armorReduce;
+	public BufferedImage projectileImage;
+	public int projectileImageNumber;
 	private int damagePerSec;
 	private Enemy target;
 	private int speed;
 	private int targetLocX;
 	private int targetLocY;
 	public boolean isAlive = true;
-	private int onHitEffectFramerate;
-	private int projectileFramerate;//NOT USED YET, ONLY USED IF PROJECTILE ITSELF IS AN ANIMATION, NOT THE ON HIT EFFECT
+
 	
-	public Projectile(int x, int y, Enemy target, int damage, int projectileType){
-		
-		setProjectileProperties(projectileType);
-		
+	public Projectile(int x, int y, Enemy target, int damage){
 		timeTillHit = 20;
 		this.damage = damage;
 		slowRate = 0;
 		armorReduce = 0;
 		damagePerSec = 0;
 		speed = 10;
-		projectileImageBuffer = "/images/projectiles/ex0.png";
 		this.locX = x;
 		this.locY = y;
 		this.target = target;
-		
-		try {
-			projectileImage = ImageIO.read(getClass().getResourceAsStream(projectileImageBuffer));
-		}	catch(IOException exc) {
-				exc.printStackTrace();
-		}
 		
 		targetLocX = target.locX;
 		targetLocY =  target.locY;
@@ -52,9 +41,10 @@ public class Projectile {
 	
 	
 	public void dealDamage(){
-		target.onDamageTaken(damage, onHitEffectFramerate);
+		target.onDamageTaken(damage);
 	}
 	
+<<<<<<< HEAD
 	public void setProjectileProperties(int projectileType)
 	{
 		if(projectileType==0)
@@ -77,6 +67,8 @@ public class Projectile {
 	{
 		this.onHitEffectFramerate = onHitEffectFramerate;
 	}
+=======
+>>>>>>> 3def7e5873632a85ae08f2c372e81c5a069c17ab
 	
 	public void update(){
 		if(target==null)
@@ -136,9 +128,5 @@ public class Projectile {
 	}
 	public Enemy getTarget(){
 		return this.target;
-	}
-	public int getOnHitEffectFramerate()
-	{
-		return onHitEffectFramerate;
 	}
 }

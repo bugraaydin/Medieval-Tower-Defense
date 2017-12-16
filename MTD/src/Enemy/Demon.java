@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class Demon extends Enemy{
 
 	
@@ -8,11 +11,11 @@ public class Demon extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(18);
+		setSpeed(10);
 
-		setArmor(8);
+		setArmor(10);
 
-		setHealth(125);
+		setHealth(50);
 
 		setDebuffDPS(0);
 
@@ -42,7 +45,15 @@ public class Demon extends Enemy{
 
 		setEnemyImage(0);
 	}
-
+	public void playEnemyDie(){
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/demon_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 
 
 }

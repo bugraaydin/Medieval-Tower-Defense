@@ -35,7 +35,7 @@ public class GameManager {
 	
 	//
 	
-	private Timer fpsTimer;
+	
 	//CHANGE
 	private ArrayList<Enemy> graveyard;
 	//
@@ -97,7 +97,7 @@ public class GameManager {
 				if(remainingChances < 1)
 					gameLost = true;
 				//Checking if game is won
-				if(enemyManager.getWaveNo() == 14 && enemyManager.enemyList.size() == 0)
+				if(enemyManager.getWaveNo() == 15 && enemyManager.enemyList.size() == 0)
 					gameWon = true;
 				if(gameLost || gameWon)
 					return;
@@ -106,10 +106,7 @@ public class GameManager {
 				updateEnemies(); // updating enemies
 				updateTowerTargets(); // updating targets
 				updateUserInputs(); // updating the controller
-				
-				//set90FPSTimer();
-				
-				updateAnimations(); //
+				updateGraveyard(); //
 				updateProjectiles();//updating the projectiles
 			}
 		};
@@ -132,7 +129,7 @@ public class GameManager {
 	//UPDATING WAVES
 	public void updateWave(){
 		//FIRST WAVE__________________________________________________
-		if(frameRate == 21){ // second = 3
+		if(frameRate == 30){ // second = 3
 			enemyManager.initializeEnemies(0,0); //initializing 1.1 enemy
 		}
 		if(frameRate == 40){ // second = 4
@@ -199,6 +196,7 @@ public class GameManager {
 			if(!(enemyManager.enemyList.get(i).isAlive)){
 				graveyard.add(enemyManager.enemyList.get(i));
 				playerGold = playerGold + enemyManager.enemyList.get(i).getResource();
+				enemyManager.enemyList.get(i).playEnemyDie();
 				enemyManager.killEnemy(i);
 			}
 		}
@@ -219,6 +217,9 @@ public class GameManager {
 			}
 			for(int i=0; i<enemyManager.enemyList.size(); i++)
 			{	
+				double hppercent = ((double)enemyManager.enemyList.get(i).getHealth() / (double)enemyManager.enemyList.get(i).getMaxHealth()) ;
+				System.out.println(hppercent);
+				enemyManager.enemyList.get(i).setEnemyHB(hppercent);
 				int gridX = enemyManager.enemyList.get(i).locX / 64;
 				int gridY = enemyManager.enemyList.get(i).locY / 64;
 				if(enemyManager.enemyList.get(i).getVelocity()[1] == -enemyManager.enemyList.get(i).getSpeed() && grid.getGridSlot(gridX+1, gridY) instanceof EnemyGrid && enemyManager.enemyList.get(i).getLocY() > 5 + gridY * grid.getGridSlotSize())
@@ -287,26 +288,11 @@ public class GameManager {
 		}
 	}
 	//UPDATING GRAVEYARD
-	private void updateAnimations(){
+	private void updateGraveyard(){
 		int updateFrequency = frameRate % 2;
 		if(updateFrequency == 0)
 			updateDyingEnemy();
 	}
-	
-	/**
-	private void updateEffects()
-	{
-		for(int i = 0; i < enemyManager.enemyList.size();i++)
-		{
-			if(enemyManager.enemyList.get(i).isGettingHit())
-			{
-				if(!enemyManager.enemyList.get(i).isPlayingHitAnimation)
-					enemyManager.enemyList.get(i).playEffectAnimation();
-			}
-		}
-	}*/
-	
-	
 	//UPDATE DYING ENEMY
 	private void updateDyingEnemy(){
 		
@@ -366,21 +352,11 @@ public class GameManager {
 						> towerManager.towerList.get(i).getTowerRange()
 							)				
 						{
-							System.out.println("CLEAR TARGET");
 							towerManager.towerList.get(i).clearTarget();
 							j=enemyManager.enemyList.size();
 						}
 											
 					}
-
-						/**
-					if(towerManager.towerList.get(i).getTarget() != null)
-						if((!towerManager.towerList.get(i).getTarget().isAlive)){
-							towerManager.towerList.get(i).setTarget(null);
-							towerManager.towerList.get(i).setHasTarget(false);
-							System.out.println("sa");
-							return;
-						}*/
 				}
 			}
 		
@@ -391,22 +367,12 @@ public class GameManager {
 		int time = frameRate;
 		if(towerManager.towerList.size() == 0)
 			return;
-		
 		for(int i=0; i<towerManager.towerList.size(); i++){
-			/**
-			if(towerManager.towerList.get(i).getTarget() != null)
-				if(towerManager.towerList.get(i).getTarget().isAlive == true && frameRate % 8 == 0){
-					towerManager.spawnProjectile(i);
-					System.out.println("wow");
-				}
-			*/
 			for(int j = 0; j < towerManager.towerList.get(i).getProjectilesSpawned().size(); j++){
 				
 				towerManager.towerList.get(i).getProjectilesSpawned().get(j).update();
 				if(towerManager.towerList.get(i).getTarget() == null )
 					towerManager.towerList.get(i).getProjectilesSpawned().remove(j);
-
-				
 			}
 		}
 	}
@@ -420,10 +386,7 @@ public class GameManager {
 			return;
 		if(control.getMouseY()>screenY)
 		{
-			System.out.println(towerManager.towerList.size());
 			shop.buyTower(control.getMouseX(),control.getMouseY(), playerGold);
-			System.out.println(towerManager.towerList.size());
-			System.out.println("Tower selected");
 			control.setMouseX(0);
 			control.setMouseY(0);
 			return;
@@ -432,7 +395,6 @@ public class GameManager {
 			if(((TowerGrid)grid.getGridSlot(gridNoX, gridNoY)).hasTower == true){
 				if(playerGold >= ((TowerGrid)grid.getGridSlot(gridNoX, gridNoY)).getTower().getCost()){
 				((TowerGrid)grid.getGridSlot(gridNoX, gridNoY)).getTower().upgradeTower();
-				System.out.println("Tower upgrade");
 				control.setMouseX(0);
 				control.setMouseY(0);
 				playerGold = playerGold - ((TowerGrid)grid.getGridSlot(gridNoX, gridNoY)).getTower().getCost();
@@ -455,7 +417,6 @@ public class GameManager {
 					control.setMouseX(0);
 					control.setMouseY(0);
 					playerGold = playerGold - shop.getTowerToPlace().getCost();
-					System.out.println("Tower bought");
 					shop.setTowerToPlace(null);
 				}
 

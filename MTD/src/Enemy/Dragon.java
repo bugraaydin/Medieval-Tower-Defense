@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class Dragon extends Enemy{
 
 	
@@ -8,11 +11,11 @@ public class Dragon extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(4);
+		setSpeed(10);
 
 		setArmor(10);
 
-		setHealth(1000);
+		setHealth(50);
 
 		setDebuffDPS(0);
 
@@ -43,6 +46,15 @@ public class Dragon extends Enemy{
 		setEnemyImage(0);
 	}
 
-
+	public void playEnemyDie(){
+		
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/dragon_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 
 }

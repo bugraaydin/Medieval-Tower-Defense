@@ -2,10 +2,15 @@ package Tower;
 
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
+import sun.audio.AudioStream;
+
 import Enemy.*;
 import classes.GameObject;
 import classes.Projectile;
@@ -16,7 +21,7 @@ public class Tower extends GameObject{
 	private ArrayList<Projectile> projectilesSpawned;
 	private String towerImageFile;
 	private Timer myTimer;
-	
+	protected String[] projectilesImageBuffer;
 	private boolean hasTarget;
 	private int locX;
 	private int locY;
@@ -24,40 +29,24 @@ public class Tower extends GameObject{
 	private int cost;
 	private int attackSpeed; 
 	private int dmg;
-	private int projectileType;
+	
+	public InputStream shootBuffer;
+	public AudioStream shootSound;
 	//Constructor
 	public Tower()
 	{
-		projectileType=0;
+		projectilesImageBuffer = new String[4]; //0 down //1 up //2 right //3 left
 		cost = 100;
 		projectilesSpawned  = new ArrayList<Projectile>();
 	}
-
-	/**
-	public void setTarget(Enemy target){
-		if(target == null){
-			hasTarget = false;
-			return;
-		}
-		double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.towerRange), 2) 
-				+ Math.pow(Math.abs(target.locX-this.towerRange), 2));
-		if(distance < this.towerRange && hasTarget==false)
-		{	
-			this.target = target;
-			hasTarget = true;
-		}
-	}
-	*/
 	
+	public void playTowerShoot(){
+	}
+
 	public void setTarget(Enemy target){
-		//double distance = Math.sqrt(Math.pow(Math.abs(target.locX-this.locX), 2) 
-		//		+ Math.pow(Math.abs(target.locY-this.locY), 2));
-		//if(distance < this.towerRange && hasTarget==false)
-		//{	
-			this.target = target;
-			hasTarget = true;
-			activateTower();
-		//}
+		this.target = target;
+		hasTarget = true;
+		activateTower();
 	}
 	
 	public void clearTarget()
@@ -75,8 +64,9 @@ public class Tower extends GameObject{
 
 			public void actionPerformed(ActionEvent e){
 				if(target!=null)
-					if(target.isAlive==true)
+					if(target.isAlive==true){
 						spawnProjectile(target);
+					}
 			}
 		};
 		myTimer = new Timer(delay,taskPerformer);
@@ -90,7 +80,40 @@ public class Tower extends GameObject{
 	}
 
 	public void spawnProjectile(Enemy target){
-		Projectile spawnedProjectile = new Projectile(locX,locY,target,dmg,projectileType);
+		Projectile spawnedProjectile = new Projectile(locX,locY,target,dmg);
+		if(target.locY >= locY){
+			try {
+				spawnedProjectile.projectileImage = ImageIO.read(getClass().getResourceAsStream(projectilesImageBuffer[0]));
+				spawnedProjectile.projectileImageNumber = 0;
+			}	catch(IOException exc) {
+					exc.printStackTrace();
+			}
+		}
+		else if(Math.abs(target.locY - locY) < 40 && target.locX > locX){
+			try {
+				spawnedProjectile.projectileImage = ImageIO.read(getClass().getResourceAsStream(projectilesImageBuffer[2]));
+				spawnedProjectile.projectileImageNumber = 2;
+			}	catch(IOException exc) {
+					exc.printStackTrace();
+			}
+		}
+		else if(Math.abs(target.locY - locY) < 40 && target.locX < locX){
+			try {
+				spawnedProjectile.projectileImage = ImageIO.read(getClass().getResourceAsStream(projectilesImageBuffer[3]));
+				spawnedProjectile.projectileImageNumber = 3;
+			}	catch(IOException exc) {
+					exc.printStackTrace();
+			}
+		}
+		else{
+			try {
+				spawnedProjectile.projectileImage = ImageIO.read(getClass().getResourceAsStream(projectilesImageBuffer[1]));
+				spawnedProjectile.projectileImageNumber = 1;
+			}	catch(IOException exc) {
+					exc.printStackTrace();
+			}
+		}
+		playTowerShoot();
 		projectilesSpawned.add(spawnedProjectile);
 	}
 	public void upgradeTower(){
@@ -124,10 +147,6 @@ public class Tower extends GameObject{
 	public void setHasTarget(boolean hasTarget){
 		this.hasTarget = hasTarget;
 	}
-	public void setProjectileType(int projectileType)
-	{
-		this.projectileType = projectileType;
-	}
 	//Getters
 	public ArrayList<Projectile> getProjectilesSpawned(){ return projectilesSpawned;}
 	public int getProjectileCount(){ return projectilesSpawned.size();}
@@ -140,6 +159,7 @@ public class Tower extends GameObject{
 	public int getTowerRange(){ return towerRange;}
 	public int getCost(){ return cost;}
 	public int getAttackSpeed(){ return attackSpeed;}
+	
 	///////////////////////////////////////////////////////
 	@Override
 	public void draw() {
