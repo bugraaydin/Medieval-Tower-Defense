@@ -60,6 +60,10 @@ public class Projectile {
 			//setOnHitEffectFramerate();
 			//SET SECOND PROJECTILE TYPE FRAMERATE
 		}
+		else if(projectileType==2)
+		{
+			
+		}
 	}
 	
 	public void setProjectileFramerate(int projectileFramerate)
