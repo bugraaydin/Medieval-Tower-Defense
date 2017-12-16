@@ -7,6 +7,8 @@ import Enemy.*;
 
 
 public class Projectile {
+	private int onHitEffectFramerate;
+	private int projectileFramerate;
 	private int locX;
 	private int locY;
 	private double timeTillHit;
@@ -24,7 +26,9 @@ public class Projectile {
 	public boolean isAlive = true;
 
 	
-	public Projectile(int x, int y, Enemy target, int damage){
+	public Projectile(int x, int y, Enemy target, int damage, int projectileType){
+		
+		setProjectileProperties(projectileType);
 		timeTillHit = 20;
 		this.damage = damage;
 		slowRate = 0;
@@ -41,10 +45,10 @@ public class Projectile {
 	
 	
 	public void dealDamage(){
-		target.onDamageTaken(damage);
+		target.onDamageTaken(damage,onHitEffectFramerate);
 	}
 	
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	public void setProjectileProperties(int projectileType)
 	{
 		if(projectileType==0)
@@ -67,8 +71,8 @@ public class Projectile {
 	{
 		this.onHitEffectFramerate = onHitEffectFramerate;
 	}
-=======
->>>>>>> 3def7e5873632a85ae08f2c372e81c5a069c17ab
+//=======
+//>>>>>>> 3def7e5873632a85ae08f2c372e81c5a069c17ab
 	
 	public void update(){
 		if(target==null)

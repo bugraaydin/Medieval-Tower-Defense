@@ -29,12 +29,14 @@ public class Tower extends GameObject{
 	private int cost;
 	private int attackSpeed; 
 	private int dmg;
+	private int projectileType;
 	
 	public InputStream shootBuffer;
 	public AudioStream shootSound;
 	//Constructor
 	public Tower()
 	{
+		projectileType=0;
 		projectilesImageBuffer = new String[4]; //0 down //1 up //2 right //3 left
 		cost = 100;
 		projectilesSpawned  = new ArrayList<Projectile>();
@@ -80,7 +82,7 @@ public class Tower extends GameObject{
 	}
 
 	public void spawnProjectile(Enemy target){
-		Projectile spawnedProjectile = new Projectile(locX,locY,target,dmg);
+		Projectile spawnedProjectile = new Projectile(locX,locY,target,dmg,projectileType);
 		if(target.locY >= locY){
 			try {
 				spawnedProjectile.projectileImage = ImageIO.read(getClass().getResourceAsStream(projectilesImageBuffer[0]));
@@ -146,6 +148,10 @@ public class Tower extends GameObject{
 	}
 	public void setHasTarget(boolean hasTarget){
 		this.hasTarget = hasTarget;
+	}
+	public void setProjectileType(int projectileType)
+	{
+		this.projectileType = projectileType;
 	}
 	//Getters
 	public ArrayList<Projectile> getProjectilesSpawned(){ return projectilesSpawned;}

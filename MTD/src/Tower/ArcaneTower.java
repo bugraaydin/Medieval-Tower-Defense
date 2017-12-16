@@ -1,63 +1,30 @@
  package Tower;
 
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 public class ArcaneTower extends Tower{
 	
-	//public BufferedImage testImage;
-	//private int scaleFactorX, scaleFactorY;
 	public ArcaneTower(){
 		super();
-		setImage("/images/towers/arcane_tower.png");
-		setDamage(10);
+		setImage("/images/towers/arcane_tower/arcane_tower.png");
+		setDamage(25);
 		setTowerRange(225);
 		setAttackSpeed(25);
-		setProjectileType(0);
-		
-		/**
+		projectilesImageBuffer[0] = ("/images/towers/arcane_tower/projectiles/projectile_down.png");
+		projectilesImageBuffer[1] = ("/images/towers/arcane_tower/projectiles/projectile_up.png");
+		projectilesImageBuffer[2] = ("/images/towers/arcane_tower/projectiles/projectile_right.png");
+		projectilesImageBuffer[3] = ("/images/towers/arcane_tower/projectiles/projectile_left.png");
+	}
+	
+	public void playTowerShoot(){
 		try {
-			testImage = ImageIO.read(getClass().getResourceAsStream("/Sequences/Lightning/lightning_1_1.png"));
-		}	catch(IOException exc) {
+			shootBuffer = getClass().getResourceAsStream("/sounds/shoot/arcane.wav");
+			shootSound = new AudioStream(shootBuffer);
+			AudioPlayer.player.start(shootSound);
+		}	catch(Exception exc) {
 				exc.printStackTrace();
-		}*/
+		}
 	}
-	
-	/**
-	public void setScaleFactors()
-	{
-		scaleFactorX = testImage.getWidth()/(this.getLocX() - getTarget().locX);
-		scaleFactorY = testImage.getHeight()/(this.getLocY() - getTarget().locY);
-	}
-	
-	public BufferedImage scale(BufferedImage sbi, int imageType, int dWidth, int dHeight, double fWidth, double fHeight) {
-	    BufferedImage dbi = null;
-	    if(sbi != null) {
-	        dbi = new BufferedImage(dWidth, dHeight, imageType);
-	        AffineTransform at = AffineTransform.getScaleInstance(fWidth, fHeight);
-	    }
-	    return dbi;
-	}	
-	
-	public BufferedImage rotateMyImage()
-	{
-		// The required drawing location
-		int drawLocationX = 50;
-		int drawLocationY = 50;
-
-		// Rotation information
-
-		double rotationRequired = Math.toRadians (45);
-		double locationX = testImage.getWidth() / 2;
-		double locationY = testImage.getHeight() / 2;
-		AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
-		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-		return op.filter(testImage, null);
-	}
-	*/
 
 }

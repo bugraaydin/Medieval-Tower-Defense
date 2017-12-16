@@ -3,14 +3,24 @@ package Enemy;
 import java.io.InputStream;
 import sun.audio.AudioStream;
 import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 
 
 public class Enemy {
+	
+	public String hitEffectCode;
+	private int hitEffectNumber;
+	private int hitEffectSize;
+	private Timer fpsTimer;
+	public boolean isPlayingHitAnimation = false;
+	public BufferedImage hitEffectImage;
 	
 	private ImageIcon impactImageIcon;
 	public int targetCount = 0;
@@ -37,6 +47,10 @@ public class Enemy {
 	
 	public Enemy(int locX, int locY)
 	{
+		hitEffectNumber = 1;
+		hitEffectSize = 90;
+		hitEffectCode = "/Sequences/64x48/explosion1_00";
+		
 		maxHealth = 100;
 		this.locX = locX;
 		this.locY = locY;
@@ -45,6 +59,54 @@ public class Enemy {
 		enemyImageBuffer = new String[18];
 		resourceGiven = 100;
 	}
+	
+	public void setFPSTimer(int animationFramerate)
+	{
+		int delay = (1000/animationFramerate);//(1/attackSpeed)*500; // ~10 updates per second
+		ActionListener taskPerformer = new ActionListener(){
+
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("TIMER CALLED");
+				setHitEffectImage();
+			}
+		};
+		System.out.println("Start TIMER");
+		fpsTimer = new Timer(delay,taskPerformer);
+		fpsTimer.start();
+		//new Timer(delay,taskPerformer).start();
+	}
+
+	public void playEffectAnimation(int animFramerate)
+	{
+		setHitEffectImage();
+		hitEffectSize=animFramerate;
+		setFPSTimer(animFramerate);
+		isPlayingHitAnimation = true;
+	}
+	
+	public void setHitEffectImage()
+	{
+		//System.out.println(hitEffectCode + hitEffectNumber + ".png");
+		
+			try {
+				hitEffectImage = ImageIO.read(getClass().getResourceAsStream(hitEffectCode + hitEffectNumber + ".png"));
+			}	catch(IOException exc) { //"/Sequences/64x48/explosion1_007.png")
+				System.out.println("Caught you");
+					exc.printStackTrace();
+			}
+			//System.out.println("DRAWN THE IMAGE");
+			hitEffectNumber = hitEffectNumber + 1;
+			if(hitEffectNumber >= hitEffectSize-1)
+			{
+				isGettingHit = false;
+				isPlayingHitAnimation = false;
+				hitEffectNumber = 1;
+				fpsTimer.stop();
+			}
+			
+	}
+	
 	public void playEnemyDie(){
 	}
 	
@@ -131,12 +193,20 @@ public class Enemy {
 	}
 	
 	
-	public void onDamageTaken(int dmg)
+	public void onDamageTaken(int dmg, int onHitEffectFramerate)
 	{
 		if(!isAlive)
 			return;
+		dmg = dmg - (dmg/armor)*3;
 		health = health - dmg;
 		isGettingHit=true;
+		hitEffectNumber=1;
+		
+		if(!isPlayingHitAnimation)
+			playEffectAnimation(onHitEffectFramerate);
+		
+		
+		
 		if(health<1)
 		{
 			isAlive = false;
