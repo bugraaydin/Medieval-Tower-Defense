@@ -11,11 +11,13 @@ public class Dragon extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(10);
+		setSpeed(4);
 
 		setArmor(10);
 
-		setHealth(50);
+		setHealth(10000);
+		setMaxHealth(10000);
+		setResourceGiven(1000);
 
 		setDebuffDPS(0);
 

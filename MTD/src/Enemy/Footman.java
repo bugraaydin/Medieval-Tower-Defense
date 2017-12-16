@@ -15,7 +15,9 @@ public class Footman extends Enemy{
 
 		setArmor(10);
 
-		setHealth(50);
+		setHealth(500);
+		setMaxHealth(500);
+		setResourceGiven(50);
 
 		setDebuffDPS(0);
 

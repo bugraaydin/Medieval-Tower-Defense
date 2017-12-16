@@ -11,11 +11,12 @@ public class Ogre extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(10);
+		setSpeed(5);
 
 		setArmor(10);
-		setMaxHealth(500);
 		setHealth(500);
+		setMaxHealth(500);
+		setResourceGiven(100);
 
 		setDebuffDPS(0);
 

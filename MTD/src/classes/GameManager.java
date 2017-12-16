@@ -87,7 +87,7 @@ public class GameManager {
 				if(remainingChances < 1)
 					gameLost = true;
 				//Checking if game is won
-				if(enemyManager.getWaveNo() == 15 && enemyManager.enemyList.size() == 0)
+				if(enemyManager.getWaveNo() == 14 && enemyManager.enemyList.size() == 0)
 					gameWon = true;
 				if(gameLost || gameWon)
 					return;
@@ -177,6 +177,128 @@ public class GameManager {
 		//FIFTH WAVE_______________________________________________________
 		if(frameRate == 450){ // second = 45
 			enemyManager.initializeEnemies(4,0); //initializing 4.1 enemy
+		}
+		//_____________________________________________________________
+		//SIXTH WAVE__________________________________________________
+		if(frameRate == 550){ // second = 55
+			enemyManager.initializeEnemies(5,0); //initializing 4.1 enemy
+		}
+		if(frameRate == 560){ // second = 56
+			enemyManager.initializeEnemies(5,1); //initializing the 4.2 enemy
+		}
+		if(frameRate == 570){ // second = 57
+			enemyManager.initializeEnemies(5,2); //initializing the 4.3 enemy
+		}
+		if(frameRate == 580){ // second = 58
+			enemyManager.initializeEnemies(5,3); //initializing the 4.4 enemy
+		}
+		//_____________________________________________________________
+		//SEVENTH WAVE__________________________________________________
+		if(frameRate == 650){ // second = 65
+			enemyManager.initializeEnemies(6,0); //initializing 4.1 enemy
+		}
+		if(frameRate == 660){ // second = 66
+			enemyManager.initializeEnemies(6,1); //initializing the 4.2 enemy
+		}
+		if(frameRate == 670){ // second = 67
+			enemyManager.initializeEnemies(6,2); //initializing the 4.3 enemy
+		}
+		if(frameRate == 680){ // second = 68
+			enemyManager.initializeEnemies(6,3); //initializing the 4.4 enemy
+		}
+		//_____________________________________________________________
+		//EIGTH WAVE__________________________________________________
+		if(frameRate == 750){ // second = 75
+			enemyManager.initializeEnemies(7,0); //initializing 4.1 enemy
+		}
+		if(frameRate == 760){ // second = 76
+			enemyManager.initializeEnemies(7,1); //initializing the 4.2 enemy
+		}
+		if(frameRate == 770){ // second = 77
+			enemyManager.initializeEnemies(7,2); //initializing the 4.3 enemy
+		}
+		if(frameRate == 780){ // second = 78
+			enemyManager.initializeEnemies(7,3); //initializing the 4.4 enemy
+		}
+		//_____________________________________________________________
+		//NINETH WAVE__________________________________________________
+		if(frameRate == 850){ // second = 85
+			enemyManager.initializeEnemies(8,0); //initializing 4.1 enemy
+		}
+		if(frameRate == 860){ // second = 86
+			enemyManager.initializeEnemies(8,1); //initializing the 4.2 enemy
+		}
+		if(frameRate == 870){ // second = 87
+			enemyManager.initializeEnemies(8,2); //initializing the 4.3 enemy
+		}
+		if(frameRate == 880){ // second = 88
+			enemyManager.initializeEnemies(8,3); //initializing the 4.4 enemy
+		}
+		//_____________________________________________________________
+		//TENTH WAVE__________________________________________________
+		if(frameRate == 950){ // second = 95
+			enemyManager.initializeEnemies(9,0); //initializing 4.1 enemy
+		}
+		//_____________________________________________________________
+		//ELEVENTH WAVE__________________________________________________
+		if(frameRate == 1050){ // second = 105
+			enemyManager.initializeEnemies(10,0); //initializing 4.1 enemy
+		}
+		if(frameRate == 1060){ // second = 106
+			enemyManager.initializeEnemies(10,1); //initializing the 4.2 enemy
+		}
+		if(frameRate == 1070){ // second = 107
+			enemyManager.initializeEnemies(10,2); //initializing the 4.3 enemy
+		}
+		if(frameRate == 1080){ // second = 108
+			enemyManager.initializeEnemies(10,3); //initializing the 4.4 enemy
+		}
+		//_____________________________________________________________
+		//TWELVETH WAVE__________________________________________________
+		if(frameRate == 1150){ // second = 115
+			enemyManager.initializeEnemies(11,0); //initializing 4.1 enemy
+		}
+		if(frameRate == 1160){ // second = 116
+			enemyManager.initializeEnemies(11,1); //initializing the 4.2 enemy
+		}
+		if(frameRate == 1170){ // second = 117
+			enemyManager.initializeEnemies(11,2); //initializing the 4.3 enemy
+		}
+		if(frameRate == 1180){ // second = 118
+			enemyManager.initializeEnemies(11,3); //initializing the 4.4 enemy
+		}
+		//_____________________________________________________________
+		//13th WAVE__________________________________________________
+		if(frameRate == 1250){ // second = 125
+			enemyManager.initializeEnemies(12,0); //initializing 4.1 enemy
+		}
+		if(frameRate == 1260){ // second = 126
+			enemyManager.initializeEnemies(12,1); //initializing the 4.2 enemy
+		}
+		if(frameRate == 1270){ // second = 127
+			enemyManager.initializeEnemies(12,2); //initializing the 4.3 enemy
+		}
+		if(frameRate == 1280){ // second = 128
+			enemyManager.initializeEnemies(12,3); //initializing the 4.4 enemy
+		}
+		//_____________________________________________________________
+		//14th WAVE__________________________________________________
+		if(frameRate == 1350){ // second = 135
+			enemyManager.initializeEnemies(13,0); //initializing 4.1 enemy
+		}
+		if(frameRate == 1360){ // second = 136
+			enemyManager.initializeEnemies(13,1); //initializing the 4.2 enemy
+		}
+		if(frameRate == 1370){ // second = 137
+			enemyManager.initializeEnemies(13,2); //initializing the 4.3 enemy
+		}
+		if(frameRate == 1380){ // second = 138
+			enemyManager.initializeEnemies(13,3); //initializing the 4.4 enemy
+		}
+		//_____________________________________________________________
+		//15th WAVE__________________________________________________
+		if(frameRate == 1450){ // second = 145
+			enemyManager.initializeEnemies(14,0); //initializing 4.1 enemy
 		}
 	}
 	//UPDATE ENEMIES
@@ -437,6 +559,12 @@ public class GameManager {
 	}
 	public int getRemainingChances(){
 		return remainingChances;
+	}
+	public boolean getIsGameWon(){
+		return gameWon;
+	}
+	public boolean getIsGameLost(){
+		return gameLost;
 	}
 }
 	

@@ -57,11 +57,13 @@ public class Enemy {
 		velocity[0] = 0;
 		velocity[1] = 0;
 		enemyImageBuffer = new String[18];
-		resourceGiven = 100;
+		
 	}
 	
 	
-	
+	public void setMaxHP(int i){
+		maxHealth = i;
+	}
 	public void setFPSTimer(int animationFramerate)
 	{
 		int delay = (1000/animationFramerate);//(1/attackSpeed)*500; // ~10 updates per second

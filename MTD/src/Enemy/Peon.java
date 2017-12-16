@@ -15,7 +15,9 @@ public class Peon extends Enemy{
 
 		setArmor(10);
 
-		setHealth(50);
+		setHealth(100);
+		setMaxHealth(100);
+		setResourceGiven(20);
 
 		setDebuffDPS(0);
 

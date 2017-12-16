@@ -9,37 +9,22 @@ public class GridSlot {
 	
 
 
-	private BufferedImage gridSlotImage;
+	public BufferedImage[] gridSlotImage;
 	public BufferedImage towerImage;
 
 	public GridSlot(){
-		
+		gridSlotImage = new BufferedImage[4];
 	}
 
 	
-	public void setSlotImage(String s)
-	{
-		try {
-			gridSlotImage = ImageIO.read(getClass().getResourceAsStream(s));
-		}	catch(IOException exc) {
-				exc.printStackTrace();
-		}
-	}
+
 	
 
 	
 	//getters
-	public BufferedImage getGridSlotImage(){
+	public BufferedImage[] getGridSlotImage(){
 		return gridSlotImage;
 	}
 	
-	//setters
-	public void setGridSlotImage(String s){
-		try {
-			gridSlotImage = ImageIO.read(getClass().getResourceAsStream(s));
-		}	catch(IOException exc) {
-				exc.printStackTrace();
-		}
-		
-	}
+
 }

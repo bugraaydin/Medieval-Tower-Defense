@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Grid.EnemyGrid;
 import Grid.TowerGrid;
 //import Tower.ArcaneTower;
 import classes.GameManager;
@@ -33,10 +34,21 @@ public class GameplayPanel extends JPanel{
 	private BufferedImage waveImage;
 	private String lifeImageBuffer;
 	private BufferedImage lifeImage;
+	private BufferedImage gameWonImage;
+	private BufferedImage gameLostImage;
 	private ImageIcon myImageIcon = new ImageIcon("/Sequences/64x48/explosion1_003.png");
+	//
+	private BufferedImage castleImage;
+	private BufferedImage spawnImage;
 	public GameplayPanel(){
 
 		////////////////////////////
+		//
+		try {castleImage = ImageIO.read(getClass().getResourceAsStream("/images/grids/castle.png"));}	
+		catch(IOException exc) {exc.printStackTrace();}
+		try {spawnImage = ImageIO.read(getClass().getResourceAsStream("/images/grids/enemyspawn.png"));}	
+		catch(IOException exc) {exc.printStackTrace();}
+		//////////////////////////
 		timeImageBuffer = "/images/shop/layout/time_icon.png";
 		resourceImageBuffer = "/images/shop/layout/resource_icon.png";
 		waveImageBuffer = "/images/shop/layout/wave_icon.png";
@@ -52,7 +64,11 @@ public class GameplayPanel extends JPanel{
 		catch(IOException exc) {exc.printStackTrace();}
 		try {layoutBackground = ImageIO.read(getClass().getResourceAsStream(layoutBackgroundBuffer));}
 		catch(IOException exc) {exc.printStackTrace();}
-
+		//
+		try {gameWonImage = ImageIO.read(getClass().getResourceAsStream("/images/gamealert/game_won.png"));}	
+		catch(IOException exc) {exc.printStackTrace();}
+		try {gameLostImage = ImageIO.read(getClass().getResourceAsStream("/images/gamealert/game_lost.png"));}	
+		catch(IOException exc) {exc.printStackTrace();}
 		//////////////////////////
 		game = new GameManager();
         backBut = new javax.swing.JButton();
@@ -125,7 +141,16 @@ public class GameplayPanel extends JPanel{
 	private void drawGridsAndTowers(Graphics g){
 		for(int i = 0; i < game.getGrid().getGridWidth();i++){
 			for(int j = 0; j < game.getGrid().getGridHeight();j++){
-				g.drawImage(game.getGrid().getGridSlot(i,j).getGridSlotImage(), game.getGrid().getGridSlotSize()*i, game.getGrid().getGridSlotSize()*j, this);
+				g.drawImage(game.getGrid().getGridSlot(i,j).gridSlotImage[0], game.getGrid().getGridSlotSize()*i, game.getGrid().getGridSlotSize()*j, this);
+				g.drawImage(game.getGrid().getGridSlot(i,j).gridSlotImage[1], game.getGrid().getGridSlotSize()*i+32, game.getGrid().getGridSlotSize()*j, this);
+				g.drawImage(game.getGrid().getGridSlot(i,j).gridSlotImage[2], game.getGrid().getGridSlotSize()*i, game.getGrid().getGridSlotSize()*j+32, this);
+				g.drawImage(game.getGrid().getGridSlot(i,j).gridSlotImage[3], game.getGrid().getGridSlotSize()*i+32, game.getGrid().getGridSlotSize()*j+32, this);
+				if(i == 1 && j == 0){
+					g.drawImage(castleImage, game.getGrid().getGridSlotSize()*i, game.getGrid().getGridSlotSize()*j, this);
+				}
+				if(i == 12 && game.getGrid().getGridSlot(i,j) instanceof EnemyGrid){
+					g.drawImage(spawnImage, game.getGrid().getGridSlotSize()*i, game.getGrid().getGridSlotSize()*j, this);
+				}
 				repaint();
 				if(game.getGrid().getGridSlot(i,j) instanceof TowerGrid){
 					g.drawImage((game.getGrid().getGridSlot(i,j)).towerImage, game.getGrid().getGridSlotSize()*i, game.getGrid().getGridSlotSize()*j, this);
@@ -188,7 +213,13 @@ public class GameplayPanel extends JPanel{
 		}
 	}
 	private void drawLayoutElements(Graphics g){
-
+		
+		if(game.getIsGameWon()){
+			g.drawImage(gameWonImage,300,300,this);
+		}
+		if(game.getIsGameLost()){
+			g.drawImage(gameLostImage,300,300,this);
+		}
 		
 		g.drawImage(layoutBackground,0,736,this);		
 		g.drawImage(timeImage,170,743,this);
