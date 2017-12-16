@@ -67,7 +67,7 @@ public class Enemy {
 
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("TIMER CALLED");
+				System.out.println("TIMER FPS" + animationFramerate);
 				setHitEffectImage();
 			}
 		};
@@ -193,14 +193,18 @@ public class Enemy {
 	}
 	
 	
-	public void onDamageTaken(int dmg, int onHitEffectFramerate)
+	public void onDamageTaken(int dmg, int onHitEffectFramerate, String hitEffectCode, int hitEffectNumber)
 	{
 		if(!isAlive)
 			return;
-		dmg = dmg - (dmg/armor)*3;
+		
 		health = health - dmg;
+		
 		isGettingHit=true;
 		hitEffectNumber=1;
+		this.hitEffectCode = hitEffectCode;
+		this.hitEffectNumber = hitEffectNumber;
+		this.hitEffectSize = onHitEffectFramerate;
 		
 		if(!isPlayingHitAnimation)
 			playEffectAnimation(onHitEffectFramerate);

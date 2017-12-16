@@ -12,20 +12,25 @@ public class HighScoreTable {
 	
 	public HighScoreTable()
 	{
+
+	}
+	
+	public void addScore(int score)
+	{
 		try {
 			FileWriter writer = new FileWriter("highscores.txt", true);
 			BufferedWriter bufferedWriter = new BufferedWriter(writer);
 bufferedWriter.write("sülo");
-			bufferedWriter.append("asdas");
-			bufferedWriter.write("Hello World");
+			//bufferedWriter.append("asdas");
+			bufferedWriter.write("HighScore: " + score);
 			bufferedWriter.newLine();
-			bufferedWriter.write("See You Again!");
-			System.out.println("SÜLOOOOOOOo");
+			//System.out.println("SÜLOOOOOOOo");
 			bufferedWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
 	}
+	
 	public void givenUsingJava7_whenWritingToFile_thenCorrect() 
 			  throws IOException {
 			    String str = "Hello";

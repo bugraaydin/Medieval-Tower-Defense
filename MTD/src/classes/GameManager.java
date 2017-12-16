@@ -16,6 +16,7 @@ import Grid.*;
 
 public class GameManager {
 	
+	private int playerScore = 0;
 	private HighScoreTable scoreTable;
 	private int playerGold;
 	private int screenX;
@@ -195,6 +196,7 @@ public class GameManager {
 		for(int i = 0; i < enemyManager.enemyList.size();i++){
 			if(!(enemyManager.enemyList.get(i).isAlive)){
 				graveyard.add(enemyManager.enemyList.get(i));
+				playerScore = playerScore + enemyManager.enemyList.get(i).getResourceGiven()*3;
 				playerGold = playerGold + enemyManager.enemyList.get(i).getResource();
 				enemyManager.enemyList.get(i).playEnemyDie();
 				enemyManager.killEnemy(i);

@@ -24,7 +24,9 @@ public class Projectile {
 	private int targetLocX;
 	private int targetLocY;
 	public boolean isAlive = true;
-
+	
+	private String projectileEffectBuffer;
+	private int projectileSequenceStartNumber = 1;
 	
 	public Projectile(int x, int y, Enemy target, int damage, int projectileType){
 		
@@ -45,7 +47,7 @@ public class Projectile {
 	
 	
 	public void dealDamage(){
-		target.onDamageTaken(damage,onHitEffectFramerate);
+		target.onDamageTaken(damage,onHitEffectFramerate, projectileEffectBuffer, projectileSequenceStartNumber);
 	}
 	
 //<<<<<<< HEAD
@@ -53,16 +55,21 @@ public class Projectile {
 	{
 		if(projectileType==0)
 		{
+			projectileEffectBuffer = "/Sequences/64x48/explosion1_00";
 			setOnHitEffectFramerate(89);
+			projectileSequenceStartNumber = 1;
 		}
 		else if(projectileType==1)
 		{
-			//setOnHitEffectFramerate();
-			//SET SECOND PROJECTILE TYPE FRAMERATE
+			projectileEffectBuffer = "/Sequences/Smokes/PNG/BlackSmoke/blackSmoke";
+			setOnHitEffectFramerate(23);
+			projectileSequenceStartNumber = 0;
 		}
 		else if(projectileType==2)
 		{
-			
+			projectileEffectBuffer = "/Sequences/Smokes/PNG/White puff/whitePuff";
+			setOnHitEffectFramerate(23);
+			projectileSequenceStartNumber = 0;
 		}
 	}
 	
