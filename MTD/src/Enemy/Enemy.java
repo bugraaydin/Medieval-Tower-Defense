@@ -60,6 +60,8 @@ public class Enemy {
 		resourceGiven = 100;
 	}
 	
+	
+	
 	public void setFPSTimer(int animationFramerate)
 	{
 		int delay = (1000/animationFramerate);//(1/attackSpeed)*500; // ~10 updates per second
@@ -67,7 +69,6 @@ public class Enemy {
 
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("TIMER FPS" + animationFramerate);
 				setHitEffectImage();
 			}
 		};
@@ -92,7 +93,7 @@ public class Enemy {
 			try {
 				hitEffectImage = ImageIO.read(getClass().getResourceAsStream(hitEffectCode + hitEffectNumber + ".png"));
 			}	catch(IOException exc) { //"/Sequences/64x48/explosion1_007.png")
-				System.out.println("Caught you");
+
 					exc.printStackTrace();
 			}
 			//System.out.println("DRAWN THE IMAGE");

@@ -139,7 +139,8 @@ public class GameplayPanel extends JPanel{
 		for(int i=0; i<game.getEnemyManager().enemyList.size(); i++){	
 			//DRAW ENEMIES
 			g.drawImage(game.getEnemyManager().enemyList.get(i).enemyImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
-			
+			//DRAW HEALTHBAR
+			g.drawImage(game.getEnemyManager().enemyList.get(i).enemyHealth,game.getEnemyManager().enemyList.get(i).getLocX()-15,game.getEnemyManager().enemyList.get(i).getLocY()-12, this);
 			//DRAW EFFECTS
 			
 			if(game.getEnemyManager().enemyList.get(i).isGettingHit())

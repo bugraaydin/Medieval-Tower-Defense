@@ -3,13 +3,8 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 import javax.swing.Timer;
-
 import Control.Control;
 import Enemy.Enemy;
 import Grid.*;
@@ -34,20 +29,11 @@ public class GameManager {
 	private boolean gameLost;
 	private boolean gameWon;
 	
-	//
-	
-	
-	//CHANGE
 	private ArrayList<Enemy> graveyard;
-	//
-	//public BufferedImage testImage;
+
 	public GameManager(){
 		
-		////////
 
-		////////
-
-		//
 		scoreTable = new HighScoreTable();
 		scoreTable.writeScore(100);
 		gameLost = false;
@@ -61,22 +47,25 @@ public class GameManager {
 		time = minute + ":" + second;
 		playerGold = 400;
 		shop = new Shop();
-		int[][] test = {
-							{0,0,0,0,0,0,0,0,0},
-							{0,0,0,0,0,0,0,0,0},
-							{1,1,1,1,0,0,0,0,0},
-							{0,0,0,1,0,0,0,0,0},
-							{0,0,0,1,0,0,0,0,0},
-							{0,0,0,1,0,0,0,0,0},
-							{0,0,0,1,1,1,1,0,0},
-							{0,0,0,0,0,0,1,0,0},
-							{0,0,0,0,0,0,1,0,0},
-							{0,0,1,1,1,1,1,0,0},
-							{0,0,1,0,0,0,0,0,0},
-							{0,0,1,1,1,1,1,0,0},
-							{0,0,0,0,0,0,1,0,0}
-						};
-		grid = new Grid(test);
+		/*int[][] test = {
+				{0,0,0,0,0,0,0,0,0},
+				{1,1,1,1,0,0,0,0,0},
+				{0,0,0,1,0,0,0,0,0},
+				{0,0,0,1,0,0,0,0,0},
+				{0,0,0,1,0,0,0,0,0},
+				{0,0,0,1,0,0,0,0,0},
+				{0,0,0,1,1,1,1,1,1},
+				{0,0,0,0,0,0,0,0,1},
+				{0,0,0,0,0,1,1,1,1},
+				{0,0,0,0,0,1,0,0,0},
+				{0,0,0,0,0,1,1,1,1},
+				{0,0,0,0,0,0,0,0,1},
+				{0,0,0,0,0,0,0,0,1}
+			};
+			*/
+		RandomMapGenerator random = new RandomMapGenerator();
+		//grid = new Grid(test);
+		grid = new Grid(random.randomMap());
 		control = new Control();
 		enemyManager = new EnemyManager();
 		towerManager = new TowerManager();
@@ -191,6 +180,7 @@ public class GameManager {
 		}
 	}
 	//UPDATE ENEMIES
+	//UPDATE ENEMIES
 	private void updateEnemies(){
 		//update alive enemies
 		for(int i = 0; i < enemyManager.enemyList.size();i++){
@@ -219,8 +209,7 @@ public class GameManager {
 			}
 			for(int i=0; i<enemyManager.enemyList.size(); i++)
 			{	
-				double hppercent = ((double)enemyManager.enemyList.get(i).getHealth() / (double)enemyManager.enemyList.get(i).getMaxHealth()) ;
-				System.out.println(hppercent);
+				double hppercent = ((double)enemyManager.enemyList.get(i).getHealth() / (double)enemyManager.enemyList.get(i).getMaxHealth());
 				enemyManager.enemyList.get(i).setEnemyHB(hppercent);
 				int gridX = enemyManager.enemyList.get(i).locX / 64;
 				int gridY = enemyManager.enemyList.get(i).locY / 64;
@@ -232,30 +221,27 @@ public class GameManager {
 					remainingChances--;
 					continue;
 				}
-				if(gridY == grid.getGridHeight()-1 && enemyManager.enemyList.get(i).getVelocity()[1] == enemyManager.enemyList.get(i).getSpeed()){
-					enemyManager.enemyList.remove(i);
-					remainingChances--;
-					continue;
-				}
-				if(gridY == 0 && enemyManager.enemyList.get(i).getVelocity()[1] == -enemyManager.enemyList.get(i).getSpeed()){
-					enemyManager.enemyList.remove(i);
-					remainingChances--;
-					continue;
-				}
 				
 				int switchCase;
-				if(gridY == 0)
-					switchCase = -1; //start
-				else if(grid.getGridSlot(gridX, gridY + 1) instanceof EnemyGrid && enemyManager.enemyList.get(i).getVelocity()[1] == enemyManager.enemyList.get(i).getSpeed())
-					switchCase = 1; //DOWN
-				else if(grid.getGridSlot(gridX , gridY - 1) instanceof EnemyGrid && enemyManager.enemyList.get(i).getVelocity()[1] != enemyManager.enemyList.get(i).getSpeed() && !(grid.getGridSlot(gridX+1, gridY ) instanceof EnemyGrid))
-					switchCase = 2; //UP
-				else if(grid.getGridSlot(gridX + 1, gridY) instanceof EnemyGrid)
-					switchCase = 3; //RIGHT
-
-				else 
-					switchCase = 0; //DEFAULT
-				
+				if(gridY +  1< 9 ){
+					if(gridY == 0)
+						switchCase = -1; //start
+					else if(grid.getGridSlot(gridX, gridY + 1) instanceof EnemyGrid && enemyManager.enemyList.get(i).getVelocity()[1] == enemyManager.enemyList.get(i).getSpeed())
+						switchCase = 1; //DOWN
+					else if(grid.getGridSlot(gridX , gridY - 1) instanceof EnemyGrid && enemyManager.enemyList.get(i).getVelocity()[1] != enemyManager.enemyList.get(i).getSpeed() && !(grid.getGridSlot(gridX+1, gridY ) instanceof EnemyGrid))
+						switchCase = 2; //UP
+					else if(grid.getGridSlot(gridX + 1, gridY) instanceof EnemyGrid)
+						switchCase = 3; //RIGHT
+					else 
+						switchCase = 0; //DEFAULT
+				}
+				else {
+					if(grid.getGridSlot(gridX + 1, gridY) instanceof EnemyGrid)
+						switchCase = 3; //RIGHT
+					else
+						switchCase = 2; //UP
+						
+				}
 				switch(switchCase){
 					case -1:{
 						enemyManager.enemyList.get(i).setVelocity(0, (enemyManager.enemyList.get(i).getSpeed()));

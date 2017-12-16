@@ -8,13 +8,13 @@ import Grid.*;
 public class EnemyManager {
 	public ArrayList<Enemy> enemyList;
 	public int enemyCount = 0;
-	int enemySpawnLocX = 128;
-	int enemySpawnLocY = 64;
+	int enemySpawnLocX;
+	int enemySpawnLocY;
 	private int waveNo;
 
 	public EnemyManager(){
 		enemyList = new ArrayList<Enemy>();	
-		enemySpawnLocX = 140;
+		enemySpawnLocX = 76;
 		enemySpawnLocY = 32;
 	}
 
