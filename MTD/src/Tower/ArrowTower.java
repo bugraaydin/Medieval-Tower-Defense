@@ -15,6 +15,7 @@ public class ArrowTower extends Tower{
 		projectilesImageBuffer[1] = ("/images/towers/arrow_tower/projectiles/projectile_up.png");
 		projectilesImageBuffer[2] = ("/images/towers/arrow_tower/projectiles/projectile_right.png");
 		projectilesImageBuffer[3] = ("/images/towers/arrow_tower/projectiles/projectile_left.png");
+		setProjectileType(1);
 	}
 	public void playTowerShoot(){
 		try {

@@ -71,6 +71,12 @@ public class Projectile {
 			setOnHitEffectFramerate(23);
 			projectileSequenceStartNumber = 0;
 		}
+		else if(projectileType==3)
+		{
+			projectileEffectBuffer = "/Sequences/Smokes/PNG/Light/00";
+			setOnHitEffectFramerate(50);
+			projectileSequenceStartNumber = 1;
+		}
 	}
 	
 	public void setProjectileFramerate(int projectileFramerate)
