@@ -7,12 +7,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import classes.HighScoreTable;
+
 /**
  *
  * @author Bugra
  */
 public class HighScorePanel extends javax.swing.JPanel {
 
+	HighScoreTable highScore;
 	BufferedImage backgroundImage;
 	String imageBuffer = "/images/gui/highScore.jpg";
     public HighScorePanel() {
@@ -23,7 +26,7 @@ public class HighScorePanel extends javax.swing.JPanel {
 	          exc.printStackTrace();
 	        }
 
-	
+	   highScore = new HighScoreTable();
        initComponents();
    }
 	@Override
@@ -50,9 +53,11 @@ public class HighScorePanel extends javax.swing.JPanel {
                 backButActionPerformed(evt);
             }
         });
-
         highScoreText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        highScoreText.setText("1- Muhittin 48/50 27:40");
+        if(highScore.getHighScoreContents() == null)
+           	highScoreText.setText("No data found");
+        else
+        	highScoreText.setText("<html>"+highScore.getHighScoreContents()+"</html>");
         highScoreText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
