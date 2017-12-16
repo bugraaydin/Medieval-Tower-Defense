@@ -1,12 +1,16 @@
 package classes;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class HighScoreTable {
 	
@@ -20,15 +24,91 @@ public class HighScoreTable {
 		try {
 			FileWriter writer = new FileWriter("highscores.txt", true);
 			BufferedWriter bufferedWriter = new BufferedWriter(writer);
-bufferedWriter.write("sülo");
+
+			//bufferedWriter.write("sülo");
 			//bufferedWriter.append("asdas");
-			bufferedWriter.write("HighScore: " + score);
+			bufferedWriter.write("Name: Anonymous, Score: ");
 			bufferedWriter.newLine();
-			//System.out.println("SÜLOOOOOOOo");
+			bufferedWriter.write("" + score);
+			bufferedWriter.newLine();
 			bufferedWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
+	}
+	
+	public void putScoreOnTable(int score)
+	{
+		addScore(score);
+		/**
+		try {
+			FileWriter writer = new FileWriter("highscores.txt", true);
+			BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+			//bufferedWriter.write("sülo");
+			//bufferedWriter.append("asdas");
+			bufferedWriter.write("Name: Anonymous, Score: ");
+			bufferedWriter.newLine();
+			bufferedWriter.write(score);
+			bufferedWriter.newLine();
+			bufferedWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
+		
+		try {
+			/////WRITE////////////////////////////
+			/**
+			FileWriter writer = new FileWriter("highscores.txt", true);
+			BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+			//bufferedWriter.write("sülo");
+			//bufferedWriter.append("asdas");
+			bufferedWriter.write("Name: Anonymous, Score: ");
+			bufferedWriter.newLine();
+			bufferedWriter.write(score);
+			bufferedWriter.newLine();
+			bufferedWriter.close();
+			///WRITE END//////////////////////////
+			*/
+			///READ/////////////////////////
+			ArrayList<Integer> allScores = new ArrayList<Integer>();
+			
+			BufferedReader br = new BufferedReader(new FileReader("highscores.txt"));
+			String line = br.readLine();
+			//System.out.println(line);
+			line = br.readLine();
+			//System.out.println(line);
+			allScores.add(Integer.parseInt(line));
+			line = br.readLine();
+			//System.out.println(line);
+			while(line!=null)
+			{
+				line = br.readLine();
+				//System.out.println(line);
+				allScores.add(Integer.parseInt(line));
+				//int nextScore = Integer.parseInt(line);
+				line = br.readLine();
+				System.out.println(line);
+			}
+			
+			
+			br.close();
+			
+			Collections.sort(allScores);
+			/// CLEAR THE FILE
+			PrintWriter pw = new PrintWriter("highscores.txt");
+			
+			for(int i=allScores.size() - 1; i>=0; i--)
+			{
+				addScore(allScores.get(i));
+				//System.out.println("ALL SCORES " + allScores.get(i));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		
 	}
 	
 	public void givenUsingJava7_whenWritingToFile_thenCorrect() 

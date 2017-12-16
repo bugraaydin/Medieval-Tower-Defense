@@ -35,7 +35,10 @@ public class GameManager {
 		
 
 		scoreTable = new HighScoreTable();
-		scoreTable.writeScore(100);
+		//scoreTable.putScoreOnTable(500);
+		//scoreTable.putScoreOnTable(200);
+		//scoreTable.putScoreOnTable(300);
+		
 		gameLost = false;
 		gameWon = false;
 		remainingChances = 10;
@@ -341,6 +344,12 @@ public class GameManager {
 				if(gridX == grid.getGridWidth()-1 && enemyManager.enemyList.get(i).getVelocity()[0] == enemyManager.enemyList.get(i).getSpeed()){
 					enemyManager.enemyList.remove(i);
 					remainingChances--;
+					if(remainingChances<1)
+					{
+						gameLost = true;
+						scoreTable.putScoreOnTable(playerScore);
+					}
+						
 					continue;
 				}
 				
