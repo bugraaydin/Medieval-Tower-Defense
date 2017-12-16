@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import Grid.TowerGrid;
 import classes.GameManager;
+import sun.audio.AudioPlayer;
 
 public class GameplayPanel extends JPanel{
 
@@ -109,7 +110,8 @@ public class GameplayPanel extends JPanel{
 	}
 	private void drawEffects(Graphics g)
 	{
-		//g.drawImage((game.getEnemyManager().enemyList.get(i).enemyImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
+		myImageIcon.paintIcon(this, g, 345, 345);
+		g.drawImage(myImageIcon.getImage(), 345, 345, this);
 		for(int i=0; i<game.getEnemyManager().enemyList.size(); i++)
 		{
 			if(game.getEnemyManager().enemyList.get(i).isGettingHit())
@@ -130,20 +132,12 @@ public class GameplayPanel extends JPanel{
 			}
 		}
 	}
-	//ALSO DRAWS ON HIT EFFECTS
+	
 	private void drawEnemies(Graphics g){
-		for(int i=0; i<game.getEnemyManager().enemyList.size(); i++){	
-			//DRAW ENEMIES
+		for(int i=0; i<game.getEnemyManager().enemyList.size(); i++){	 //and healthbars
+
 			g.drawImage(game.getEnemyManager().enemyList.get(i).enemyImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
-			
-			//DRAW EFFECTS
-			
-			if(game.getEnemyManager().enemyList.get(i).isGettingHit())
-			{
-				//System.out.println("DRAWING AN EFFECT");
-				g.drawImage(game.getEnemyManager().enemyList.get(i).hitEffectImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
-			}
-			
+			g.drawImage(game.getEnemyManager().enemyList.get(i).enemyHealth,game.getEnemyManager().enemyList.get(i).getLocX()-15,game.getEnemyManager().enemyList.get(i).getLocY()-12, this);
 			repaint();
 		}
 	}

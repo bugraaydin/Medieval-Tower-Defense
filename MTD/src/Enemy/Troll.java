@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class Troll extends Enemy{
 
 	
@@ -10,9 +13,9 @@ public class Troll extends Enemy{
 		
 		setSpeed(10);
 
-		setArmor(0);
+		setArmor(10);
 
-		setHealth(200);
+		setHealth(50);
 
 		setDebuffDPS(0);
 
@@ -43,6 +46,14 @@ public class Troll extends Enemy{
 		setEnemyImage(0);
 	}
 
-
+	public void playEnemyDie(){
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/troll_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 
 }

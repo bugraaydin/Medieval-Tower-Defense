@@ -12,7 +12,7 @@ public class SoundManager{
   public AudioStream backGroundMusic;
   public SoundManager(){
 	  setBackgroundMusic();
-	  
+	 // stopBackgroundMusic();
   }
   
 	public void setBackgroundMusic()
@@ -24,6 +24,8 @@ public class SoundManager{
 		}	catch(Exception exc) {
 				exc.printStackTrace();
 		}
-		
+	}
+	public void stopBackgroundMusic(){
+		AudioPlayer.player.stop(backGroundMusic);
 	}
 }

@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class Skeleton extends Enemy{
 
 	
@@ -8,7 +11,7 @@ public class Skeleton extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(4);
+		setSpeed(10);
 
 		setArmor(10);
 
@@ -42,7 +45,16 @@ public class Skeleton extends Enemy{
 
 		setEnemyImage(0);
 	}
-
+	public void playEnemyDie(){
+		
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/skeleton_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 
 
 }

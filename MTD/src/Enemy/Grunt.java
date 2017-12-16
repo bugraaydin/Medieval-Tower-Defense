@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class Grunt extends Enemy{
 
 	
@@ -8,11 +11,11 @@ public class Grunt extends Enemy{
 
 		super(locX,locY);
 		
-		setSpeed(8);
+		setSpeed(10);
 
-		setArmor(20);
+		setArmor(10);
 
-		setHealth(100);
+		setHealth(50);
 
 		setDebuffDPS(0);
 
@@ -42,6 +45,14 @@ public class Grunt extends Enemy{
 
 		setEnemyImage(0);
 	}
-
+	public void playEnemyDie(){
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/grunt_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 
 }

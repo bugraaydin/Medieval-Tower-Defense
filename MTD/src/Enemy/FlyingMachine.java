@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class FlyingMachine extends Enemy{
 
 	
@@ -8,11 +11,11 @@ public class FlyingMachine extends Enemy{
 
 		super(locX,locY);
 		
-		setSpeed(12);
+		setSpeed(10);
 
-		setArmor(100);
+		setArmor(10);
 
-		setHealth(200);
+		setHealth(50);
 
 		setDebuffDPS(0);
 
@@ -43,5 +46,13 @@ public class FlyingMachine extends Enemy{
 		setEnemyImage(0);
 	}
 
-
+	public void playEnemyDie(){
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/flyingmachine_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 }

@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class Goblins extends Enemy{
 
 	
@@ -8,11 +11,11 @@ public class Goblins extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(18);
+		setSpeed(10);
 
 		setArmor(10);
 
-		setHealth(20);
+		setHealth(50);
 
 		setDebuffDPS(0);
 
@@ -43,6 +46,14 @@ public class Goblins extends Enemy{
 		setEnemyImage(0);
 	}
 
-
+	public void playEnemyDie(){
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/goblin_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 
 }

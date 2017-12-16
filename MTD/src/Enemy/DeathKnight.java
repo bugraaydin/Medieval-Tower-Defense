@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class DeathKnight extends Enemy{
 
 	
@@ -8,11 +11,11 @@ public class DeathKnight extends Enemy{
 		
 		super(locX,locY);
 		
-		setSpeed(16);
+		setSpeed(10);
 
-		setArmor(100);
+		setArmor(10);
 
-		setHealth(200);
+		setHealth(50);
 
 		setDebuffDPS(0);
 
@@ -44,5 +47,13 @@ public class DeathKnight extends Enemy{
 	}
 
 
-
+	public void playEnemyDie(){
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/deathknight_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 }

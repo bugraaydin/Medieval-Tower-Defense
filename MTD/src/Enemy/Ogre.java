@@ -1,5 +1,8 @@
 package Enemy;
 
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 public class Ogre extends Enemy{
 
 	
@@ -11,8 +14,8 @@ public class Ogre extends Enemy{
 		setSpeed(10);
 
 		setArmor(10);
-
-		setHealth(400);
+		setMaxHealth(500);
+		setHealth(500);
 
 		setDebuffDPS(0);
 
@@ -42,7 +45,15 @@ public class Ogre extends Enemy{
 
 		setEnemyImage(0);
 	}
-
-
+	public void playEnemyDie(){
+	
+		try {
+			dieBuffer = getClass().getResourceAsStream("/sounds/die/ogre_die.wav");
+			dieSound = new AudioStream(dieBuffer);
+			AudioPlayer.player.start(dieSound);
+		}	catch(Exception exc) {
+				exc.printStackTrace();
+		}
+	}
 
 }
