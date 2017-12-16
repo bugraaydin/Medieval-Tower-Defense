@@ -3,8 +3,11 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import Control.Control;
@@ -12,6 +15,8 @@ import Enemy.Enemy;
 import Grid.*;
 
 public class GameManager {
+	
+	private HighScoreTable scoreTable;
 	private int playerGold;
 	private int screenX;
 	private int screenY;
@@ -34,10 +39,16 @@ public class GameManager {
 	//CHANGE
 	private ArrayList<Enemy> graveyard;
 	//
+	//public BufferedImage testImage;
 	public GameManager(){
+		
+		////////
+
+		////////
 
 		//
-		
+		scoreTable = new HighScoreTable();
+		scoreTable.writeScore(100);
 		gameLost = false;
 		gameWon = false;
 		remainingChances = 10;

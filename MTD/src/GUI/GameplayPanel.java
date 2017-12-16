@@ -3,6 +3,8 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -12,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Grid.TowerGrid;
+//import Tower.ArcaneTower;
 import classes.GameManager;
 
 public class GameplayPanel extends JPanel{
@@ -107,6 +110,7 @@ public class GameplayPanel extends JPanel{
 		drawLayoutElements(g);
 		backBut.repaint();
 	}
+	
 	private void drawEffects(Graphics g)
 	{
 		//g.drawImage((game.getEnemyManager().enemyList.get(i).enemyImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
@@ -140,6 +144,10 @@ public class GameplayPanel extends JPanel{
 			
 			if(game.getEnemyManager().enemyList.get(i).isGettingHit())
 			{
+
+
+				// Drawing the rotated image at the required drawing locations
+				//g.drawImage((ArcaneTower)game.getTowerManager().towerList.get(0).g,150,150,this);
 				//System.out.println("DRAWING AN EFFECT");
 				g.drawImage(game.getEnemyManager().enemyList.get(i).hitEffectImage,game.getEnemyManager().enemyList.get(i).getLocX(),game.getEnemyManager().enemyList.get(i).getLocY(), this);
 			}

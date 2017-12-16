@@ -63,6 +63,7 @@ public class Projectile {
 		}
 		else if(projectileType==1)
 		{
+			//setOnHitEffectFramerate();
 			//SET SECOND PROJECTILE TYPE FRAMERATE
 		}
 	}
