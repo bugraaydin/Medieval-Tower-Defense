@@ -35,6 +35,7 @@ public class GameManager {
 		
 
 		scoreTable = new HighScoreTable();
+		//System.out.println(scoreTable.getHighScoreContents());
 		//scoreTable.putScoreOnTable(500);
 		//scoreTable.putScoreOnTable(200);
 		//scoreTable.putScoreOnTable(300);
